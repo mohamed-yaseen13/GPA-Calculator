@@ -1,4 +1,4 @@
-import 'package:gpa_calculator/feature/main_dashboard/tabs/main_tab/semester/course/data/models/course_model.dart';
+import 'package:gpa_calculator/feature/course/data/models/course_model.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class CourseModelTypeAdapter extends TypeAdapter<CourseModel> {

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gpa_calculator/core/helpers/extensions.dart';
 import 'package:gpa_calculator/core/helpers/spacing.dart';
+import 'package:gpa_calculator/core/routing/app_routes.dart';
 import 'package:gpa_calculator/core/theming/app_colors.dart';
 import 'package:gpa_calculator/feature/main_dashboard/tabs/main_tab/data/models/student_model.dart';
-import 'package:gpa_calculator/feature/main_dashboard/tabs/main_tab/semester/data/models/semester_model.dart';
+import 'package:gpa_calculator/feature/semester/data/models/semester_model.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class MainStudentSemesters extends StatefulWidget {
@@ -101,7 +103,9 @@ class _MainStudentSemestersState extends State<MainStudentSemesters> {
                     ),
                     horizontalSpace(38),
                     OutlinedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        context.pushNamed(AppRoutes.semesterScreen);
+                      },
                       child: Text(
                         'OPEN',
                         style: TextStyle(fontSize: 16.sp, color: Colors.black),

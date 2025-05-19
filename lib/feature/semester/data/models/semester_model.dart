@@ -1,4 +1,4 @@
-import 'package:gpa_calculator/feature/main_dashboard/tabs/main_tab/semester/course/data/models/course_model.dart';
+import 'package:gpa_calculator/feature/course/data/models/course_model.dart';
 
 class SemesterModel {
   String name;

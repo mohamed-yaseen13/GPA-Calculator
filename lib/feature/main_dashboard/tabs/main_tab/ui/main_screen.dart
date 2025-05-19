@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gpa_calculator/core/helpers/spacing.dart';
 import 'package:gpa_calculator/feature/main_dashboard/tabs/main_tab/data/models/student_model.dart';
-import 'package:gpa_calculator/feature/main_dashboard/tabs/main_tab/semester/data/models/semester_model.dart';
+import 'package:gpa_calculator/feature/semester/data/models/semester_model.dart';
 import 'package:gpa_calculator/feature/main_dashboard/tabs/main_tab/ui/widgets/main_student_data.dart';
 import 'package:gpa_calculator/feature/main_dashboard/tabs/main_tab/ui/widgets/main_student_semesters.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -43,10 +43,6 @@ class MainScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           addSemester();
-          print('studentData box contents:');
-          for (var key in box.keys) {
-            print('key: $key, value: ${box.get(key)}');
-          }
         },
         backgroundColor: Colors.yellow,
         foregroundColor: Colors.white,

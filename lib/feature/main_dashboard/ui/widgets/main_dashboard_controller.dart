@@ -32,7 +32,7 @@ Widget buildSelectionUI(
   BuildContext context,
   VoidCallback onCancelSelection,
   VoidCallback onSelectAll,
-  VoidCallback onDelete,
+  VoidCallback ensureDalete,
   int selectedItem,
 ) {
   return SafeArea(
@@ -59,7 +59,7 @@ Widget buildSelectionUI(
           ),
           IconButton(
             icon: Icon(Icons.delete, color: Colors.white),
-            onPressed: onDelete,
+            onPressed: selectedItem == 0 ? null : ensureDalete,
           ),
         ],
       ),

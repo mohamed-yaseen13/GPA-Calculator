@@ -1,4 +1,4 @@
-import 'package:gpa_calculator/feature/main_dashboard/tabs/main_tab/semester/data/models/semester_model.dart';
+import 'package:gpa_calculator/feature/semester/data/models/semester_model.dart';
 
 class StudentModel {
   final double cgpa;

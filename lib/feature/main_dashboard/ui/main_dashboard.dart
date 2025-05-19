@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:gpa_calculator/core/helpers/extensions.dart';
 import 'package:gpa_calculator/core/theming/app_colors.dart';
 import 'package:gpa_calculator/feature/main_dashboard/tabs/calculator_tab/ui/calculator_screen.dart';
 import 'package:gpa_calculator/feature/main_dashboard/tabs/main_tab/data/models/student_model.dart';
-import 'package:gpa_calculator/feature/main_dashboard/tabs/main_tab/semester/data/models/semester_model.dart';
+import 'package:gpa_calculator/feature/semester/data/models/semester_model.dart';
 import 'package:gpa_calculator/feature/main_dashboard/tabs/main_tab/ui/main_screen.dart';
 import 'package:gpa_calculator/feature/main_dashboard/tabs/mark_conventer_tab/ui/mark_converter_screen.dart';
 import 'package:gpa_calculator/feature/main_dashboard/tabs/notes_tab/ui/notes_screen.dart';
@@ -42,6 +43,9 @@ class _MainDashboardState extends State<MainDashboard>
         if (_currentTabIndex != 0 && _selectionMode) {
           _selectionMode = false;
           _selectedItem = 0;
+          for (var semester in semesters) {
+            semester.selected = false;
+          }
         }
       });
     });
@@ -60,7 +64,6 @@ class _MainDashboardState extends State<MainDashboard>
       for (var semester in semesters) {
         semester.selected = false;
       }
-      box.put('default', student);
     });
   }
 
@@ -90,6 +93,31 @@ class _MainDashboardState extends State<MainDashboard>
     });
   }
 
+  void _ensureDalete() async {
+    final result = await showDialog<bool>(
+      context: context,
+      builder:
+          (context) => AlertDialog(
+            title: Text('Delete Semesters'),
+            content: Text('Do you actually need to delete these semesters?'),
+            actions: [
+              TextButton(
+                onPressed: () => context.pop(false),
+                child: Text('No'),
+              ),
+              TextButton(
+                onPressed: () => context.pop(true),
+                child: Text('Yes'),
+              ),
+            ],
+          ),
+    );
+    if (result == true) {
+      _onDelete();
+    }
+    _onCancelSelection();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -109,7 +137,7 @@ class _MainDashboardState extends State<MainDashboard>
                   context,
                   _onCancelSelection,
                   _onSelectAll,
-                  _onDelete,
+                  _ensureDalete,
                   _selectedItem,
                 )
                 : null,
