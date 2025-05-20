@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:gpa_calculator/core/helpers/extensions.dart';
 import 'package:gpa_calculator/core/theming/app_colors.dart';
-import 'package:gpa_calculator/feature/main_dashboard/tabs/calculator_tab/ui/calculator_screen.dart';
-import 'package:gpa_calculator/feature/main_dashboard/tabs/main_tab/data/models/student_model.dart';
+import 'package:gpa_calculator/feature/tabs/calculator_tab/ui/calculator_screen.dart';
+import 'package:gpa_calculator/feature/tabs/main_tab/data/models/student_model.dart';
 import 'package:gpa_calculator/feature/semester/data/models/semester_model.dart';
-import 'package:gpa_calculator/feature/main_dashboard/tabs/main_tab/ui/main_screen.dart';
-import 'package:gpa_calculator/feature/main_dashboard/tabs/mark_conventer_tab/ui/mark_converter_screen.dart';
-import 'package:gpa_calculator/feature/main_dashboard/tabs/notes_tab/ui/notes_screen.dart';
+import 'package:gpa_calculator/feature/tabs/main_tab/ui/main_screen.dart';
+import 'package:gpa_calculator/feature/tabs/mark_conventer_tab/ui/mark_converter_screen.dart';
+import 'package:gpa_calculator/feature/tabs/notes_tab/ui/notes_screen.dart';
 import 'package:gpa_calculator/feature/main_dashboard/ui/widgets/main_dashboard_controller.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
