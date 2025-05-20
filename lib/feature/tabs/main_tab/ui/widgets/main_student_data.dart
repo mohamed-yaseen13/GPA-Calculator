@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gpa_calculator/core/helpers/spacing.dart';
 import 'package:gpa_calculator/core/theming/app_colors.dart';
-import 'package:gpa_calculator/feature/main_dashboard/tabs/main_tab/data/models/student_model.dart';
+import 'package:gpa_calculator/feature/tabs/main_tab/data/models/student_model.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class MainStudentData extends StatelessWidget {

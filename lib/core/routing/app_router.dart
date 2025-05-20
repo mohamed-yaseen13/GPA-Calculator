@@ -7,10 +7,16 @@ class AppRouter {
   static Route<dynamic>? generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case AppRoutes.mainDashboard:
-        return MaterialPageRoute(builder: (_) => MainDashboard());
+        return MaterialPageRoute(
+          builder: (_) => MainDashboard(),
+          settings: settings,
+        );
 
       case AppRoutes.semesterScreen:
-        return MaterialPageRoute(builder: (_) => SemesterScreen());
+        return MaterialPageRoute(
+          builder: (_) => SemesterScreen(),
+          settings: settings,
+        );
 
       default:
         return null;
