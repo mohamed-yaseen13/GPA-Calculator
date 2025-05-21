@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gpa_calculator/feature/semester/data/models/semester_model.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -10,15 +11,18 @@ void printStudentData() {
   }
 }
 
-double getMaxSemesterNameWidth(List<SemesterModel> semesters, TextStyle style) {
+double getMaxSemesterNameWidth(List<SemesterModel> semesters) {
   double maxWidth = 0;
   for (var semester in semesters) {
     final tp = TextPainter(
-      text: TextSpan(text: semester.name, style: style),
+      text: TextSpan(
+        text: semester.name,
+        style: TextStyle(color: Colors.white, fontSize: 16.sp),
+      ),
       maxLines: 1,
       textDirection: TextDirection.ltr,
     )..layout();
     if (tp.size.width > maxWidth) maxWidth = tp.size.width;
   }
-  return maxWidth;
+  return maxWidth + 32.w;
 }
