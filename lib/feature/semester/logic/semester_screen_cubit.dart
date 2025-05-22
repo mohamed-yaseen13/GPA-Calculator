@@ -65,17 +65,15 @@ class SemesterScreenCubit extends Cubit<SemesterScreenState> {
     );
   }
 
-  void changeTerm(String? value) {
-    if (value == null) return;
-    final newIndex = state.semesters.indexWhere(
-      (semester) => semester.name == value,
-    );
-    final newCourses = state.semesters[newIndex].courses;
+  void changeTerm(int? index) {
+    if (index == null) return;
+
+    final selectedSemester = state.semesters[index];
     emit(
       state.copyWith(
-        selectedTerm: value,
-        selectedIndex: newIndex,
-        courses: List<CourseModel>.from(newCourses),
+        selectedIndex: index,
+        selectedTerm: selectedSemester.name,
+        courses: List<CourseModel>.from(selectedSemester.courses),
       ),
     );
   }

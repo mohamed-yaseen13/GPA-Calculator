@@ -11,26 +11,40 @@ class SemesterScreenAppBarDropDownMenu extends StatelessWidget {
     return DropdownButtonHideUnderline(
       child: Padding(
         padding: EdgeInsets.only(left: 16.w),
-        child: DropdownButton<String>(
+        child: DropdownButton<int>(
           value:
-              context.read<SemesterScreenCubit>().state.selectedTerm!.isEmpty
+              context
+                      .read<SemesterScreenCubit>()
+                      .state
+                      .semesters[context
+                          .read<SemesterScreenCubit>()
+                          .state
+                          .selectedIndex]
+                      .name
+                      .isEmpty
                   ? null
-                  : context.read<SemesterScreenCubit>().state.selectedTerm,
+                  : context.read<SemesterScreenCubit>().state.selectedIndex,
           hint: Text('Term Name', style: TextStyle(color: Colors.white60)),
           dropdownColor: Color(0xFF303030),
           style: TextStyle(color: Colors.white, fontSize: 16.sp),
           items:
-              context.read<SemesterScreenCubit>().state.semesters.map((
-                semester,
-              ) {
-                return DropdownMenuItem<String>(
-                  value: semester.name,
-                  child: Text(
-                    semester.name,
-                    style: TextStyle(color: Colors.white),
-                  ),
-                );
-              }).toList(),
+              List.generate(
+                context.read<SemesterScreenCubit>().state.semesters.length,
+                (index) {
+                  final semester =
+                      context
+                          .read<SemesterScreenCubit>()
+                          .state
+                          .semesters[index];
+                  return DropdownMenuItem<int>(
+                    value: index,
+                    child: Text(
+                      semester.name,
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  );
+                },
+              ).toList(),
           onChanged: context.read<SemesterScreenCubit>().changeTerm,
           menuWidth: context.read<SemesterScreenCubit>().state.dropdownWidth,
           icon: Padding(
