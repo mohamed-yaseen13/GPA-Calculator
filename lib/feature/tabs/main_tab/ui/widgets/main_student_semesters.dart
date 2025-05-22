@@ -1,22 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gpa_calculator/core/helpers/extensions.dart';
 import 'package:gpa_calculator/core/helpers/spacing.dart';
 import 'package:gpa_calculator/core/routing/app_routes.dart';
 import 'package:gpa_calculator/core/theming/app_colors.dart';
-import 'package:gpa_calculator/feature/tabs/main_tab/data/models/student_model.dart';
 import 'package:gpa_calculator/feature/semester/data/models/semester_model.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 
 class MainStudentSemesters extends StatefulWidget {
-  final Box box;
+  final List<SemesterModel> semesters;
   bool selectionMode;
   final Function(int) onToggleSelect;
 
   MainStudentSemesters({
     super.key,
-    required this.box,
+    required this.semesters,
     required this.selectionMode,
     required this.onToggleSelect,
   });
@@ -30,17 +27,13 @@ class _MainStudentSemestersState extends State<MainStudentSemesters> {
 
   @override
   Widget build(BuildContext context) {
-    StudentModel student = widget.box.get('default');
-
-    List<SemesterModel> semesters = student.semesters;
-
-    if (_controllers.length != semesters.length) {
+    if (_controllers.length != widget.semesters.length) {
       for (var c in _controllers) {
         c.dispose();
       }
       _controllers = List.generate(
-        semesters.length,
-        (i) => TextEditingController(text: semesters[i].name),
+        widget.semesters.length,
+        (i) => TextEditingController(text: widget.semesters[i].name),
       );
     }
 
@@ -48,7 +41,7 @@ class _MainStudentSemestersState extends State<MainStudentSemesters> {
       padding: EdgeInsets.symmetric(horizontal: 8.w),
       child: Column(
         children:
-            semesters.asMap().entries.map((entry) {
+            widget.semesters.asMap().entries.map((entry) {
               final index = entry.key;
               final semester = entry.value;
               return Padding(
@@ -76,7 +69,6 @@ class _MainStudentSemestersState extends State<MainStudentSemesters> {
                       child: TextFormField(
                         controller: _controllers[index],
                         textAlign: TextAlign.center,
-                        inputFormatters: [LengthLimitingTextInputFormatter(20)],
                         decoration: InputDecoration(
                           hintText: 'Term Name',
                           hintStyle: TextStyle(color: Colors.grey),
@@ -88,7 +80,7 @@ class _MainStudentSemestersState extends State<MainStudentSemesters> {
                           ),
                         ),
                         onChanged: (value) {
-                          semesters[index].name = value;
+                          widget.semesters[index].name = value;
                         },
                       ),
                     ),
@@ -106,10 +98,7 @@ class _MainStudentSemestersState extends State<MainStudentSemesters> {
                     horizontalSpace(38),
                     OutlinedButton(
                       onPressed: () {
-                        context.pushNamed(
-                          AppRoutes.semesterScreen,
-                          arguments: {'semesterIndex': index},
-                        );
+                        context.pushNamed(AppRoutes.semesterScreen);
                       },
                       child: Text(
                         'OPEN',

@@ -26,7 +26,7 @@ class GpaApp extends StatelessWidget {
       child: MaterialApp(
         theme: ThemeData(scaffoldBackgroundColor: Colors.white),
         debugShowCheckedModeBanner: false,
-        initialRoute: AppRoutes.mainDashboard,
+        initialRoute: AppRoutes.applicationAppBar,
         onGenerateRoute: AppRouter.generateRoute,
       ),
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gpa_calculator/core/helpers/spacing.dart';
-import 'package:gpa_calculator/feature/tabs/main_tab/data/models/student_model.dart';
+import 'package:gpa_calculator/feature/application_app_bar/logic/application_app_bar_cubit.dart';
 import 'package:gpa_calculator/feature/semester/data/models/semester_model.dart';
 import 'package:gpa_calculator/feature/tabs/main_tab/ui/widgets/main_student_data.dart';
 import 'package:gpa_calculator/feature/tabs/main_tab/ui/widgets/main_student_semesters.dart';
@@ -8,11 +9,13 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 class MainScreen extends StatelessWidget {
   bool selectionMode;
+  final List<SemesterModel> semesters;
   final Function(int) onToggleSelect;
 
   MainScreen({
     super.key,
     required this.selectionMode,
+    required this.semesters,
     required this.onToggleSelect,
   });
 
@@ -27,22 +30,17 @@ class MainScreen extends StatelessWidget {
           children: [
             MainStudentData(box: box),
             verticalSpace(12),
-            ValueListenableBuilder(
-              valueListenable: box.listenable(),
-              builder: (context, Box box, _) {
-                return MainStudentSemesters(
-                  box: box,
-                  selectionMode: selectionMode,
-                  onToggleSelect: onToggleSelect,
-                );
-              },
+            MainStudentSemesters(
+              semesters: semesters,
+              selectionMode: selectionMode,
+              onToggleSelect: onToggleSelect,
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          addSemester();
+          context.read<ApplicationAppBarCubit>().addSemester();
         },
         backgroundColor: Colors.yellow,
         foregroundColor: Colors.white,
@@ -51,20 +49,4 @@ class MainScreen extends StatelessWidget {
       ),
     );
   }
-}
-
-void addSemester() {
-  final box = Hive.box('studentData');
-  StudentModel student = box.get('default');
-
-  SemesterModel newSemester = SemesterModel(
-    courses: [],
-    gpa: 0,
-    name: '',
-    selected: false,
-  );
-
-  student.semesters.add(newSemester);
-
-  box.put('default', student);
 }
