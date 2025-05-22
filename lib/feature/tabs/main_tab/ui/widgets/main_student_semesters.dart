@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gpa_calculator/core/helpers/extensions.dart';
@@ -75,6 +76,9 @@ class _MainStudentSemestersState extends State<MainStudentSemesters> {
                           child: TextFormField(
                             controller: _controllers[index],
                             textAlign: TextAlign.center,
+                            inputFormatters: [
+                              LengthLimitingTextInputFormatter(15),
+                            ],
                             decoration: InputDecoration(
                               hintText: 'Term Name',
                               hintStyle: TextStyle(color: Colors.grey),

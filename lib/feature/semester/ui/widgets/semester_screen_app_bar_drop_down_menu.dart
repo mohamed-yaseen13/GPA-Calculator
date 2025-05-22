@@ -39,8 +39,13 @@ class SemesterScreenAppBarDropDownMenu extends StatelessWidget {
                   return DropdownMenuItem<int>(
                     value: index,
                     child: Text(
-                      semester.name,
-                      style: TextStyle(color: Colors.white),
+                      semester.name.isEmpty ? "Term Name" : semester.name,
+                      style: TextStyle(
+                        color:
+                            semester.name.isEmpty
+                                ? Colors.white60
+                                : Colors.white,
+                      ),
                     ),
                   );
                 },
@@ -48,7 +53,7 @@ class SemesterScreenAppBarDropDownMenu extends StatelessWidget {
           onChanged: context.read<SemesterScreenCubit>().changeTerm,
           menuWidth: context.read<SemesterScreenCubit>().state.dropdownWidth,
           icon: Padding(
-            padding: EdgeInsets.only(left: 64.w),
+            padding: EdgeInsets.only(left: 24.w),
             child: Icon(Icons.arrow_drop_down, color: Colors.white),
           ),
         ),

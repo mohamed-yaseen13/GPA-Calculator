@@ -12,7 +12,15 @@ void printStudentData() {
 }
 
 double getMaxSemesterNameWidth(List<SemesterModel> semesters) {
-  double maxWidth = 0;
+  double maxWidth1 = 0;
+
+  for (var semester in semesters) {
+    if (semester.name.isEmpty) {
+      maxWidth1 = 130;
+    }
+  }
+
+  double maxWidth2 = 0;
   for (var semester in semesters) {
     final tp = TextPainter(
       text: TextSpan(
@@ -22,7 +30,12 @@ double getMaxSemesterNameWidth(List<SemesterModel> semesters) {
       maxLines: 1,
       textDirection: TextDirection.ltr,
     )..layout();
-    if (tp.size.width > maxWidth) maxWidth = tp.size.width;
+    if (tp.size.width > maxWidth2) maxWidth2 = tp.size.width;
   }
-  return maxWidth + 32.w;
+
+  if (maxWidth1 < maxWidth2) {
+    return maxWidth2 + 32.w;
+  }
+
+  return maxWidth1;
 }
