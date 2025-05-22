@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "129700374667",
+    "project_id": "gpa-app-distribution-cc775",
+    "storage_bucket": "gpa-app-distribution-cc775.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:129700374667:android:61321739e4d272d425cc8e",
+        "android_client_info": {
+          "package_name": "com.example.gpa_calculator"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATMGBishvHQ6MpVd5qiJU_dBf1RVNjaW4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
