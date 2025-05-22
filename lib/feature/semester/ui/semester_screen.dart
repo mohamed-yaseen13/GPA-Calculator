@@ -73,7 +73,7 @@ class _SemesterScreenState extends State<SemesterScreen> {
     return BlocListener<SemesterScreenCubit, SemesterScreenState>(
       listenWhen:
           (previous, current) =>
-              previous.courses.length != current.courses.length,
+              previous.selectedIndex != current.selectedIndex,
       listener: (context, state) {
         _syncControllersWithCourses();
       },
