@@ -1,9 +1,9 @@
 class CourseModel {
-  final String name;
+  String name;
 
-  final String grade;
+  String grade;
 
-  final double credits;
+  double credits;
 
   bool selected;
 
