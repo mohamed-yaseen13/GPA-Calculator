@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-List<Widget> buildAppBarActions(
-  BuildContext context,
-  int currentTabIndex,
-  VoidCallback onSelect,
-) {
+List<Widget> buildAppBarActions({
+  required BuildContext context,
+  required int currentTabIndex,
+  required VoidCallback onSelect,
+}) {
   return [
     GestureDetector(
       onTap: currentTabIndex == 0 ? onSelect : null,

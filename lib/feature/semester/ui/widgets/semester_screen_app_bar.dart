@@ -18,7 +18,7 @@ class SemesterScreenAppBar extends StatelessWidget
   VoidCallback onSelect;
   VoidCallback onCancelSelection;
   VoidCallback onSelectAll;
-  VoidCallback ensureDalete;
+  VoidCallback onDelete;
   ValueChanged<String?> onChanged;
 
   SemesterScreenAppBar({
@@ -32,7 +32,7 @@ class SemesterScreenAppBar extends StatelessWidget
     required this.onSelect,
     required this.onCancelSelection,
     required this.onSelectAll,
-    required this.ensureDalete,
+    required this.onDelete,
     required this.onChanged,
     required this.selectedItem,
   });
@@ -55,15 +55,23 @@ class SemesterScreenAppBar extends StatelessWidget
               : null,
       centerTitle: false,
       automaticallyImplyLeading: false,
-      actions: !selectionMode ? buildAppBarActions(context, 0, onSelect) : [],
+      actions:
+          !selectionMode
+              ? buildAppBarActions(
+                context: context,
+                currentTabIndex: 0,
+                onSelect: onSelect,
+              )
+              : [],
       flexibleSpace:
           selectionMode
               ? buildSelectionUI(
-                context,
-                onCancelSelection,
-                onSelectAll,
-                ensureDalete,
-                selectedItem,
+                context: context,
+                onCancelSelection: onCancelSelection,
+                onSelectAll: onSelectAll,
+                onDelete: onDelete,
+                selectedItem: selectedItem,
+                content: 'Courses',
               )
               : null,
     );

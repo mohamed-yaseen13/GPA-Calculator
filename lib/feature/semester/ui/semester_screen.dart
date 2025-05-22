@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gpa_calculator/core/helpers/extensions.dart';
 import 'package:gpa_calculator/feature/semester/logic/semester_screen_cubit.dart';
 import 'package:gpa_calculator/feature/semester/logic/semester_screen_state.dart';
 import 'package:gpa_calculator/feature/semester/ui/widgets/semester_screen_app_bar.dart';
@@ -29,7 +28,6 @@ class _SemesterScreenState extends State<SemesterScreen> {
   void _syncControllersWithCourses() {
     final courses = context.read<SemesterScreenCubit>().state.courses;
 
-    // Dispose old controllers
     for (var c in _nameControllers) {
       c.dispose();
     }
@@ -37,7 +35,6 @@ class _SemesterScreenState extends State<SemesterScreen> {
       c.dispose();
     }
 
-    // Only generate controllers if courses is not empty
     if (courses.isNotEmpty) {
       _nameControllers = List.generate(
         courses.length,
@@ -71,31 +68,6 @@ class _SemesterScreenState extends State<SemesterScreen> {
     }
   }
 
-  void _ensureDalete() async {
-    final result = await showDialog<bool>(
-      context: context,
-      builder:
-          (context) => AlertDialog(
-            title: Text('Delete Courses'),
-            content: Text('Do you actually need to delete these Courses?'),
-            actions: [
-              TextButton(
-                onPressed: () => context.pop(false),
-                child: Text('No'),
-              ),
-              TextButton(
-                onPressed: () => context.pop(true),
-                child: Text('Yes'),
-              ),
-            ],
-          ),
-    );
-    if (result == true) {
-      context.read<SemesterScreenCubit>().deleteSelected();
-    }
-    context.read<SemesterScreenCubit>().cancelSelection();
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocListener<SemesterScreenCubit, SemesterScreenState>(
@@ -119,7 +91,7 @@ class _SemesterScreenState extends State<SemesterScreen> {
               onCancelSelection:
                   context.read<SemesterScreenCubit>().cancelSelection,
               onSelectAll: context.read<SemesterScreenCubit>().selectAll,
-              ensureDalete: _ensureDalete,
+              onDelete: context.read<SemesterScreenCubit>().deleteSelected,
               onChanged: context.read<SemesterScreenCubit>().changeTerm,
               selectedTerm: state.selectedTerm,
             ),

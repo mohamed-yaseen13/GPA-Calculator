@@ -98,7 +98,10 @@ class _MainStudentSemestersState extends State<MainStudentSemesters> {
                     horizontalSpace(38),
                     OutlinedButton(
                       onPressed: () {
-                        context.pushNamed(AppRoutes.semesterScreen);
+                        context.pushNamed(
+                          AppRoutes.semesterScreen,
+                          arguments: {'semesterIndex': index},
+                        );
                       },
                       child: Text(
                         'OPEN',

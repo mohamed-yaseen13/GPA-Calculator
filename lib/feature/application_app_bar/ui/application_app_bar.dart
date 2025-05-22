@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gpa_calculator/core/helpers/extensions.dart';
 import 'package:gpa_calculator/core/theming/app_colors.dart';
 import 'package:gpa_calculator/core/widgets/app_bar_actions.dart';
 import 'package:gpa_calculator/core/widgets/selection_ui.dart';
@@ -39,31 +38,6 @@ class _MainDashboardState extends State<ApplicationAppBar>
     });
   }
 
-  void _ensureDalete() async {
-    final result = await showDialog<bool>(
-      context: context,
-      builder:
-          (context) => AlertDialog(
-            title: Text('Delete Semesters'),
-            content: Text('Do you actually need to delete these semesters?'),
-            actions: [
-              TextButton(
-                onPressed: () => context.pop(false),
-                child: Text('No'),
-              ),
-              TextButton(
-                onPressed: () => context.pop(true),
-                child: Text('Yes'),
-              ),
-            ],
-          ),
-    );
-    if (result == true) {
-      context.read<ApplicationAppBarCubit>().deleteSelected();
-    }
-    context.read<ApplicationAppBarCubit>().cancelSelection();
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ApplicationAppBarCubit, ApplicationAppBarState>(
@@ -81,22 +55,30 @@ class _MainDashboardState extends State<ApplicationAppBar>
             actions:
                 !state.selectionMode
                     ? buildAppBarActions(
-                      context,
-                      _currentTabIndex,
-                      () => context.read<ApplicationAppBarCubit>().select(),
+                      context: context,
+                      currentTabIndex: _currentTabIndex,
+                      onSelect:
+                          () => context.read<ApplicationAppBarCubit>().select(),
                     )
                     : [],
             flexibleSpace:
                 state.selectionMode
                     ? buildSelectionUI(
-                      context,
-                      () =>
-                          context
-                              .read<ApplicationAppBarCubit>()
-                              .cancelSelection(),
-                      () => context.read<ApplicationAppBarCubit>().selectAll(),
-                      _ensureDalete,
-                      state.selectedItem,
+                      context: context,
+                      onCancelSelection:
+                          () =>
+                              context
+                                  .read<ApplicationAppBarCubit>()
+                                  .cancelSelection(),
+                      onSelectAll:
+                          () =>
+                              context
+                                  .read<ApplicationAppBarCubit>()
+                                  .selectAll(),
+                      onDelete:
+                          context.read<ApplicationAppBarCubit>().deleteSelected,
+                      selectedItem: state.selectedItem,
+                      content: 'Semesters',
                     )
                     : null,
             bottom: TabBar(
