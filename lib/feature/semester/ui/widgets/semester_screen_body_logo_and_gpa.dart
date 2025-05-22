@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gpa_calculator/core/helpers/spacing.dart';
-import 'package:gpa_calculator/feature/semester/data/models/semester_model.dart';
+import 'package:gpa_calculator/feature/semester/logic/semester_screen_cubit.dart';
 
 class SemesterScreenBodyLogoAndGpa extends StatelessWidget {
-  List<SemesterModel> semesters;
-  int index;
-  SemesterScreenBodyLogoAndGpa({
-    super.key,
-    required this.semesters,
-    required this.index,
-  });
+  const SemesterScreenBodyLogoAndGpa({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +22,7 @@ class SemesterScreenBodyLogoAndGpa extends StatelessWidget {
             children: [
               Text('GPA: ', style: TextStyle(fontSize: 18.sp)),
               Text(
-                '${semesters[index].gpa}',
+                '${context.read<SemesterScreenCubit>().state.semesters[context.read<SemesterScreenCubit>().state.selectedIndex].gpa}',
                 style: TextStyle(fontSize: 18.sp),
               ),
             ],

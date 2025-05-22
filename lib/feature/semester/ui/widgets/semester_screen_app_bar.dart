@@ -1,41 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gpa_calculator/core/theming/app_colors.dart';
 import 'package:gpa_calculator/core/widgets/app_bar_actions.dart';
 import 'package:gpa_calculator/core/widgets/selection_ui.dart';
-import 'package:gpa_calculator/feature/course/data/models/course_model.dart';
-import 'package:gpa_calculator/feature/semester/data/models/semester_model.dart';
+import 'package:gpa_calculator/feature/semester/logic/semester_screen_cubit.dart';
 import 'package:gpa_calculator/feature/semester/ui/widgets/semester_screen_app_bar_drop_down_menu.dart';
 
 class SemesterScreenAppBar extends StatelessWidget
     implements PreferredSizeWidget {
-  bool selectionMode;
-  String? selectedTerm;
-  int selectedIndex;
-  int selectedItem;
-  List<SemesterModel> semesters;
-  List<CourseModel> courses;
-  double? dropdownWidth;
-  VoidCallback onSelect;
-  VoidCallback onCancelSelection;
-  VoidCallback onSelectAll;
-  VoidCallback onDelete;
-  ValueChanged<String?> onChanged;
-
-  SemesterScreenAppBar({
-    super.key,
-    required this.selectionMode,
-    required this.selectedTerm,
-    required this.semesters,
-    required this.selectedIndex,
-    required this.courses,
-    required this.dropdownWidth,
-    required this.onSelect,
-    required this.onCancelSelection,
-    required this.onSelectAll,
-    required this.onDelete,
-    required this.onChanged,
-    required this.selectedItem,
-  });
+  const SemesterScreenAppBar({super.key});
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
@@ -45,32 +18,29 @@ class SemesterScreenAppBar extends StatelessWidget
     return AppBar(
       backgroundColor: AppColors.mainOrange,
       title:
-          !selectionMode
-              ? SemesterScreenAppBarDropDownMenu(
-                selectedTerm: selectedTerm,
-                semesters: semesters,
-                onChanged: onChanged,
-                dropdownWidth: dropdownWidth,
-              )
+          !context.read<SemesterScreenCubit>().state.selectionMode
+              ? SemesterScreenAppBarDropDownMenu()
               : null,
       centerTitle: false,
       automaticallyImplyLeading: false,
       actions:
-          !selectionMode
+          !context.read<SemesterScreenCubit>().state.selectionMode
               ? buildAppBarActions(
                 context: context,
                 currentTabIndex: 0,
-                onSelect: onSelect,
+                onSelect: context.read<SemesterScreenCubit>().select,
               )
               : [],
       flexibleSpace:
-          selectionMode
+          context.read<SemesterScreenCubit>().state.selectionMode
               ? buildSelectionUI(
                 context: context,
-                onCancelSelection: onCancelSelection,
-                onSelectAll: onSelectAll,
-                onDelete: onDelete,
-                selectedItem: selectedItem,
+                onCancelSelection:
+                    context.read<SemesterScreenCubit>().cancelSelection,
+                onSelectAll: context.read<SemesterScreenCubit>().selectAll,
+                onDelete: context.read<SemesterScreenCubit>().deleteSelected,
+                selectedItem:
+                    context.read<SemesterScreenCubit>().state.selectedItem,
                 content: 'Courses',
               )
               : null,

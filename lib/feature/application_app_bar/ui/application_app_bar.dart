@@ -99,14 +99,7 @@ class _MainDashboardState extends State<ApplicationAppBar>
           body: TabBarView(
             controller: tabController,
             children: [
-              MainScreen(
-                selectionMode: state.selectionMode,
-                semesters: state.semesters,
-                onToggleSelect:
-                    (index) => context
-                        .read<ApplicationAppBarCubit>()
-                        .toggleSelect(index),
-              ),
+              MainScreen(),
               CalculatorScreen(),
               MarkConverterScreen(),
               NotesScreen(),

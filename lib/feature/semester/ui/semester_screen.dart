@@ -80,39 +80,11 @@ class _SemesterScreenState extends State<SemesterScreen> {
       child: BlocBuilder<SemesterScreenCubit, SemesterScreenState>(
         builder: (context, state) {
           return Scaffold(
-            appBar: SemesterScreenAppBar(
-              selectionMode: state.selectionMode,
-              selectedItem: state.selectedItem,
-              semesters: state.semesters,
-              selectedIndex: state.selectedIndex,
-              courses: state.courses,
-              dropdownWidth: state.dropdownWidth,
-              onSelect: context.read<SemesterScreenCubit>().select,
-              onCancelSelection:
-                  context.read<SemesterScreenCubit>().cancelSelection,
-              onSelectAll: context.read<SemesterScreenCubit>().selectAll,
-              onDelete: context.read<SemesterScreenCubit>().deleteSelected,
-              onChanged: context.read<SemesterScreenCubit>().changeTerm,
-              selectedTerm: state.selectedTerm,
-            ),
+            appBar: SemesterScreenAppBar(),
             body: SemesterScreenBody(
               key: ValueKey(state.selectedIndex),
-              box: context.read<SemesterScreenCubit>().box,
-              index: state.selectedIndex,
-              selectionMode: state.selectionMode,
-              onToggleSelect: context.read<SemesterScreenCubit>().toggleSelect,
-              onChanged: (String? value, int index) {
-                context.read<SemesterScreenCubit>().changeCourseGrade(
-                  value,
-                  index,
-                );
-              },
               nameControllers: _nameControllers,
               creditControllers: _creditControllers,
-              courses: state.courses,
-              semesters: state.semesters,
-              grades: context.read<SemesterScreenCubit>().grades,
-              addCourse: context.read<SemesterScreenCubit>().addCourse,
             ),
           );
         },
