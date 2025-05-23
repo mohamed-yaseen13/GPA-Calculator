@@ -1,38 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gpa_calculator/core/theming/app_colors.dart';
-import 'package:gpa_calculator/feature/scales/ui/widgets/scales_header_cell.dart';
 
 class ScalesGradeTable extends StatelessWidget {
-  const ScalesGradeTable({super.key});
+  final List<List<String>> scales;
+  const ScalesGradeTable({super.key, required this.scales});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(16),
+      padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 24.w),
       child: Table(
+        border: TableBorder.all(),
+        columnWidths: {
+          0: FractionColumnWidth(0.32),
+          1: FractionColumnWidth(0.34),
+          2: FractionColumnWidth(0.32),
+        },
         children: [
-          TableRow(
-            decoration: BoxDecoration(color: AppColors.lightOrange),
-            children: [
-              ScalesHeaderCell(text: 'Grade'),
-              ScalesHeaderCell(text: 'Percentage'),
-              ScalesHeaderCell(text: 'Points'),
-            ],
-          ),
-          _buildTableRow('A+', '97–100', '4'),
-          _buildTableRow('A', '93–97', '4'),
+          buildRow([
+            'Grade',
+            'Percentage',
+            'Points',
+          ], color: AppColors.lightOrange),
+          ...scales.map((scale) => buildRow(scale)),
         ],
       ),
     );
   }
 }
 
-TableRow _buildTableRow(String grade, String percentile, String points) {
-  return TableRow(
-    children: [
-      Padding(padding: EdgeInsets.all(8.0), child: Text(grade)),
-      Padding(padding: EdgeInsets.all(8.0), child: Text(percentile)),
-      Padding(padding: EdgeInsets.all(8.0), child: Text(points)),
-    ],
-  );
-}
+TableRow buildRow(List<String> cells, {Color? color}) => TableRow(
+  children:
+      cells.map((cell) {
+        final style = TextStyle(fontSize: 18.sp);
+        return Container(
+          color: color,
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 2.h, horizontal: 8.w),
+            child: Center(child: Text(cell, style: style)),
+          ),
+        );
+      }).toList(),
+);

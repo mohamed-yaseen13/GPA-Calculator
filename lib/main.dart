@@ -25,20 +25,23 @@ class GpaApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
+      designSize: const Size(375, 812),
       minTextAdapt: true,
-      child: MaterialApp(
-        theme: ThemeData(
-          scaffoldBackgroundColor: Colors.white,
-          appBarTheme: AppBarTheme(
-            color: AppColors.mainOrange,
-            titleTextStyle: TextStyle(fontSize: 18.sp, color: Colors.white),
-            iconTheme: IconThemeData(color: Colors.white),
+      builder: (context, child) {
+        return MaterialApp(
+          theme: ThemeData(
+            scaffoldBackgroundColor: Colors.white,
+            appBarTheme: AppBarTheme(
+              color: AppColors.mainOrange,
+              titleTextStyle: TextStyle(fontSize: 18.sp, color: Colors.white),
+              iconTheme: const IconThemeData(color: Colors.white),
+            ),
           ),
-        ),
-        debugShowCheckedModeBanner: false,
-        initialRoute: AppRoutes.applicationAppBar,
-        onGenerateRoute: AppRouter.generateRoute,
-      ),
+          debugShowCheckedModeBanner: false,
+          initialRoute: AppRoutes.applicationAppBar,
+          onGenerateRoute: AppRouter.generateRoute,
+        );
+      },
     );
   }
 }
