@@ -4,4 +4,6 @@ class AppRoutes {
   static const String semesterScreen = 'semesterScreen';
 
   static const String courseScreen = 'courseScreen';
+
+  static const String scalesScreen = 'scalesScreen';
 }

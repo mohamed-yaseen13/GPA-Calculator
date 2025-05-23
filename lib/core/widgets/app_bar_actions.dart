@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gpa_calculator/core/helpers/extensions.dart';
+import 'package:gpa_calculator/core/routing/app_routes.dart';
 
 List<Widget> buildAppBarActions({
   required BuildContext context,
@@ -16,13 +18,17 @@ List<Widget> buildAppBarActions({
       ),
     ),
     PopupMenuButton(
-      icon: Icon(Icons.more_vert, color: Colors.white),
+      icon: Icon(Icons.more_vert),
       itemBuilder:
           (context) => [
             PopupMenuItem(value: 1, child: Text('Settings')),
             PopupMenuItem(value: 2, child: Text('Scales')),
           ],
-      onSelected: (value) {},
+      onSelected: (value) {
+        if (value == 2) {
+          context.pushNamed(AppRoutes.scalesScreen);
+        }
+      },
     ),
   ];
 }

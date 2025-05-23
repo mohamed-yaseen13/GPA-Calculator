@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gpa_calculator/core/theming/app_colors.dart';
 import 'package:gpa_calculator/core/widgets/app_bar_actions.dart';
 import 'package:gpa_calculator/core/widgets/selection_ui.dart';
 import 'package:gpa_calculator/feature/application_app_bar/logic/application_app_bar_cubit.dart';
@@ -44,14 +43,7 @@ class _MainDashboardState extends State<ApplicationAppBar>
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-            backgroundColor: AppColors.mainOrange,
-            title:
-                !state.selectionMode
-                    ? Text(
-                      'GPA Calculation',
-                      style: TextStyle(color: Colors.white),
-                    )
-                    : null,
+            title: !state.selectionMode ? Text('GPA Calculator') : null,
             actions:
                 !state.selectionMode
                     ? buildAppBarActions(

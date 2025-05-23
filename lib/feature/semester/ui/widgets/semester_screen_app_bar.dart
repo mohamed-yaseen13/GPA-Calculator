@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gpa_calculator/core/theming/app_colors.dart';
 import 'package:gpa_calculator/core/widgets/app_bar_actions.dart';
 import 'package:gpa_calculator/core/widgets/selection_ui.dart';
 import 'package:gpa_calculator/feature/semester/logic/semester_screen_cubit.dart';
@@ -16,7 +15,6 @@ class SemesterScreenAppBar extends StatelessWidget
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: AppColors.mainOrange,
       title:
           !context.read<SemesterScreenCubit>().state.selectionMode
               ? SemesterScreenAppBarDropDownMenu()
