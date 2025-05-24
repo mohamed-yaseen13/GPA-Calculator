@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gpa_calculator/core/routing/app_routes.dart';
 import 'package:gpa_calculator/feature/application_app_bar/logic/application_app_bar_cubit.dart';
 import 'package:gpa_calculator/feature/application_app_bar/ui/application_app_bar.dart';
+import 'package:gpa_calculator/feature/scales/logic/scales_cubit.dart';
 import 'package:gpa_calculator/feature/scales/ui/scales_screen.dart';
 import 'package:gpa_calculator/feature/semester/logic/semester_screen_cubit.dart';
 import 'package:gpa_calculator/feature/semester/ui/semester_screen.dart';
@@ -56,7 +57,11 @@ class AppRouter {
 
       case AppRoutes.scalesScreen:
         return MaterialPageRoute(
-          builder: (_) => ScalesScreen(),
+          builder:
+              (_) => BlocProvider(
+                create: (context) => ScalesCubit(),
+                child: ScalesScreen(),
+              ),
           settings: settings,
         );
 

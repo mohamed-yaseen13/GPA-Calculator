@@ -1,25 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gpa_calculator/core/helpers/spacing.dart';
 import 'package:gpa_calculator/core/theming/app_colors.dart';
+import 'package:gpa_calculator/feature/scales/logic/scales_cubit.dart';
 import 'package:gpa_calculator/feature/scales/ui/widgets/scales_grade_table.dart';
 
-class ScalesList extends StatefulWidget {
+class ScalesList extends StatelessWidget {
+  final int index;
   final String title;
   final List<List<String>> scales;
 
-  const ScalesList({super.key, required this.title, required this.scales});
-
-  @override
-  State<ScalesList> createState() => _ScalesListState();
-}
-
-class _ScalesListState extends State<ScalesList> {
-  bool isExpanded = false;
-  bool isSelected = false;
+  const ScalesList({
+    super.key,
+    required this.title,
+    required this.scales,
+    required this.index,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final state = context.watch<ScalesCubit>().state;
+    final isSelected = index == state.selectedIndex;
+    final isExpanded = state.isExpandedMap[index] ?? false;
+
     return Column(
       children: [
         Padding(
@@ -34,11 +38,7 @@ class _ScalesListState extends State<ScalesList> {
             ),
             child: InkWell(
               borderRadius: BorderRadius.circular(16.sp),
-              onTap: () {
-                setState(() {
-                  isExpanded = !isExpanded;
-                });
-              },
+              onTap: () => context.read<ScalesCubit>().toggleExpanded(index),
               child: Row(
                 children: [
                   horizontalSpace(12),
@@ -53,7 +53,7 @@ class _ScalesListState extends State<ScalesList> {
                   ),
                   horizontalSpace(12),
                   Text(
-                    widget.title,
+                    title,
                     style: TextStyle(
                       fontSize: 16.sp,
                       fontWeight: FontWeight.bold,
@@ -63,11 +63,8 @@ class _ScalesListState extends State<ScalesList> {
                   Padding(
                     padding: EdgeInsets.only(right: 12.w),
                     child: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          isSelected = !isSelected;
-                        });
-                      },
+                      onTap:
+                          () => context.read<ScalesCubit>().selectScale(index),
                       child: Icon(
                         isSelected
                             ? Icons.check_box
@@ -81,7 +78,7 @@ class _ScalesListState extends State<ScalesList> {
             ),
           ),
         ),
-        if (isExpanded) ScalesGradeTable(scales: widget.scales),
+        if (isExpanded) ScalesGradeTable(scales: scales),
       ],
     );
   }
