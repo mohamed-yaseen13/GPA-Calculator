@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gpa_calculator/core/constants/app_constants.dart';
+import 'package:gpa_calculator/core/logic/gpa_calculations_cubit.dart';
 import 'package:gpa_calculator/core/routing/app_routes.dart';
 import 'package:gpa_calculator/feature/application_app_bar/logic/application_app_bar_cubit.dart';
 import 'package:gpa_calculator/feature/application_app_bar/ui/application_app_bar.dart';
@@ -15,11 +16,11 @@ class AppRouter {
       case AppRoutes.applicationAppBar:
         return MaterialPageRoute(
           builder:
-              (_) => BlocProvider(
+              (context) => BlocProvider(
                 create:
                     (_) => ApplicationAppBarCubit(
-                      AppConstants.box,
-                      AppConstants.student,
+                      box: AppConstants.box,
+                      gpaCubit: context.read<GpaCalculationsCubit>(),
                     ),
                 child: ApplicationAppBar(),
               ),
@@ -29,12 +30,12 @@ class AppRouter {
       case AppRoutes.semesterScreen:
         return MaterialPageRoute(
           builder:
-              (_) => BlocProvider(
+              (context) => BlocProvider(
                 create:
                     (context) => SemesterScreenCubit(
-                      AppConstants.box,
-                      AppConstants.grades,
-                      AppConstants.student,
+                      box: AppConstants.box,
+                      grades: AppConstants.grades,
+                      gpaCubit: context.read<GpaCalculationsCubit>(),
                     ),
                 child: SemesterScreen(),
               ),

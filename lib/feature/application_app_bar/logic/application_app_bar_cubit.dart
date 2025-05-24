@@ -1,18 +1,19 @@
+import 'package:gpa_calculator/core/logic/gpa_calculations_cubit.dart';
 import 'package:gpa_calculator/feature/application_app_bar/logic/application_app_bar_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gpa_calculator/feature/semester/data/models/semester_model.dart';
-import 'package:gpa_calculator/feature/tabs/main_tab/data/models/student_model.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class ApplicationAppBarCubit extends Cubit<ApplicationAppBarState> {
   final Box box;
-  final StudentModel student;
-  ApplicationAppBarCubit(this.box, this.student)
+  final GpaCalculationsCubit gpaCubit;
+  ApplicationAppBarCubit({required this.box, required this.gpaCubit})
     : super(
         ApplicationAppBarState(
           selectionMode: false,
           selectedItem: 0,
-          semesters: List<SemesterModel>.from(student.semesters),
+          semesters: List<SemesterModel>.from(gpaCubit.student.semesters),
+          student: gpaCubit.student,
         ),
       );
 
@@ -36,17 +37,20 @@ class ApplicationAppBarCubit extends Cubit<ApplicationAppBarState> {
   }
 
   void deleteSelected() {
-    final updatedSemesters = List<SemesterModel>.from(state.semesters);
-    updatedSemesters.removeWhere((semester) => semester.selected);
-    student.semesters
-      ..clear()
-      ..addAll(updatedSemesters);
-    box.put('default', student);
+    final updatedSemesters = List<SemesterModel>.from(state.semesters)
+      ..removeWhere((semester) => semester.selected);
+
+    gpaCubit.student.semesters = updatedSemesters;
+    gpaCubit.calculateGpaAndCgpa();
+
+    box.put('default', gpaCubit.student);
+
     emit(
       state.copyWith(
         selectedItem: 0,
         selectionMode: false,
         semesters: updatedSemesters,
+        student: gpaCubit.student,
       ),
     );
   }
@@ -68,12 +72,17 @@ class ApplicationAppBarCubit extends Cubit<ApplicationAppBarState> {
       selected: false,
     );
 
-    student.semesters.add(newSemester);
+    final updatedSemesters = List<SemesterModel>.from(
+      gpaCubit.student.semesters,
+    )..add(newSemester);
 
-    box.put('default', student);
+    gpaCubit.student.semesters = updatedSemesters;
+    gpaCubit.calculateGpaAndCgpa();
+
+    box.put('default', gpaCubit.student);
 
     emit(
-      state.copyWith(semesters: List<SemesterModel>.from(student.semesters)),
+      state.copyWith(semesters: updatedSemesters, student: gpaCubit.student),
     );
   }
 }

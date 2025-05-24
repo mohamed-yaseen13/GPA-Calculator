@@ -5,7 +5,7 @@ class SemesterModel {
 
   final double gpa;
 
-  final List<CourseModel> courses;
+  List<CourseModel> courses;
 
   bool selected;
 

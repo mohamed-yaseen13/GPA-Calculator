@@ -30,11 +30,11 @@ class MainStudentData extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                '${context.read<ApplicationAppBarCubit>().student.cgpa}',
+                '${context.read<ApplicationAppBarCubit>().gpaCubit.student.cgpa}',
                 style: TextStyle(fontSize: 18.sp),
               ),
               Text(
-                '${context.read<ApplicationAppBarCubit>().student.totalCredits}',
+                '${context.read<ApplicationAppBarCubit>().gpaCubit.student.totalCredits}',
                 style: TextStyle(fontSize: 18.sp, color: AppColors.mainOrange),
               ),
             ],

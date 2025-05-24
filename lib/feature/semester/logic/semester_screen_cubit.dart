@@ -1,27 +1,33 @@
 import 'package:gpa_calculator/core/helpers/functions.dart';
+import 'package:gpa_calculator/core/logic/gpa_calculations_cubit.dart';
 import 'package:gpa_calculator/feature/course/data/models/course_model.dart';
 import 'package:gpa_calculator/feature/semester/data/models/semester_model.dart';
 import 'package:gpa_calculator/feature/semester/logic/semester_screen_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gpa_calculator/feature/tabs/main_tab/data/models/student_model.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class SemesterScreenCubit extends Cubit<SemesterScreenState> {
   final Box box;
-  final StudentModel student;
   final List<String> grades;
-  SemesterScreenCubit(this.box, this.grades, this.student)
-    : super(
-        SemesterScreenState(
-          selectedIndex: 0,
-          selectionMode: false,
-          selectedItem: 0,
-          semesters: List<SemesterModel>.from(student.semesters),
-          courses: List<CourseModel>.from(student.semesters[0].courses),
-          selectedTerm: null,
-          dropdownWidth: null,
-        ),
-      );
+  final GpaCalculationsCubit gpaCubit;
+
+  SemesterScreenCubit({
+    required this.box,
+    required this.grades,
+    required this.gpaCubit,
+  }) : super(
+         SemesterScreenState(
+           selectedIndex: 0,
+           selectionMode: false,
+           selectedItem: 0,
+           semesters: List<SemesterModel>.from(gpaCubit.student.semesters),
+           courses: List<CourseModel>.from(
+             gpaCubit.student.semesters[0].courses,
+           ),
+           selectedTerm: null,
+           dropdownWidth: null,
+         ),
+       );
 
   void select() => emit(state.copyWith(selectionMode: true));
 
@@ -41,12 +47,14 @@ class SemesterScreenCubit extends Cubit<SemesterScreenState> {
   }
 
   void deleteSelected() {
-    final updatedCourses = List<CourseModel>.from(state.courses);
-    updatedCourses.removeWhere((course) => course.selected);
-    student.semesters[state.selectedIndex].courses
-      ..clear()
-      ..addAll(updatedCourses);
-    box.put('default', student);
+    final updatedCourses = List<CourseModel>.from(state.courses)
+      ..removeWhere((course) => course.selected);
+
+    gpaCubit.student.semesters[state.selectedIndex].courses = updatedCourses;
+
+    box.put('default', gpaCubit.student);
+    gpaCubit.calculateGpaAndCgpa();
+
     emit(
       state.copyWith(
         selectedItem: 0,
@@ -92,11 +100,11 @@ class SemesterScreenCubit extends Cubit<SemesterScreenState> {
       credits: oldCourse.credits,
     );
 
-    student.semesters[state.selectedIndex].courses
-      ..clear()
-      ..addAll(updatedCourses);
+    gpaCubit.student.semesters[state.selectedIndex].courses = updatedCourses;
 
-    box.put('default', student);
+    box.put('default', gpaCubit.student);
+    gpaCubit.calculateGpaAndCgpa();
+
     emit(state.copyWith(courses: updatedCourses));
   }
 
@@ -125,14 +133,15 @@ class SemesterScreenCubit extends Cubit<SemesterScreenState> {
       grade: '--',
     );
 
-    student.semesters[state.selectedIndex].courses.add(newCourse);
+    gpaCubit.student.semesters[state.selectedIndex].courses.add(newCourse);
 
-    box.put('default', student);
+    box.put('default', gpaCubit.student);
+    gpaCubit.calculateGpaAndCgpa();
 
     emit(
       state.copyWith(
         courses: List<CourseModel>.from(
-          student.semesters[state.selectedIndex].courses,
+          gpaCubit.student.semesters[state.selectedIndex].courses,
         ),
       ),
     );

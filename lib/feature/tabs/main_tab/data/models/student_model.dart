@@ -5,7 +5,7 @@ class StudentModel {
 
   final int totalCredits;
 
-  final List<SemesterModel> semesters;
+  List<SemesterModel> semesters;
 
   StudentModel({
     required this.cgpa,

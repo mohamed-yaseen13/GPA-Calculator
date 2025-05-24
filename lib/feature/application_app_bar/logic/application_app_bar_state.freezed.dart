@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ApplicationAppBarState {
 
- bool get selectionMode; int get selectedItem; List<SemesterModel> get semesters;
+ bool get selectionMode; int get selectedItem; List<SemesterModel> get semesters; StudentModel get student;
 /// Create a copy of ApplicationAppBarState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -26,16 +26,16 @@ $ApplicationAppBarStateCopyWith<ApplicationAppBarState> get copyWith => _$Applic
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ApplicationAppBarState&&(identical(other.selectionMode, selectionMode) || other.selectionMode == selectionMode)&&(identical(other.selectedItem, selectedItem) || other.selectedItem == selectedItem)&&const DeepCollectionEquality().equals(other.semesters, semesters));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ApplicationAppBarState&&(identical(other.selectionMode, selectionMode) || other.selectionMode == selectionMode)&&(identical(other.selectedItem, selectedItem) || other.selectedItem == selectedItem)&&const DeepCollectionEquality().equals(other.semesters, semesters)&&(identical(other.student, student) || other.student == student));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,selectionMode,selectedItem,const DeepCollectionEquality().hash(semesters));
+int get hashCode => Object.hash(runtimeType,selectionMode,selectedItem,const DeepCollectionEquality().hash(semesters),student);
 
 @override
 String toString() {
-  return 'ApplicationAppBarState(selectionMode: $selectionMode, selectedItem: $selectedItem, semesters: $semesters)';
+  return 'ApplicationAppBarState(selectionMode: $selectionMode, selectedItem: $selectedItem, semesters: $semesters, student: $student)';
 }
 
 
@@ -46,7 +46,7 @@ abstract mixin class $ApplicationAppBarStateCopyWith<$Res>  {
   factory $ApplicationAppBarStateCopyWith(ApplicationAppBarState value, $Res Function(ApplicationAppBarState) _then) = _$ApplicationAppBarStateCopyWithImpl;
 @useResult
 $Res call({
- bool selectionMode, int selectedItem, List<SemesterModel> semesters
+ bool selectionMode, int selectedItem, List<SemesterModel> semesters, StudentModel student
 });
 
 
@@ -63,12 +63,13 @@ class _$ApplicationAppBarStateCopyWithImpl<$Res>
 
 /// Create a copy of ApplicationAppBarState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? selectionMode = null,Object? selectedItem = null,Object? semesters = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? selectionMode = null,Object? selectedItem = null,Object? semesters = null,Object? student = null,}) {
   return _then(_self.copyWith(
 selectionMode: null == selectionMode ? _self.selectionMode : selectionMode // ignore: cast_nullable_to_non_nullable
 as bool,selectedItem: null == selectedItem ? _self.selectedItem : selectedItem // ignore: cast_nullable_to_non_nullable
 as int,semesters: null == semesters ? _self.semesters : semesters // ignore: cast_nullable_to_non_nullable
-as List<SemesterModel>,
+as List<SemesterModel>,student: null == student ? _self.student : student // ignore: cast_nullable_to_non_nullable
+as StudentModel,
   ));
 }
 
@@ -79,7 +80,7 @@ as List<SemesterModel>,
 
 
 class _ApplicationAppBarState implements ApplicationAppBarState {
-  const _ApplicationAppBarState({required this.selectionMode, required this.selectedItem, required final  List<SemesterModel> semesters}): _semesters = semesters;
+  const _ApplicationAppBarState({required this.selectionMode, required this.selectedItem, required final  List<SemesterModel> semesters, required this.student}): _semesters = semesters;
   
 
 @override final  bool selectionMode;
@@ -91,6 +92,7 @@ class _ApplicationAppBarState implements ApplicationAppBarState {
   return EqualUnmodifiableListView(_semesters);
 }
 
+@override final  StudentModel student;
 
 /// Create a copy of ApplicationAppBarState
 /// with the given fields replaced by the non-null parameter values.
@@ -102,16 +104,16 @@ _$ApplicationAppBarStateCopyWith<_ApplicationAppBarState> get copyWith => __$App
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ApplicationAppBarState&&(identical(other.selectionMode, selectionMode) || other.selectionMode == selectionMode)&&(identical(other.selectedItem, selectedItem) || other.selectedItem == selectedItem)&&const DeepCollectionEquality().equals(other._semesters, _semesters));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ApplicationAppBarState&&(identical(other.selectionMode, selectionMode) || other.selectionMode == selectionMode)&&(identical(other.selectedItem, selectedItem) || other.selectedItem == selectedItem)&&const DeepCollectionEquality().equals(other._semesters, _semesters)&&(identical(other.student, student) || other.student == student));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,selectionMode,selectedItem,const DeepCollectionEquality().hash(_semesters));
+int get hashCode => Object.hash(runtimeType,selectionMode,selectedItem,const DeepCollectionEquality().hash(_semesters),student);
 
 @override
 String toString() {
-  return 'ApplicationAppBarState(selectionMode: $selectionMode, selectedItem: $selectedItem, semesters: $semesters)';
+  return 'ApplicationAppBarState(selectionMode: $selectionMode, selectedItem: $selectedItem, semesters: $semesters, student: $student)';
 }
 
 
@@ -122,7 +124,7 @@ abstract mixin class _$ApplicationAppBarStateCopyWith<$Res> implements $Applicat
   factory _$ApplicationAppBarStateCopyWith(_ApplicationAppBarState value, $Res Function(_ApplicationAppBarState) _then) = __$ApplicationAppBarStateCopyWithImpl;
 @override @useResult
 $Res call({
- bool selectionMode, int selectedItem, List<SemesterModel> semesters
+ bool selectionMode, int selectedItem, List<SemesterModel> semesters, StudentModel student
 });
 
 
@@ -139,12 +141,13 @@ class __$ApplicationAppBarStateCopyWithImpl<$Res>
 
 /// Create a copy of ApplicationAppBarState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? selectionMode = null,Object? selectedItem = null,Object? semesters = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? selectionMode = null,Object? selectedItem = null,Object? semesters = null,Object? student = null,}) {
   return _then(_ApplicationAppBarState(
 selectionMode: null == selectionMode ? _self.selectionMode : selectionMode // ignore: cast_nullable_to_non_nullable
 as bool,selectedItem: null == selectedItem ? _self.selectedItem : selectedItem // ignore: cast_nullable_to_non_nullable
 as int,semesters: null == semesters ? _self._semesters : semesters // ignore: cast_nullable_to_non_nullable
-as List<SemesterModel>,
+as List<SemesterModel>,student: null == student ? _self.student : student // ignore: cast_nullable_to_non_nullable
+as StudentModel,
   ));
 }
 

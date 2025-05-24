@@ -43,4 +43,6 @@ class Scales {
     ['D', '50-54', '4.0'],
     ['F', 'Below 50', '5.0'],
   ];
+
+  static List<List<List<String>>> values = [scales1, scales2, scales3];
 }
