@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gpa_calculator/core/helpers/spacing.dart';
+import 'package:gpa_calculator/core/logic/gpa_calculations_cubit.dart';
 import 'package:gpa_calculator/core/theming/app_colors.dart';
 import 'package:gpa_calculator/feature/semester/logic/semester_screen_cubit.dart';
 
@@ -95,6 +96,9 @@ class SemesterScreenBodyCourseRow extends StatelessWidget {
                             value,
                             index,
                           );
+                          context
+                              .read<GpaCalculationsCubit>()
+                              .calculateGpaAndCgpa();
                         },
                       ),
                     ),

@@ -3,8 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gpa_calculator/core/helpers/spacing.dart';
+import 'package:gpa_calculator/core/logic/gpa_calculations_cubit.dart';
+import 'package:gpa_calculator/core/logic/gpa_calculations_state.dart';
 import 'package:gpa_calculator/core/theming/app_colors.dart';
-import 'package:gpa_calculator/feature/application_app_bar/logic/application_app_bar_cubit.dart';
 
 class MainStudentData extends StatelessWidget {
   const MainStudentData({super.key});
@@ -26,18 +27,25 @@ class MainStudentData extends StatelessWidget {
             ],
           ),
           horizontalSpace(12),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                '${context.read<ApplicationAppBarCubit>().student.cgpa}',
-                style: TextStyle(fontSize: 18.sp),
-              ),
-              Text(
-                '${context.read<ApplicationAppBarCubit>().student.totalCredits}',
-                style: TextStyle(fontSize: 18.sp, color: AppColors.mainOrange),
-              ),
-            ],
+          BlocBuilder<GpaCalculationsCubit, GpaCalculationsState>(
+            builder: (context, state) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    state.cgpa.toStringAsFixed(2),
+                    style: TextStyle(fontSize: 18.sp),
+                  ),
+                  Text(
+                    '${state.totalCredits}',
+                    style: TextStyle(
+                      fontSize: 18.sp,
+                      color: AppColors.mainOrange,
+                    ),
+                  ),
+                ],
+              );
+            },
           ),
         ],
       ),

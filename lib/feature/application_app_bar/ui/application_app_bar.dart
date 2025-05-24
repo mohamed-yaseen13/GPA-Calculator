@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gpa_calculator/core/logic/gpa_calculations_cubit.dart';
 import 'package:gpa_calculator/core/widgets/app_bar_actions.dart';
 import 'package:gpa_calculator/core/widgets/selection_ui.dart';
 import 'package:gpa_calculator/feature/application_app_bar/logic/application_app_bar_cubit.dart';
@@ -67,8 +68,12 @@ class _MainDashboardState extends State<ApplicationAppBar>
                               context
                                   .read<ApplicationAppBarCubit>()
                                   .selectAll(),
-                      onDelete:
-                          context.read<ApplicationAppBarCubit>().deleteSelected,
+                      onDelete: () {
+                        context.read<ApplicationAppBarCubit>().deleteSelected;
+                        context
+                            .read<GpaCalculationsCubit>()
+                            .calculateGpaAndCgpa();
+                      },
                       selectedItem: state.selectedItem,
                       content: 'Semesters',
                     )

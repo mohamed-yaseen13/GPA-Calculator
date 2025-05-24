@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gpa_calculator/core/helpers/extensions.dart';
 import 'package:gpa_calculator/core/helpers/spacing.dart';
+import 'package:gpa_calculator/core/logic/gpa_calculations_cubit.dart';
+import 'package:gpa_calculator/core/logic/gpa_calculations_state.dart';
 import 'package:gpa_calculator/core/routing/app_routes.dart';
 import 'package:gpa_calculator/core/theming/app_colors.dart';
 import 'package:gpa_calculator/feature/application_app_bar/logic/application_app_bar_cubit.dart';
@@ -101,17 +103,23 @@ class _MainStudentSemestersState extends State<MainStudentSemesters> {
                           ),
                         ),
                         horizontalSpace(38),
-                        Text(
-                          semester.courses.isNotEmpty
-                              ? '${semester.gpa}'
-                              : 'NEW',
-                          style: TextStyle(
-                            fontSize: 16.sp,
-                            color:
-                                semester.courses.isNotEmpty
-                                    ? Colors.black
-                                    : Colors.grey,
-                          ),
+                        BlocBuilder<GpaCalculationsCubit, GpaCalculationsState>(
+                          builder: (context, state) {
+                            return Text(
+                              semester.courses.isNotEmpty
+                                  ? state.semesters[index].gpa.toStringAsFixed(
+                                    2,
+                                  )
+                                  : 'NEW',
+                              style: TextStyle(
+                                fontSize: 16.sp,
+                                color:
+                                    semester.courses.isNotEmpty
+                                        ? Colors.black
+                                        : Colors.grey,
+                              ),
+                            );
+                          },
                         ),
                         horizontalSpace(38),
                         OutlinedButton(

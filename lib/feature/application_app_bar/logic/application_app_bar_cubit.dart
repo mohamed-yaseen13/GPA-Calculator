@@ -13,6 +13,7 @@ class ApplicationAppBarCubit extends Cubit<ApplicationAppBarState> {
           selectionMode: false,
           selectedItem: 0,
           semesters: List<SemesterModel>.from(student.semesters),
+          student: student,
         ),
       );
 
@@ -47,6 +48,7 @@ class ApplicationAppBarCubit extends Cubit<ApplicationAppBarState> {
         selectedItem: 0,
         selectionMode: false,
         semesters: updatedSemesters,
+        student: student,
       ),
     );
   }
@@ -73,7 +75,10 @@ class ApplicationAppBarCubit extends Cubit<ApplicationAppBarState> {
     box.put('default', student);
 
     emit(
-      state.copyWith(semesters: List<SemesterModel>.from(student.semesters)),
+      state.copyWith(
+        semesters: List<SemesterModel>.from(student.semesters),
+        student: student,
+      ),
     );
   }
 }
