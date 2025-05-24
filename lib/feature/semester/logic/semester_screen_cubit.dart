@@ -10,18 +10,21 @@ class SemesterScreenCubit extends Cubit<SemesterScreenState> {
   final Box box;
   final StudentModel student;
   final List<String> grades;
-  SemesterScreenCubit(this.box, this.grades, this.student)
-    : super(
-        SemesterScreenState(
-          selectedIndex: 0,
-          selectionMode: false,
-          selectedItem: 0,
-          semesters: List<SemesterModel>.from(student.semesters),
-          courses: List<CourseModel>.from(student.semesters[0].courses),
-          selectedTerm: null,
-          dropdownWidth: null,
-        ),
-      );
+  SemesterScreenCubit({
+    required this.box,
+    required this.grades,
+    required this.student,
+  }) : super(
+         SemesterScreenState(
+           selectedIndex: 0,
+           selectionMode: false,
+           selectedItem: 0,
+           semesters: List<SemesterModel>.from(student.semesters),
+           courses: List<CourseModel>.from(student.semesters[0].courses),
+           selectedTerm: null,
+           dropdownWidth: null,
+         ),
+       );
 
   void select() => emit(state.copyWith(selectionMode: true));
 

@@ -7,7 +7,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 class ApplicationAppBarCubit extends Cubit<ApplicationAppBarState> {
   final Box box;
   final StudentModel student;
-  ApplicationAppBarCubit(this.box, this.student)
+  ApplicationAppBarCubit({required this.box, required this.student})
     : super(
         ApplicationAppBarState(
           selectionMode: false,

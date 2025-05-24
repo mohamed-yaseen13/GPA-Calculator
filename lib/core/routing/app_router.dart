@@ -18,8 +18,8 @@ class AppRouter {
               (_) => BlocProvider(
                 create:
                     (_) => ApplicationAppBarCubit(
-                      AppConstants.box,
-                      AppConstants.student,
+                      box: AppConstants.box,
+                      student: AppConstants.student,
                     ),
                 child: ApplicationAppBar(),
               ),
@@ -32,9 +32,9 @@ class AppRouter {
               (_) => BlocProvider(
                 create:
                     (context) => SemesterScreenCubit(
-                      AppConstants.box,
-                      AppConstants.grades,
-                      AppConstants.student,
+                      box: AppConstants.box,
+                      grades: AppConstants.grades,
+                      student: AppConstants.student,
                     ),
                 child: SemesterScreen(),
               ),
