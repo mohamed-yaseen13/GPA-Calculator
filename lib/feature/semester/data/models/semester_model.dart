@@ -1,23 +1,34 @@
 import 'package:gpa_calculator/feature/course/data/models/course_model.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-class SemesterModel {
+part 'semester_model.g.dart';
+
+@HiveType(typeId: 1)
+class SemesterModel extends HiveObject {
+  @HiveField(0)
   String name;
 
-  final double gpa;
+  @HiveField(1)
+  double gpa;
 
-  final List<CourseModel> courses;
+  @HiveField(2)
+  List<CourseModel> courses;
 
+  @HiveField(3)
   bool selected;
+
+  @HiveField(4)
+  double cgpaOriginal;
+
+  @HiveField(5)
+  double cgpaChanged;
 
   SemesterModel({
     required this.courses,
-    required this.gpa,
     required this.name,
-    required this.selected,
+    this.gpa = 0,
+    this.selected = false,
+    this.cgpaOriginal = 0,
+    this.cgpaChanged = 0,
   });
-
-  @override
-  String toString() {
-    return 'SemesterModel(name: $name, gpa: $gpa, selected: $selected, courses: $courses)';
-  }
 }

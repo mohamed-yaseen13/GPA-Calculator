@@ -1,20 +1,18 @@
 import 'package:gpa_calculator/feature/semester/data/models/semester_model.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-class StudentModel {
-  final double cgpa;
+part 'student_model.g.dart';
 
-  final int totalCredits;
+@HiveType(typeId: 2)
+class StudentModel extends HiveObject {
+  @HiveField(0)
+  double cgpa;
 
-  final List<SemesterModel> semesters;
+  @HiveField(1)
+  int totalCredits;
 
-  StudentModel({
-    required this.cgpa,
-    required this.semesters,
-    required this.totalCredits,
-  });
+  @HiveField(2)
+  List<SemesterModel> semesters;
 
-  @override
-  String toString() {
-    return 'StudentModel(cgpa: $cgpa, totalCredits: $totalCredits, semesters: $semesters)';
-  }
+  StudentModel({this.cgpa = 0, required this.semesters, this.totalCredits = 0});
 }

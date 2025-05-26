@@ -130,6 +130,8 @@ class SemesterScreenCubit extends Cubit<SemesterScreenState> {
 
     student.semesters[state.selectedIndex].courses.add(newCourse);
 
+    checkAndMarkRepeatedCourse(newCourse);
+
     box.put('default', student);
 
     emit(
@@ -139,5 +141,28 @@ class SemesterScreenCubit extends Cubit<SemesterScreenState> {
         ),
       ),
     );
+  }
+
+  void checkAndMarkRepeatedCourse(CourseModel newCourse) {
+    final currentIndex = state.selectedIndex;
+    final currentSemesters = student.semesters;
+
+    if (currentIndex == 0) return;
+
+    for (int i = 0; i < currentIndex; i++) {
+      for (var oldCourse in currentSemesters[i].courses) {
+        if (oldCourse.name.trim().toLowerCase() ==
+            newCourse.name.trim().toLowerCase()) {
+          oldCourse.isChanged = true;
+          oldCourse.newGrade = newCourse.grade;
+
+          newCourse.isRepeated = true;
+
+          box.put('default', student);
+
+          return;
+        }
+      }
+    }
   }
 }

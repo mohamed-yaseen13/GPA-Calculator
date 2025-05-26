@@ -7,12 +7,10 @@ import 'package:gpa_calculator/core/logic/gpa_calculations_cubit.dart';
 import 'package:gpa_calculator/core/routing/app_router.dart';
 import 'package:gpa_calculator/core/routing/app_routes.dart';
 import 'package:gpa_calculator/core/theming/app_colors.dart';
+import 'package:gpa_calculator/feature/course/data/models/course_model.dart';
 import 'package:gpa_calculator/feature/scales/data/model/scales.dart';
 import 'package:gpa_calculator/feature/tabs/main_tab/data/models/student_model.dart';
-import 'package:gpa_calculator/feature/tabs/main_tab/data/models/student_model_type_adapter.dart';
-import 'package:gpa_calculator/feature/course/data/models/course_model_type_adapter.dart';
 import 'package:gpa_calculator/feature/semester/data/models/semester_model.dart';
-import 'package:gpa_calculator/feature/semester/data/models/semester_model_type_adapter.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 void main() async {
@@ -60,9 +58,9 @@ class GpaApp extends StatelessWidget {
 
 Future<void> initHive() async {
   await Hive.initFlutter();
-  Hive.registerAdapter(StudentModelTypeAdapter());
-  Hive.registerAdapter(SemesterModelTypeAdapter());
-  Hive.registerAdapter(CourseModelTypeAdapter());
+  Hive.registerAdapter(CourseModelAdapter());
+  Hive.registerAdapter(SemesterModelAdapter());
+  Hive.registerAdapter(StudentModelAdapter());
   Box box = await Hive.openBox('studentData');
   box.put(
     'default',

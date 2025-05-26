@@ -22,23 +22,44 @@ class GpaCalculationsCubit extends Cubit<GpaCalculationsState> {
        );
 
   void calculateGpaAndCgpa() {
-    double totalPoints = 0.0;
     double totalCredits = 0.0;
+    double cgpaPointsOriginal = 0.0;
+    double cgpaPointsChanged = 0.0;
+    double cgpaCredits = 0.0;
     List<SemesterModel> updatedSemesters = [];
 
     for (var semester in student.semesters) {
-      double semesterPoints = 0.0;
-      double semesterCredits = 0.0;
+      double gpaPoints = 0.0;
+      double gpaCredits = 0.0;
 
       for (var course in semester.courses) {
-        final gradePoint = _getGradePoint(course.grade);
-        semesterPoints += gradePoint * course.credits;
-        semesterCredits += course.credits;
+        if (course.isRepeated) {
+          cgpaPointsOriginal = cgpaPointsChanged;
+          break;
+        }
       }
 
-      double gpa = semesterCredits > 0 ? semesterPoints / semesterCredits : 0.0;
-      totalPoints += semesterPoints;
-      totalCredits += semesterCredits;
+      for (var course in semester.courses) {
+        gpaPoints += getGradePoint(course.grade) * course.credits;
+        gpaCredits += course.credits;
+        totalCredits += getGradePoint(course.grade) == 0 ? 0.0 : course.credits;
+
+        cgpaPointsOriginal +=
+            course.isRepeated
+                ? 0.0
+                : getGradePoint(course.grade) * course.credits;
+
+        cgpaCredits += course.isRepeated ? 0.0 : course.credits;
+
+        cgpaPointsChanged +=
+            course.isRepeated
+                ? 0.0
+                : course.isChanged
+                ? getGradePoint(course.newGrade) * course.credits
+                : getGradePoint(course.grade) * course.credits;
+      }
+
+      double gpa = gpaPoints / gpaCredits;
 
       updatedSemesters.add(
         SemesterModel(
@@ -46,14 +67,14 @@ class GpaCalculationsCubit extends Cubit<GpaCalculationsState> {
           courses: semester.courses,
           gpa: gpa,
           selected: semester.selected,
+          cgpaOriginal: cgpaPointsOriginal / cgpaCredits,
+          cgpaChanged: cgpaPointsChanged / cgpaCredits,
         ),
       );
     }
 
-    double cgpa = totalCredits > 0 ? totalPoints / totalCredits : 0.0;
-
     final updatedStudent = StudentModel(
-      cgpa: cgpa,
+      cgpa: student.semesters.last.cgpaChanged,
       totalCredits: totalCredits.toInt(),
       semesters: updatedSemesters,
     );
@@ -62,14 +83,14 @@ class GpaCalculationsCubit extends Cubit<GpaCalculationsState> {
 
     emit(
       state.copyWith(
-        cgpa: cgpa,
+        cgpa: student.semesters.last.cgpaChanged,
         totalCredits: totalCredits.toInt(),
         semesters: updatedSemesters,
       ),
     );
   }
 
-  double _getGradePoint(String grade) {
+  double getGradePoint(String grade) {
     for (var row in scale) {
       if (row[0] == grade) return double.tryParse(row[2]) ?? 0.0;
     }
