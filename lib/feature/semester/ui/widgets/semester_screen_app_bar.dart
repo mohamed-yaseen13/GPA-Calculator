@@ -38,7 +38,7 @@ class SemesterScreenAppBar extends StatelessWidget
                     context.read<SemesterScreenCubit>().cancelSelection,
                 onSelectAll: context.read<SemesterScreenCubit>().selectAll,
                 onDelete: () {
-                  context.read<SemesterScreenCubit>().deleteSelected;
+                  context.read<SemesterScreenCubit>().deleteSelected();
                   context.read<GpaCalculationsCubit>().calculateGpaAndCgpa();
                 },
                 selectedItem:

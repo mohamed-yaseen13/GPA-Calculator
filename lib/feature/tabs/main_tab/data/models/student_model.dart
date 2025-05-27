@@ -3,7 +3,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 part 'student_model.g.dart';
 
-@HiveType(typeId: 2)
+@HiveType(typeId: 5)
 class StudentModel extends HiveObject {
   @HiveField(0)
   double cgpa;

@@ -3,7 +3,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 part 'semester_model.g.dart';
 
-@HiveType(typeId: 1)
+@HiveType(typeId: 4)
 class SemesterModel extends HiveObject {
   @HiveField(0)
   String name;

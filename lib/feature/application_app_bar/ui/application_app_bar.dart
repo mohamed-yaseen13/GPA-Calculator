@@ -69,7 +69,7 @@ class _MainDashboardState extends State<ApplicationAppBar>
                                   .read<ApplicationAppBarCubit>()
                                   .selectAll(),
                       onDelete: () {
-                        context.read<ApplicationAppBarCubit>().deleteSelected;
+                        context.read<ApplicationAppBarCubit>().deleteSelected();
                         context
                             .read<GpaCalculationsCubit>()
                             .calculateGpaAndCgpa();

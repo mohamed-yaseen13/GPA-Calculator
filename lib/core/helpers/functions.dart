@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gpa_calculator/core/constants/app_constants.dart';
 import 'package:gpa_calculator/feature/semester/data/models/semester_model.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 
 void printStudentData() {
-  Box box2 = Hive.box('studentData');
-  print('studentData box contents:');
-  for (var key in box2.keys) {
-    print('key: $key, value: ${box2.get(key)}');
+  for (var semester in AppConstants.student.semesters) {
+    print(semester.name);
+    print('');
+    print('CGPA Original: ${semester.cgpaOriginal}');
+    print('');
+    print('CGPA Changed: ${semester.cgpaChanged}');
+
+    for (var course in semester.courses) {
+      print(
+        '${course.name} - repeated: ${course.isRepeated} - changed: ${course.isChanged}',
+      );
+    }
   }
 }
 

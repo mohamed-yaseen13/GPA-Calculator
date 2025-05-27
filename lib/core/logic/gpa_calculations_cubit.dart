@@ -59,7 +59,12 @@ class GpaCalculationsCubit extends Cubit<GpaCalculationsState> {
                 : getGradePoint(course.grade) * course.credits;
       }
 
-      double gpa = gpaPoints / gpaCredits;
+      double gpa = gpaCredits > 0 ? gpaPoints / gpaCredits : 0.0;
+
+      double cgpaOriginal =
+          cgpaCredits > 0 ? cgpaPointsOriginal / cgpaCredits : 0.0;
+      double cgpaChanged =
+          cgpaCredits > 0 ? cgpaPointsChanged / cgpaCredits : 0.0;
 
       updatedSemesters.add(
         SemesterModel(
@@ -67,14 +72,15 @@ class GpaCalculationsCubit extends Cubit<GpaCalculationsState> {
           courses: semester.courses,
           gpa: gpa,
           selected: semester.selected,
-          cgpaOriginal: cgpaPointsOriginal / cgpaCredits,
-          cgpaChanged: cgpaPointsChanged / cgpaCredits,
+          cgpaOriginal: cgpaOriginal,
+          cgpaChanged: cgpaChanged,
         ),
       );
     }
 
     final updatedStudent = StudentModel(
-      cgpa: student.semesters.last.cgpaChanged,
+      cgpa:
+          updatedSemesters.isNotEmpty ? updatedSemesters.last.cgpaChanged : 0.0,
       totalCredits: totalCredits.toInt(),
       semesters: updatedSemesters,
     );
@@ -83,7 +89,7 @@ class GpaCalculationsCubit extends Cubit<GpaCalculationsState> {
 
     emit(
       state.copyWith(
-        cgpa: student.semesters.last.cgpaChanged,
+        cgpa: updatedStudent.cgpa,
         totalCredits: totalCredits.toInt(),
         semesters: updatedSemesters,
       ),

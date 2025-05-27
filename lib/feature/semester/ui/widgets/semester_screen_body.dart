@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gpa_calculator/core/logic/gpa_calculations_cubit.dart';
 import 'package:gpa_calculator/feature/semester/logic/semester_screen_cubit.dart';
+import 'package:gpa_calculator/feature/semester/ui/widgets/add_course_bottom_sheet.dart';
 import 'package:gpa_calculator/feature/semester/ui/widgets/semester_screen_body_course_row.dart';
 import 'package:gpa_calculator/feature/semester/ui/widgets/semester_screen_body_header_row.dart';
 import 'package:gpa_calculator/feature/semester/ui/widgets/semester_screen_body_logo_and_gpa.dart';
@@ -33,9 +34,31 @@ class SemesterScreenBody extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          context.read<SemesterScreenCubit>().addCourse();
-          context.read<GpaCalculationsCubit>().calculateGpaAndCgpa();
+        onPressed: () async {
+          final result = await showModalBottomSheet(
+            context: context,
+            isScrollControlled: true,
+            builder:
+                (bottomSheetContext) => BlocProvider.value(
+                  value: context.read<SemesterScreenCubit>(),
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      bottom:
+                          MediaQuery.of(bottomSheetContext).viewInsets.bottom,
+                    ),
+                    child: AddCourseBottomSheet(),
+                  ),
+                ),
+          );
+
+          if (result != null) {
+            context.read<SemesterScreenCubit>().addCourse(
+              name: result['name'],
+              credits: result['credits'],
+              grade: result['grade'],
+            );
+            context.read<GpaCalculationsCubit>().calculateGpaAndCgpa();
+          }
         },
         backgroundColor: Colors.yellow,
         foregroundColor: Colors.white,

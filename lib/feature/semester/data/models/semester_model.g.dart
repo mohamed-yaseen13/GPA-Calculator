@@ -8,7 +8,7 @@ part of 'semester_model.dart';
 
 class SemesterModelAdapter extends TypeAdapter<SemesterModel> {
   @override
-  final int typeId = 1;
+  final int typeId = 4;
 
   @override
   SemesterModel read(BinaryReader reader) {

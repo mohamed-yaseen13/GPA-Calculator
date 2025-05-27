@@ -120,18 +120,20 @@ class SemesterScreenCubit extends Cubit<SemesterScreenState> {
     );
   }
 
-  void addCourse() {
+  void addCourse({
+    required String name,
+    required double credits,
+    required String grade,
+  }) {
     CourseModel newCourse = CourseModel(
-      name: '',
+      name: name,
       selected: false,
-      credits: 1,
-      grade: '--',
+      credits: credits,
+      grade: grade,
     );
 
     student.semesters[state.selectedIndex].courses.add(newCourse);
-
     checkAndMarkRepeatedCourse(newCourse);
-
     box.put('default', student);
 
     emit(
