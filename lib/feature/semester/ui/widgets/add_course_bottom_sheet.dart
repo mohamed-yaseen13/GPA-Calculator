@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gpa_calculator/core/theming/app_colors.dart';
-import 'package:gpa_calculator/feature/semester/logic/semester_screen_cubit.dart';
+import 'package:gpa_calculator/feature/semester/ui/widgets/course_credits_text_editing_controller.dart';
+import 'package:gpa_calculator/feature/semester/ui/widgets/course_name_text_editing_controller.dart';
+import 'package:gpa_calculator/feature/semester/ui/widgets/grade_drop_down.dart';
+import 'package:gpa_calculator/feature/semester/ui/widgets/submit_course_button.dart';
 
 class AddCourseBottomSheet extends StatefulWidget {
   const AddCourseBottomSheet({super.key});
@@ -31,58 +31,12 @@ class _AddCourseBottomSheetState extends State<AddCourseBottomSheet> {
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 16),
-            TextFormField(
-              controller: _nameController,
-              inputFormatters: [LengthLimitingTextInputFormatter(20)],
-              decoration: InputDecoration(
-                labelText: 'Course Name',
-                border: OutlineInputBorder(),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: AppColors.mainOrange),
-                ),
-              ),
-              validator: (value) {
-                if (value?.isEmpty ?? true) {
-                  return 'Please enter course name';
-                }
-                return null;
-              },
-            ),
+            CourseNameTextEditingController(controller: _nameController),
             SizedBox(height: 16),
-            TextFormField(
-              controller: _creditController,
-              keyboardType: TextInputType.numberWithOptions(decimal: true),
-              inputFormatters: [
-                FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*')),
-              ],
-              decoration: InputDecoration(
-                labelText: 'Credits',
-                border: OutlineInputBorder(),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: AppColors.mainOrange),
-                ),
-              ),
-              validator: (value) {
-                if (value?.isEmpty ?? true) {
-                  return 'Please enter credits';
-                }
-                return null;
-              },
-            ),
+            CourseCreditsTextEditingController(controller: _creditController),
             SizedBox(height: 16),
-            DropdownButtonFormField<String>(
-              value: _selectedGrade,
-              decoration: InputDecoration(
-                labelText: 'Grade',
-                border: OutlineInputBorder(),
-              ),
-              items:
-                  context.read<SemesterScreenCubit>().grades.map((grade) {
-                    return DropdownMenuItem<String>(
-                      value: grade,
-                      child: Text(grade),
-                    );
-                  }).toList(),
+            GradeDropDown(
+              selectedGrade: _selectedGrade,
               onChanged: (value) {
                 setState(() {
                   _selectedGrade = value!;
@@ -90,21 +44,11 @@ class _AddCourseBottomSheetState extends State<AddCourseBottomSheet> {
               },
             ),
             SizedBox(height: 24),
-            ElevatedButton(
-              onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  Navigator.pop(context, {
-                    'name': _nameController.text,
-                    'credits': double.parse(_creditController.text),
-                    'grade': _selectedGrade,
-                  });
-                }
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.mainOrange,
-                foregroundColor: Colors.white,
-              ),
-              child: Text('Add Course'),
+            SubmitCourseButton(
+              formKey: _formKey,
+              nameController: _nameController,
+              creditController: _creditController,
+              selectedGrade: _selectedGrade,
             ),
           ],
         ),

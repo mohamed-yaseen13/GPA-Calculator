@@ -45,6 +45,10 @@ class SemesterScreenCubit extends Cubit<SemesterScreenState> {
 
   void deleteSelected() {
     final updatedCourses = List<CourseModel>.from(state.courses);
+
+    for (var course in updatedCourses.where((c) => c.selected)) {
+      checkIfCourseIsRepeatedAtDelete(course);
+    }
     updatedCourses.removeWhere((course) => course.selected);
     student.semesters[state.selectedIndex].courses
       ..clear()
@@ -159,6 +163,26 @@ class SemesterScreenCubit extends Cubit<SemesterScreenState> {
           oldCourse.newGrade = newCourse.grade;
 
           newCourse.isRepeated = true;
+
+          box.put('default', student);
+
+          return;
+        }
+      }
+    }
+  }
+
+  void checkIfCourseIsRepeatedAtDelete(CourseModel courseToDelete) {
+    final currentIndex = state.selectedIndex;
+    final currentSemesters = student.semesters;
+
+    if (currentIndex == 0) return;
+
+    for (int i = currentIndex - 1; i >= 0; i--) {
+      for (var oldCourse in currentSemesters[i].courses) {
+        if (oldCourse.name.trim().toLowerCase() ==
+            courseToDelete.name.trim().toLowerCase()) {
+          oldCourse.isChanged = false;
 
           box.put('default', student);
 

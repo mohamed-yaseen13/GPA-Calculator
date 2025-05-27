@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gpa_calculator/core/helpers/spacing.dart';
 import 'package:gpa_calculator/core/theming/app_colors.dart';
+import 'package:gpa_calculator/feature/application_app_bar/logic/application_app_bar_cubit.dart';
 
 class AddSemesterBottomSheet extends StatefulWidget {
   const AddSemesterBottomSheet({super.key});
@@ -29,7 +31,7 @@ class _AddSemesterBottomSheetState extends State<AddSemesterBottomSheet> {
             verticalSpace(16),
             TextFormField(
               controller: _nameController,
-              inputFormatters: [LengthLimitingTextInputFormatter(20)],
+              inputFormatters: [LengthLimitingTextInputFormatter(15)],
               decoration: InputDecoration(
                 labelText: 'Semester Name',
                 border: OutlineInputBorder(),
@@ -40,6 +42,12 @@ class _AddSemesterBottomSheetState extends State<AddSemesterBottomSheet> {
               validator: (value) {
                 if (value?.isEmpty ?? true) {
                   return 'Please enter Semester name';
+                }
+                for (var semester
+                    in context.read<ApplicationAppBarCubit>().state.semesters) {
+                  if (semester.name == value) {
+                    return 'Semester already exists';
+                  }
                 }
                 return null;
               },

@@ -1,5 +1,6 @@
 import 'package:gpa_calculator/feature/application_app_bar/logic/application_app_bar_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gpa_calculator/feature/course/data/models/course_model.dart';
 import 'package:gpa_calculator/feature/semester/data/models/semester_model.dart';
 import 'package:gpa_calculator/feature/tabs/main_tab/data/models/student_model.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -38,6 +39,20 @@ class ApplicationAppBarCubit extends Cubit<ApplicationAppBarState> {
 
   void deleteSelected() {
     final updatedSemesters = List<SemesterModel>.from(state.semesters);
+
+    for (var semester in updatedSemesters.where(
+      (semester) => semester.selected,
+    )) {
+      for (var course in semester.courses) {
+        if (course.isRepeated) {
+          checkIfCourseIsRepeatedAtDelete(
+            course,
+            student.semesters.indexOf(semester),
+          );
+        }
+      }
+    }
+
     updatedSemesters.removeWhere((semester) => semester.selected);
     student.semesters
       ..clear()
@@ -80,5 +95,27 @@ class ApplicationAppBarCubit extends Cubit<ApplicationAppBarState> {
         student: student,
       ),
     );
+  }
+
+  void checkIfCourseIsRepeatedAtDelete(
+    CourseModel courseToDelete,
+    int currentIndex,
+  ) {
+    final currentSemesters = student.semesters;
+
+    if (currentIndex == 0) return;
+
+    for (int i = currentIndex - 1; i >= 0; i--) {
+      for (var oldCourse in currentSemesters[i].courses) {
+        if (oldCourse.name.trim().toLowerCase() ==
+            courseToDelete.name.trim().toLowerCase()) {
+          oldCourse.isChanged = false;
+
+          box.put('default', student);
+
+          return;
+        }
+      }
+    }
   }
 }
