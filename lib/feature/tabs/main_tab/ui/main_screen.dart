@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gpa_calculator/core/helpers/functions.dart';
 import 'package:gpa_calculator/core/helpers/spacing.dart';
 import 'package:gpa_calculator/core/logic/gpa_calculations_cubit.dart';
 import 'package:gpa_calculator/feature/application_app_bar/logic/application_app_bar_cubit.dart';
+import 'package:gpa_calculator/feature/tabs/main_tab/ui/widgets/add_semester_bottom_sheet.dart';
 import 'package:gpa_calculator/feature/tabs/main_tab/ui/widgets/main_student_data.dart';
+import 'package:gpa_calculator/feature/tabs/main_tab/ui/widgets/main_student_header.dart';
 import 'package:gpa_calculator/feature/tabs/main_tab/ui/widgets/main_student_semesters.dart';
 
 class MainScreen extends StatelessWidget {
@@ -19,15 +20,35 @@ class MainScreen extends StatelessWidget {
           children: [
             MainStudentData(),
             verticalSpace(12),
+            MainStudentHeader(),
             MainStudentSemesters(),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          context.read<ApplicationAppBarCubit>().addSemester();
-          context.read<GpaCalculationsCubit>().calculateGpaAndCgpa();
-          printStudentData();
+        onPressed: () async {
+          final result = await showModalBottomSheet(
+            context: context,
+            isScrollControlled: true,
+            builder:
+                (bottomSheetContext) => BlocProvider.value(
+                  value: context.read<ApplicationAppBarCubit>(),
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      bottom:
+                          MediaQuery.of(bottomSheetContext).viewInsets.bottom,
+                    ),
+                    child: AddSemesterBottomSheet(),
+                  ),
+                ),
+          );
+
+          if (result != null) {
+            context.read<ApplicationAppBarCubit>().addSemester(
+              name: result['name'],
+            );
+            context.read<GpaCalculationsCubit>().calculateGpaAndCgpa();
+          }
         },
         backgroundColor: Colors.yellow,
         foregroundColor: Colors.white,

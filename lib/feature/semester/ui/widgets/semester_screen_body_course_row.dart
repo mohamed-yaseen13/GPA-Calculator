@@ -4,13 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gpa_calculator/feature/semester/logic/semester_screen_cubit.dart';
 
 class SemesterScreenBodyCourseRow extends StatelessWidget {
-  List<TextEditingController> nameControllers;
-  List<TextEditingController> creditControllers;
-  SemesterScreenBodyCourseRow({
-    super.key,
-    required this.nameControllers,
-    required this.creditControllers,
-  });
+  const SemesterScreenBodyCourseRow({super.key});
 
   @override
   Widget build(BuildContext context) {

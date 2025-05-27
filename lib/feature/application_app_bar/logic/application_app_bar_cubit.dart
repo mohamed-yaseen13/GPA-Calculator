@@ -62,11 +62,11 @@ class ApplicationAppBarCubit extends Cubit<ApplicationAppBarState> {
     );
   }
 
-  void addSemester() {
+  void addSemester({required String name}) {
     SemesterModel newSemester = SemesterModel(
       courses: [],
       gpa: 0,
-      name: '',
+      name: name,
       selected: false,
     );
 

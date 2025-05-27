@@ -15,41 +15,6 @@ class SemesterScreen extends StatefulWidget {
 class _SemesterScreenState extends State<SemesterScreen> {
   late Map? args;
 
-  List<TextEditingController> _nameControllers = [];
-  List<TextEditingController> _creditControllers = [];
-
-  @override
-  void initState() {
-    super.initState();
-
-    _syncControllersWithCourses();
-  }
-
-  void _syncControllersWithCourses() {
-    final courses = context.read<SemesterScreenCubit>().state.courses;
-
-    for (var c in _nameControllers) {
-      c.dispose();
-    }
-    for (var c in _creditControllers) {
-      c.dispose();
-    }
-
-    if (courses.isNotEmpty) {
-      _nameControllers = List.generate(
-        courses.length,
-        (i) => TextEditingController(text: courses[i].name),
-      );
-      _creditControllers = List.generate(
-        courses.length,
-        (i) => TextEditingController(text: courses[i].credits.toString()),
-      );
-    } else {
-      _nameControllers = [];
-      _creditControllers = [];
-    }
-  }
-
   bool _didSetInitialSemester = false;
 
   @override
@@ -63,7 +28,6 @@ class _SemesterScreenState extends State<SemesterScreen> {
       if (context.mounted) {
         context.read<SemesterScreenCubit>().setSemesterByIndex(index);
       }
-      _syncControllersWithCourses();
       _didSetInitialSemester = true;
     }
   }
@@ -75,18 +39,12 @@ class _SemesterScreenState extends State<SemesterScreen> {
           (previous, current) =>
               previous.selectedIndex != current.selectedIndex ||
               previous.courses.length != current.courses.length,
-      listener: (context, state) {
-        _syncControllersWithCourses();
-      },
+      listener: (context, state) {},
       child: BlocBuilder<SemesterScreenCubit, SemesterScreenState>(
         builder: (context, state) {
           return Scaffold(
             appBar: SemesterScreenAppBar(),
-            body: SemesterScreenBody(
-              key: ValueKey(state.selectedIndex),
-              nameControllers: _nameControllers,
-              creditControllers: _creditControllers,
-            ),
+            body: SemesterScreenBody(key: ValueKey(state.selectedIndex)),
           );
         },
       ),

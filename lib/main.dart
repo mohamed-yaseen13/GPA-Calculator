@@ -21,14 +21,5 @@ Future<void> initHive() async {
   Hive.registerAdapter(SemesterModelAdapter());
   Hive.registerAdapter(StudentModelAdapter());
   Box box = await Hive.openBox('studentData');
-  box.put(
-    'default',
-    StudentModel(
-      cgpa: 0,
-      semesters: [
-        SemesterModel(courses: [], gpa: 0, name: '', selected: false),
-      ],
-      totalCredits: 0,
-    ),
-  );
+  box.put('default', StudentModel(cgpa: 0, semesters: [], totalCredits: 0));
 }

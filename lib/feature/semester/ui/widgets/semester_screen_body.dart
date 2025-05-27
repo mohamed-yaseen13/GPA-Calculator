@@ -8,14 +8,7 @@ import 'package:gpa_calculator/feature/semester/ui/widgets/semester_screen_body_
 import 'package:gpa_calculator/feature/semester/ui/widgets/semester_screen_body_logo_and_gpa.dart';
 
 class SemesterScreenBody extends StatelessWidget {
-  List<TextEditingController> nameControllers;
-  List<TextEditingController> creditControllers;
-
-  SemesterScreenBody({
-    super.key,
-    required this.nameControllers,
-    required this.creditControllers,
-  });
+  const SemesterScreenBody({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +19,7 @@ class SemesterScreenBody extends StatelessWidget {
           children: [
             SemesterScreenBodyLogoAndGpa(),
             SemesterScreenBodyHeaderRow(),
-            SemesterScreenBodyCourseRow(
-              nameControllers: nameControllers,
-              creditControllers: creditControllers,
-            ),
+            SemesterScreenBodyCourseRow(),
           ],
         ),
       ),
