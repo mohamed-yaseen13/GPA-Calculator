@@ -52,7 +52,7 @@ class SemesterScreenBodyLogoAndGpa extends StatelessWidget {
                                 .read<SemesterScreenCubit>()
                                 .state
                                 .selectedIndex]
-                            .gpa
+                            .attemptedCredits
                             .toStringAsFixed(2),
                         style: TextStyle(fontSize: 18.sp),
                       ),
@@ -63,7 +63,7 @@ class SemesterScreenBodyLogoAndGpa extends StatelessWidget {
                                 .read<SemesterScreenCubit>()
                                 .state
                                 .selectedIndex]
-                            .gpa
+                            .earnedCredits
                             .toStringAsFixed(2),
                         style: TextStyle(fontSize: 18.sp, color: Colors.green),
                       ),

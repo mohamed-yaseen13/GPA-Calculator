@@ -23,6 +23,12 @@ class SemesterModel extends HiveObject {
   @HiveField(5)
   double cgpaChanged;
 
+  @HiveField(6)
+  double attemptedCredits;
+
+  @HiveField(7)
+  double earnedCredits;
+
   SemesterModel({
     required this.courses,
     required this.name,
@@ -30,5 +36,7 @@ class SemesterModel extends HiveObject {
     this.selected = false,
     this.cgpaOriginal = 0,
     this.cgpaChanged = 0,
+    this.attemptedCredits = 0,
+    this.earnedCredits = 0,
   });
 }

@@ -31,6 +31,7 @@ class GpaCalculationsCubit extends Cubit<GpaCalculationsState> {
     for (var semester in student.semesters) {
       double gpaPoints = 0.0;
       double gpaCredits = 0.0;
+      double earnedCredits = 0.0;
 
       for (var course in semester.courses) {
         if (course.isRepeated) {
@@ -42,7 +43,8 @@ class GpaCalculationsCubit extends Cubit<GpaCalculationsState> {
       for (var course in semester.courses) {
         gpaPoints += getGradePoint(course.grade) * course.credits;
         gpaCredits += course.credits;
-        totalCredits += getGradePoint(course.grade) == 0 ? 0.0 : course.credits;
+        earnedCredits +=
+            getGradePoint(course.grade) == 0 ? 0.0 : course.credits;
 
         cgpaPointsOriginal +=
             course.isRepeated
@@ -59,6 +61,8 @@ class GpaCalculationsCubit extends Cubit<GpaCalculationsState> {
                 : getGradePoint(course.grade) * course.credits;
       }
 
+      totalCredits += earnedCredits;
+
       double gpa = gpaCredits > 0 ? gpaPoints / gpaCredits : 0.0;
 
       double cgpaOriginal =
@@ -74,6 +78,8 @@ class GpaCalculationsCubit extends Cubit<GpaCalculationsState> {
           selected: semester.selected,
           cgpaOriginal: cgpaOriginal,
           cgpaChanged: cgpaChanged,
+          attemptedCredits: gpaCredits,
+          earnedCredits: earnedCredits,
         ),
       );
     }
