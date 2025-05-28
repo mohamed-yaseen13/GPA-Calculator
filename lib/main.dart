@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gpa_calculator/core/helpers/prefs_helper.dart';
 import 'package:gpa_calculator/feature/course/data/models/course_model.dart';
 import 'package:gpa_calculator/feature/tabs/main_tab/data/models/student_model.dart';
 import 'package:gpa_calculator/feature/semester/data/models/semester_model.dart';
@@ -12,7 +13,8 @@ void main() async {
   await initHive();
   await ScreenUtil.ensureScreenSize();
   await dotenv.load(fileName: ".env");
-  runApp(GpaApp());
+  final selectedScaleIndex = await PrefsHelper.getSelectedScaleIndex();
+  runApp(GpaApp(selectedScaleIndex: selectedScaleIndex));
 }
 
 Future<void> initHive() async {
@@ -21,5 +23,7 @@ Future<void> initHive() async {
   Hive.registerAdapter(SemesterModelAdapter());
   Hive.registerAdapter(StudentModelAdapter());
   Box box = await Hive.openBox('studentData');
-  box.put('default', StudentModel(cgpa: 0, semesters: [], totalCredits: 0));
+  if (!box.containsKey('default')) {
+    box.put('default', StudentModel(cgpa: 0, semesters: [], totalCredits: 0));
+  }
 }

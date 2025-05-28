@@ -9,7 +9,8 @@ import 'package:gpa_calculator/core/theming/app_colors.dart';
 import 'package:gpa_calculator/feature/scales/data/model/scales.dart';
 
 class GpaApp extends StatelessWidget {
-  const GpaApp({super.key});
+  final int selectedScaleIndex;
+  const GpaApp({super.key, required this.selectedScaleIndex});
 
   @override
   Widget build(BuildContext context) {
@@ -18,12 +19,15 @@ class GpaApp extends StatelessWidget {
       minTextAdapt: true,
       builder: (context, child) {
         return BlocProvider(
-          create:
-              (_) => GpaCalculationsCubit(
-                box: AppConstants.box,
-                student: AppConstants.student,
-                scale: Scales.scales1,
-              ),
+          create: (_) {
+            final cubit = GpaCalculationsCubit(
+              box: AppConstants.box,
+              student: AppConstants.student,
+              scale: Scales.values[selectedScaleIndex],
+            );
+            cubit.calculateGpaAndCgpa();
+            return cubit;
+          },
           child: MaterialApp(
             theme: ThemeData(
               scaffoldBackgroundColor: Colors.white,

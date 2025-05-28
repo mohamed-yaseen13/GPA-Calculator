@@ -1,5 +1,5 @@
 class Scales {
-  static List<List<String>> scales1 = [
+  static List<List<String>> scale1 = [
     ['A+', '97-100', '4.0'],
     ['A', '93-96', '4.0'],
     ['A-', '90-92', '3.7'],
@@ -14,7 +14,7 @@ class Scales {
     ['F', 'Below 65', '0.0'],
   ];
 
-  static List<List<String>> scales2 = [
+  static List<List<String>> scale2 = [
     ['A+', '90-100', '4.33'],
     ['A', '85-89', '4.0'],
     ['A-', '80-84', '3.67'],
@@ -29,7 +29,7 @@ class Scales {
     ['F', 'Below 50', '0.00'],
   ];
 
-  static List<List<String>> scales3 = [
+  static List<List<String>> scale3 = [
     ['A+', '94-100', '0.7'],
     ['A', '90-93', '1.0'],
     ['A-', '86-89', '1.3'],
@@ -44,5 +44,5 @@ class Scales {
     ['F', 'Below 50', '5.0'],
   ];
 
-  static List<List<List<String>>> values = [scales1, scales2, scales3];
+  static List<List<List<String>>> values = [scale1, scale2, scale3];
 }

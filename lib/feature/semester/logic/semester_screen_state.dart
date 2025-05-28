@@ -14,5 +14,6 @@ abstract class SemesterScreenState with _$SemesterScreenState {
     required List<SemesterModel> semesters,
     required List<CourseModel> courses,
     required double? dropdownWidth,
+    @Default([]) List<String> grades,
   }) = _SemesterScreenState;
 }

@@ -86,6 +86,7 @@ class ApplicationAppBarCubit extends Cubit<ApplicationAppBarState> {
         name: name,
         selected: oldSemester.selected,
       );
+      box.put('default', student);
     } else {
       SemesterModel newSemester = SemesterModel(
         courses: [],

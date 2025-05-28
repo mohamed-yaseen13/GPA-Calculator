@@ -1,3 +1,4 @@
+import 'package:gpa_calculator/core/constants/app_constants.dart';
 import 'package:gpa_calculator/core/helpers/functions.dart';
 import 'package:gpa_calculator/feature/course/data/models/course_model.dart';
 import 'package:gpa_calculator/feature/semester/data/models/semester_model.dart';
@@ -9,22 +10,26 @@ import 'package:hive_flutter/hive_flutter.dart';
 class SemesterScreenCubit extends Cubit<SemesterScreenState> {
   final Box box;
   final StudentModel student;
-  final List<String> grades;
-  SemesterScreenCubit({
-    required this.box,
-    required this.grades,
-    required this.student,
-  }) : super(
-         SemesterScreenState(
-           selectedIndex: 0,
-           selectionMode: false,
-           selectedItem: 0,
-           semesters: List<SemesterModel>.from(student.semesters),
-           courses: List<CourseModel>.from(student.semesters[0].courses),
-           selectedTerm: null,
-           dropdownWidth: null,
-         ),
-       );
+  SemesterScreenCubit({required this.box, required this.student})
+    : super(
+        SemesterScreenState(
+          selectedIndex: 0,
+          selectionMode: false,
+          selectedItem: 0,
+          semesters: List<SemesterModel>.from(student.semesters),
+          courses: List<CourseModel>.from(student.semesters[0].courses),
+          selectedTerm: null,
+          dropdownWidth: null,
+          grades: const [],
+        ),
+      ) {
+    _loadGrades();
+  }
+
+  Future<void> _loadGrades() async {
+    final grades = await AppConstants.grades;
+    emit(state.copyWith(grades: grades));
+  }
 
   void select() => emit(state.copyWith(selectionMode: true));
 
@@ -170,7 +175,7 @@ class SemesterScreenCubit extends Cubit<SemesterScreenState> {
 
     if (currentIndex == 0) return;
 
-    for (int i = 0; i < currentIndex; i++) {
+    for (int i = currentIndex - 1; i >= 0; i--) {
       for (var oldCourse in currentSemesters[i].courses) {
         if (oldCourse.name.trim().toLowerCase() ==
             newCourse.name.trim().toLowerCase()) {
@@ -180,8 +185,6 @@ class SemesterScreenCubit extends Cubit<SemesterScreenState> {
           newCourse.isRepeated = true;
 
           box.put('default', student);
-
-          return;
         }
       }
     }

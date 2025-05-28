@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gpa_calculator/feature/scales/data/model/scales.dart';
 import 'package:gpa_calculator/feature/scales/logic/scales_cubit.dart';
 import 'package:gpa_calculator/feature/scales/logic/scales_state.dart';
-import 'package:gpa_calculator/feature/scales/ui/widgets/scales_list.dart';
+import 'package:gpa_calculator/feature/scales/ui/widgets/scale_container.dart';
 
 class ScalesScreen extends StatelessWidget {
   const ScalesScreen({super.key});
@@ -18,20 +18,20 @@ class ScalesScreen extends StatelessWidget {
             builder: (context, state) {
               return Column(
                 children: [
-                  ScalesList(
+                  ScaleContainer(
                     index: 0,
                     title: '4.00 Scale',
-                    scales: Scales.scales1,
+                    scales: Scales.scale1,
                   ),
-                  ScalesList(
+                  ScaleContainer(
                     index: 1,
                     title: '4.33 Scale',
-                    scales: Scales.scales2,
+                    scales: Scales.scale2,
                   ),
-                  ScalesList(
+                  ScaleContainer(
                     index: 2,
                     title: '0.70 Scale',
-                    scales: Scales.scales3,
+                    scales: Scales.scale3,
                   ),
                   //ScalesList(title: 'Custom Scale'),
                 ],

@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gpa_calculator/core/helpers/spacing.dart';
+import 'package:gpa_calculator/core/logic/gpa_calculations_cubit.dart';
 import 'package:gpa_calculator/core/theming/app_colors.dart';
+import 'package:gpa_calculator/feature/scales/data/model/scales.dart';
 import 'package:gpa_calculator/feature/scales/logic/scales_cubit.dart';
 import 'package:gpa_calculator/feature/scales/ui/widgets/scales_grade_table.dart';
 
-class ScalesList extends StatelessWidget {
+class ScaleContainer extends StatelessWidget {
   final int index;
   final String title;
   final List<List<String>> scales;
 
-  const ScalesList({
+  const ScaleContainer({
     super.key,
     required this.title,
     required this.scales,
@@ -63,8 +65,12 @@ class ScalesList extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.only(right: 12.w),
                     child: GestureDetector(
-                      onTap:
-                          () => context.read<ScalesCubit>().selectScale(index),
+                      onTap: () {
+                        context.read<ScalesCubit>().selectScale(index);
+                        context.read<GpaCalculationsCubit>().changeScale(
+                          Scales.values[index],
+                        );
+                      },
                       child: Icon(
                         isSelected
                             ? Icons.check_box

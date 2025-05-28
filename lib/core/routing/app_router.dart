@@ -33,7 +33,6 @@ class AppRouter {
                 create:
                     (context) => SemesterScreenCubit(
                       box: AppConstants.box,
-                      grades: AppConstants.grades,
                       student: AppConstants.student,
                     ),
                 child: SemesterScreen(),

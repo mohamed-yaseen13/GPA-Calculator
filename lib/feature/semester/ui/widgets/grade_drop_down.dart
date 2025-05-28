@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gpa_calculator/feature/semester/logic/semester_screen_cubit.dart';
+import 'package:gpa_calculator/feature/semester/logic/semester_screen_state.dart';
 
 class GradeDropDown extends StatelessWidget {
   final String selectedGrade;
@@ -14,22 +15,26 @@ class GradeDropDown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DropdownButtonFormField<String>(
-      value: selectedGrade,
-      decoration: InputDecoration(
-        labelText: 'Grade',
-        border: OutlineInputBorder(),
-      ),
-      items:
-          context
-              .read<SemesterScreenCubit>()
-              .grades
-              .map(
-                (grade) =>
-                    DropdownMenuItem<String>(value: grade, child: Text(grade)),
-              )
-              .toList(),
-      onChanged: onChanged,
+    return BlocBuilder<SemesterScreenCubit, SemesterScreenState>(
+      builder: (context, state) {
+        return DropdownButtonFormField<String>(
+          value: selectedGrade,
+          decoration: InputDecoration(
+            labelText: 'Grade',
+            border: OutlineInputBorder(),
+          ),
+          items:
+              state.grades
+                  .map(
+                    (grade) => DropdownMenuItem<String>(
+                      value: grade,
+                      child: Text(grade),
+                    ),
+                  )
+                  .toList(),
+          onChanged: onChanged,
+        );
+      },
     );
   }
 }

@@ -28,14 +28,16 @@ class SubmitCourseButton extends StatelessWidget {
         return ElevatedButton(
           onPressed: () async {
             bool canProceed = true;
+            outerLoop:
             for (var i = 0; i < state.selectedIndex; i++) {
               for (var course in state.semesters[i].courses) {
-                if (course.name == nameController.text) {
+                if (course.name.trim().toLowerCase() ==
+                    nameController.text.trim().toLowerCase()) {
                   final result = await showSubmitDialog(context: context);
                   if (result != null) {
                     canProceed = false;
                   }
-                  break;
+                  break outerLoop;
                 }
               }
             }
