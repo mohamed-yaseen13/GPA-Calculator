@@ -1,11 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:gpa_calculator/core/helpers/spacing.dart';
 import 'package:gpa_calculator/feature/semester/ui/widgets/course_credits_text_editing_controller.dart';
 import 'package:gpa_calculator/feature/semester/ui/widgets/course_name_text_editing_controller.dart';
 import 'package:gpa_calculator/feature/semester/ui/widgets/grade_drop_down.dart';
 import 'package:gpa_calculator/feature/semester/ui/widgets/submit_course_button.dart';
 
 class AddCourseBottomSheet extends StatefulWidget {
-  const AddCourseBottomSheet({super.key});
+  final String text;
+  final String? initialName;
+  final String? initialGrade;
+  final double? initialCredits;
+  final int index;
+
+  const AddCourseBottomSheet({
+    super.key,
+    this.initialCredits,
+    this.initialGrade,
+    this.initialName,
+    required this.text,
+    this.index = -1,
+  });
 
   @override
   State<AddCourseBottomSheet> createState() => _AddCourseBottomSheetState();
@@ -18,6 +32,16 @@ class _AddCourseBottomSheetState extends State<AddCourseBottomSheet> {
   String _selectedGrade = '--';
 
   @override
+  void initState() {
+    super.initState();
+    if (widget.initialName != null) {
+      _nameController.text = widget.initialName!;
+      _creditController.text = widget.initialCredits!.toString();
+      _selectedGrade = widget.initialGrade!;
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(16),
@@ -27,14 +51,17 @@ class _AddCourseBottomSheetState extends State<AddCourseBottomSheet> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'Add New Course',
+              '${widget.text} Course',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 16),
-            CourseNameTextEditingController(controller: _nameController),
-            SizedBox(height: 16),
+            verticalSpace(16),
+            CourseNameTextEditingController(
+              controller: _nameController,
+              index: widget.index,
+            ),
+            verticalSpace(16),
             CourseCreditsTextEditingController(controller: _creditController),
-            SizedBox(height: 16),
+            verticalSpace(16),
             GradeDropDown(
               selectedGrade: _selectedGrade,
               onChanged: (value) {
@@ -43,8 +70,9 @@ class _AddCourseBottomSheetState extends State<AddCourseBottomSheet> {
                 });
               },
             ),
-            SizedBox(height: 24),
+            verticalSpace(16),
             SubmitCourseButton(
+              text: widget.text,
               formKey: _formKey,
               nameController: _nameController,
               creditController: _creditController,

@@ -3,9 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gpa_calculator/core/logic/gpa_calculations_cubit.dart';
 import 'package:gpa_calculator/feature/semester/logic/semester_screen_cubit.dart';
 import 'package:gpa_calculator/feature/semester/ui/widgets/add_course_bottom_sheet.dart';
-import 'package:gpa_calculator/feature/semester/ui/widgets/semester_screen_body_course_row.dart';
-import 'package:gpa_calculator/feature/semester/ui/widgets/semester_screen_body_header_row.dart';
-import 'package:gpa_calculator/feature/semester/ui/widgets/semester_screen_body_logo_and_gpa.dart';
+import 'package:gpa_calculator/feature/semester/ui/widgets/courses_table.dart';
+import 'package:gpa_calculator/feature/semester/ui/widgets/semester_data.dart';
 
 class SemesterScreenBody extends StatelessWidget {
   const SemesterScreenBody({super.key});
@@ -16,11 +15,7 @@ class SemesterScreenBody extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SemesterScreenBodyLogoAndGpa(),
-            SemesterScreenBodyHeaderRow(),
-            SemesterScreenBodyCourseRow(),
-          ],
+          children: [SemesterData(), CoursesTable()],
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -36,7 +31,7 @@ class SemesterScreenBody extends StatelessWidget {
                       bottom:
                           MediaQuery.of(bottomSheetContext).viewInsets.bottom,
                     ),
-                    child: AddCourseBottomSheet(),
+                    child: AddCourseBottomSheet(text: "Add"),
                   ),
                 ),
           );

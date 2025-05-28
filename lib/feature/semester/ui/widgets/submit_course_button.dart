@@ -9,6 +9,7 @@ class SubmitCourseButton extends StatelessWidget {
   final TextEditingController nameController;
   final TextEditingController creditController;
   final String selectedGrade;
+  final String text;
 
   const SubmitCourseButton({
     super.key,
@@ -16,6 +17,7 @@ class SubmitCourseButton extends StatelessWidget {
     required this.nameController,
     required this.creditController,
     required this.selectedGrade,
+    required this.text,
   });
 
   @override
@@ -56,7 +58,7 @@ class SubmitCourseButton extends StatelessWidget {
             backgroundColor: AppColors.mainOrange,
             foregroundColor: Colors.white,
           ),
-          child: Text('Add Course'),
+          child: Text('$text Course'),
         );
       },
     );

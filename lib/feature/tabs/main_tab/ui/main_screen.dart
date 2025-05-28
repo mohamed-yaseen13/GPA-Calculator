@@ -5,8 +5,7 @@ import 'package:gpa_calculator/core/logic/gpa_calculations_cubit.dart';
 import 'package:gpa_calculator/feature/application_app_bar/logic/application_app_bar_cubit.dart';
 import 'package:gpa_calculator/feature/tabs/main_tab/ui/widgets/add_semester_bottom_sheet.dart';
 import 'package:gpa_calculator/feature/tabs/main_tab/ui/widgets/main_student_data.dart';
-import 'package:gpa_calculator/feature/tabs/main_tab/ui/widgets/main_student_header.dart';
-import 'package:gpa_calculator/feature/tabs/main_tab/ui/widgets/main_student_semesters.dart';
+import 'package:gpa_calculator/feature/tabs/main_tab/ui/widgets/semesters_table.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
@@ -17,12 +16,7 @@ class MainScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            MainStudentData(),
-            verticalSpace(12),
-            MainStudentHeader(),
-            MainStudentSemesters(),
-          ],
+          children: [MainStudentData(), verticalSpace(12), SemestersTable()],
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -38,7 +32,7 @@ class MainScreen extends StatelessWidget {
                       bottom:
                           MediaQuery.of(bottomSheetContext).viewInsets.bottom,
                     ),
-                    child: AddSemesterBottomSheet(),
+                    child: AddSemesterBottomSheet(text: 'Add'),
                   ),
                 ),
           );

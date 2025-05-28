@@ -20,13 +20,10 @@ class SemesterGpa extends StatelessWidget {
                 ? state.semesters[index].gpa.toStringAsFixed(2)
                 : 'NEW';
         final color = semester.courses.isNotEmpty ? Colors.black : Colors.grey;
-        return Expanded(
-          flex: 2,
-          child: Text(
-            text,
-            style: TextStyle(fontSize: 16.sp, color: color),
-            textAlign: TextAlign.center,
-          ),
+        return Text(
+          text,
+          style: TextStyle(fontSize: 16.sp, color: color),
+          textAlign: TextAlign.center,
         );
       },
     );

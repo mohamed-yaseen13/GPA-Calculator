@@ -6,8 +6,8 @@ import 'package:gpa_calculator/core/logic/gpa_calculations_cubit.dart';
 import 'package:gpa_calculator/core/logic/gpa_calculations_state.dart';
 import 'package:gpa_calculator/feature/semester/logic/semester_screen_cubit.dart';
 
-class SemesterScreenBodyLogoAndGpa extends StatelessWidget {
-  const SemesterScreenBodyLogoAndGpa({super.key});
+class SemesterData extends StatelessWidget {
+  const SemesterData({super.key});
 
   @override
   Widget build(BuildContext context) {

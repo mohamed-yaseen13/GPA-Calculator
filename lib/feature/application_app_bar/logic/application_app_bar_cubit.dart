@@ -77,15 +77,25 @@ class ApplicationAppBarCubit extends Cubit<ApplicationAppBarState> {
     );
   }
 
-  void addSemester({required String name}) {
-    SemesterModel newSemester = SemesterModel(
-      courses: [],
-      gpa: 0,
-      name: name,
-      selected: false,
-    );
+  void addSemester({required String name, int index = -1}) {
+    if (index != -1) {
+      final oldSemester = student.semesters[index];
+      student.semesters[index] = SemesterModel(
+        courses: List.from(oldSemester.courses),
+        gpa: oldSemester.gpa,
+        name: name,
+        selected: oldSemester.selected,
+      );
+    } else {
+      SemesterModel newSemester = SemesterModel(
+        courses: [],
+        gpa: 0,
+        name: name,
+        selected: false,
+      );
 
-    student.semesters.add(newSemester);
+      student.semesters.add(newSemester);
+    }
 
     box.put('default', student);
 

@@ -1,18 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gpa_calculator/core/helpers/extensions.dart';
-import 'package:gpa_calculator/core/routing/app_routes.dart';
-import 'package:gpa_calculator/feature/semester/data/models/semester_model.dart';
+import 'package:gpa_calculator/feature/course/data/models/course_model.dart';
 
-class SemesterButton extends StatelessWidget {
+class CourseButton extends StatelessWidget {
   final int index;
-  final SemesterModel semester;
+  final CourseModel course;
 
-  const SemesterButton({
-    super.key,
-    required this.index,
-    required this.semester,
-  });
+  const CourseButton({super.key, required this.course, required this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -24,14 +18,9 @@ class SemesterButton extends StatelessWidget {
           minimumSize: const Size(0, 0),
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         ),
-        onPressed: () {
-          context.pushNamed(
-            AppRoutes.semesterScreen,
-            arguments: {'semesterIndex': index},
-          );
-        },
+        onPressed: () {},
         child: Text(
-          semester.name,
+          course.name,
           style: TextStyle(fontSize: 16.sp),
           overflow: TextOverflow.ellipsis,
           maxLines: 1,

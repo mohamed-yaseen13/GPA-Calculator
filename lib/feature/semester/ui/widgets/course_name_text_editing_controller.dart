@@ -5,8 +5,13 @@ import 'package:gpa_calculator/core/theming/app_colors.dart';
 import 'package:gpa_calculator/feature/semester/logic/semester_screen_cubit.dart';
 
 class CourseNameTextEditingController extends StatelessWidget {
+  final int index;
   final TextEditingController controller;
-  const CourseNameTextEditingController({super.key, required this.controller});
+  const CourseNameTextEditingController({
+    super.key,
+    required this.controller,
+    required this.index,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +30,11 @@ class CourseNameTextEditingController extends StatelessWidget {
           return 'Please enter course name';
         }
         for (var course in context.read<SemesterScreenCubit>().state.courses) {
-          if (course.name == value) {
+          if (course.name == value &&
+              context.read<SemesterScreenCubit>().state.courses.indexOf(
+                    course,
+                  ) !=
+                  index) {
             return 'Course already exists';
           }
         }

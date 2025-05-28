@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gpa_calculator/feature/application_app_bar/logic/application_app_bar_cubit.dart';
-import 'package:gpa_calculator/feature/semester/data/models/semester_model.dart';
+import 'package:gpa_calculator/feature/course/data/models/course_model.dart';
+import 'package:gpa_calculator/feature/semester/logic/semester_screen_cubit.dart';
 
-class MainSelection extends StatelessWidget {
+class SemesterSelection extends StatelessWidget {
   final int index;
-  final SemesterModel semester;
+  final CourseModel course;
 
-  const MainSelection({super.key, required this.index, required this.semester});
+  const SemesterSelection({
+    super.key,
+    required this.course,
+    required this.index,
+  });
 
   @override
   Widget build(BuildContext context) {
     final selectionMode =
-        context.read<ApplicationAppBarCubit>().state.selectionMode;
+        context.read<SemesterScreenCubit>().state.selectionMode;
     return selectionMode
         ? SizedBox(
           height: 24.h,
@@ -22,13 +26,13 @@ class MainSelection extends StatelessWidget {
             padding: EdgeInsets.zero,
             constraints: const BoxConstraints(),
             icon: Icon(
-              semester.selected == true
+              course.selected == true
                   ? Icons.check_box
                   : Icons.check_box_outline_blank,
               color: Colors.black,
             ),
             onPressed: () {
-              context.read<ApplicationAppBarCubit>().toggleSelect(index);
+              context.read<SemesterScreenCubit>().toggleSelect(index);
             },
           ),
         )
