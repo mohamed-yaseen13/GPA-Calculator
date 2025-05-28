@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gpa_calculator/core/helpers/spacing.dart';
 import 'package:gpa_calculator/feature/application_app_bar/logic/application_app_bar_cubit.dart';
 import 'package:gpa_calculator/feature/application_app_bar/logic/application_app_bar_state.dart';
-import 'package:gpa_calculator/feature/tabs/main_tab/ui/widgets/edit_icon.dart';
+import 'package:gpa_calculator/feature/tabs/main_tab/ui/widgets/edit_semester_icon.dart';
 import 'package:gpa_calculator/feature/tabs/main_tab/ui/widgets/main_selection.dart';
 import 'package:gpa_calculator/feature/tabs/main_tab/ui/widgets/semester_button.dart';
 import 'package:gpa_calculator/feature/tabs/main_tab/ui/widgets/semester_cgpa.dart';
@@ -80,7 +80,10 @@ class SemestersTable extends StatelessWidget {
                       ),
                       Expanded(
                         flex: 1,
-                        child: EditIcon(index: index, semester: semester),
+                        child: EditSemesterIcon(
+                          index: index,
+                          semester: semester,
+                        ),
                       ),
                     ],
                   ),

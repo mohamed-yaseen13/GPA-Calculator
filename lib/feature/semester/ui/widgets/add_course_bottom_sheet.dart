@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gpa_calculator/core/helpers/spacing.dart';
-import 'package:gpa_calculator/feature/semester/ui/widgets/course_credits_text_editing_controller.dart';
-import 'package:gpa_calculator/feature/semester/ui/widgets/course_name_text_editing_controller.dart';
+import 'package:gpa_calculator/feature/semester/ui/widgets/course_credits_text_field.dart';
+import 'package:gpa_calculator/feature/semester/ui/widgets/course_name_text_field.dart';
 import 'package:gpa_calculator/feature/semester/ui/widgets/grade_drop_down.dart';
 import 'package:gpa_calculator/feature/semester/ui/widgets/submit_course_button.dart';
 
@@ -55,12 +55,12 @@ class _AddCourseBottomSheetState extends State<AddCourseBottomSheet> {
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             verticalSpace(16),
-            CourseNameTextEditingController(
+            CourseNameTextField(
               controller: _nameController,
               index: widget.index,
             ),
             verticalSpace(16),
-            CourseCreditsTextEditingController(controller: _creditController),
+            CourseCreditsTextField(controller: _creditController),
             verticalSpace(16),
             GradeDropDown(
               selectedGrade: _selectedGrade,

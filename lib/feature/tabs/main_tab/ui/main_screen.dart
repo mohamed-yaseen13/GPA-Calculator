@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gpa_calculator/core/helpers/spacing.dart';
 import 'package:gpa_calculator/core/logic/gpa_calculations_cubit.dart';
+import 'package:gpa_calculator/core/widgets/custom_floating_action_button.dart';
 import 'package:gpa_calculator/feature/application_app_bar/logic/application_app_bar_cubit.dart';
 import 'package:gpa_calculator/feature/tabs/main_tab/ui/widgets/add_semester_bottom_sheet.dart';
 import 'package:gpa_calculator/feature/tabs/main_tab/ui/widgets/main_student_data.dart';
@@ -19,35 +20,14 @@ class MainScreen extends StatelessWidget {
           children: [MainStudentData(), verticalSpace(12), SemestersTable()],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          final result = await showModalBottomSheet(
-            context: context,
-            isScrollControlled: true,
-            builder:
-                (bottomSheetContext) => BlocProvider.value(
-                  value: context.read<ApplicationAppBarCubit>(),
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                      bottom:
-                          MediaQuery.of(bottomSheetContext).viewInsets.bottom,
-                    ),
-                    child: AddSemesterBottomSheet(text: 'Add'),
-                  ),
-                ),
+      floatingActionButton: CustomFloatingActionButton<ApplicationAppBarCubit>(
+        bottomSheetBuilder: (context) => AddSemesterBottomSheet(text: 'Add'),
+        onResult: (context, result) async {
+          context.read<ApplicationAppBarCubit>().addSemester(
+            name: result['name'],
           );
-
-          if (result != null) {
-            context.read<ApplicationAppBarCubit>().addSemester(
-              name: result['name'],
-            );
-            context.read<GpaCalculationsCubit>().calculateGpaAndCgpa();
-          }
+          context.read<GpaCalculationsCubit>().calculateGpaAndCgpa();
         },
-        backgroundColor: Colors.yellow,
-        foregroundColor: Colors.white,
-        shape: CircleBorder(),
-        child: Icon(Icons.add),
       ),
     );
   }

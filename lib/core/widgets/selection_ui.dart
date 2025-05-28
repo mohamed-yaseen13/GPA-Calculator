@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gpa_calculator/core/helpers/extensions.dart';
 
 Widget buildSelectionUI({
   required BuildContext context,
@@ -62,14 +63,8 @@ Future<void> showDeleteDialog({
           title: Text('Delete $content'),
           content: Text('Do you actually need to delete these $content'),
           actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(false),
-              child: Text('No'),
-            ),
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(true),
-              child: Text('Yes'),
-            ),
+            TextButton(onPressed: () => context.pop(false), child: Text('No')),
+            TextButton(onPressed: () => context.pop(true), child: Text('Yes')),
           ],
         ),
   );

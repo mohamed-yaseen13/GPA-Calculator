@@ -2,12 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gpa_calculator/core/theming/app_colors.dart';
 
-class CourseCreditsTextEditingController extends StatelessWidget {
+class CourseCreditsTextField extends StatelessWidget {
   final TextEditingController controller;
-  const CourseCreditsTextEditingController({
-    super.key,
-    required this.controller,
-  });
+  const CourseCreditsTextField({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {

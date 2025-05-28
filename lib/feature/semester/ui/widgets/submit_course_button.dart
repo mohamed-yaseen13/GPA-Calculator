@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gpa_calculator/core/helpers/extensions.dart';
 import 'package:gpa_calculator/core/theming/app_colors.dart';
 import 'package:gpa_calculator/feature/semester/logic/semester_screen_cubit.dart';
 import 'package:gpa_calculator/feature/semester/logic/semester_screen_state.dart';
@@ -28,12 +29,7 @@ class SubmitCourseButton extends StatelessWidget {
           onPressed: () async {
             bool canProceed = true;
             for (var i = 0; i < state.selectedIndex; i++) {
-              for (var course
-                  in context
-                      .read<SemesterScreenCubit>()
-                      .student
-                      .semesters[i]
-                      .courses) {
+              for (var course in state.semesters[i].courses) {
                 if (course.name == nameController.text) {
                   final result = await showSubmitDialog(context: context);
                   if (result != null) {
@@ -43,12 +39,10 @@ class SubmitCourseButton extends StatelessWidget {
                 }
               }
             }
-
             if (!formKey.currentState!.validate() || !canProceed) {
               return;
             }
-
-            Navigator.pop(context, {
+            context.pop({
               'name': nameController.text,
               'credits': double.parse(creditController.text),
               'grade': selectedGrade,
@@ -74,14 +68,8 @@ Future showSubmitDialog({required BuildContext context}) async {
             'This Course already exists are you sure to reassign it',
           ),
           actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(false),
-              child: Text('No'),
-            ),
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(true),
-              child: Text('Yes'),
-            ),
+            TextButton(onPressed: () => context.pop(false), child: Text('No')),
+            TextButton(onPressed: () => context.pop(true), child: Text('Yes')),
           ],
         ),
   );

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gpa_calculator/core/helpers/extensions.dart';
 import 'package:gpa_calculator/core/helpers/spacing.dart';
 import 'package:gpa_calculator/core/theming/app_colors.dart';
-import 'package:gpa_calculator/feature/application_app_bar/logic/application_app_bar_cubit.dart';
+import 'package:gpa_calculator/feature/tabs/main_tab/ui/widgets/semester_name_text_field.dart';
 
 class AddSemesterBottomSheet extends StatefulWidget {
   final String text;
@@ -45,29 +43,7 @@ class _AddSemesterBottomSheetState extends State<AddSemesterBottomSheet> {
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             verticalSpace(16),
-            TextFormField(
-              controller: _nameController,
-              inputFormatters: [LengthLimitingTextInputFormatter(15)],
-              decoration: InputDecoration(
-                labelText: 'Semester Name',
-                border: OutlineInputBorder(),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: AppColors.mainOrange),
-                ),
-              ),
-              validator: (value) {
-                if (value?.isEmpty ?? true) {
-                  return 'Please enter Semester name';
-                }
-                for (var semester
-                    in context.read<ApplicationAppBarCubit>().state.semesters) {
-                  if (semester.name == value) {
-                    return 'Semester already exists';
-                  }
-                }
-                return null;
-              },
-            ),
+            SemesterNameTextField(controller: _nameController),
             verticalSpace(24),
             ElevatedButton(
               onPressed: () {

@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gpa_calculator/core/logic/gpa_calculations_cubit.dart';
 import 'package:gpa_calculator/feature/application_app_bar/logic/application_app_bar_cubit.dart';
 import 'package:gpa_calculator/feature/semester/data/models/semester_model.dart';
 import 'package:gpa_calculator/feature/tabs/main_tab/ui/widgets/add_semester_bottom_sheet.dart';
 
-class EditIcon extends StatelessWidget {
+class EditSemesterIcon extends StatelessWidget {
   final int index;
   final SemesterModel semester;
 
-  const EditIcon({super.key, required this.index, required this.semester});
+  const EditSemesterIcon({
+    super.key,
+    required this.index,
+    required this.semester,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +45,7 @@ class EditIcon extends StatelessWidget {
             name: result['name'],
             index: index,
           );
+          context.read<GpaCalculationsCubit>().calculateGpaAndCgpa();
         }
       },
     );

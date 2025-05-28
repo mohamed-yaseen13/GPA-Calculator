@@ -136,6 +136,12 @@ class SemesterScreenCubit extends Cubit<SemesterScreenState> {
         grade: grade,
         name: name,
       );
+
+      checkAndMarkRepeatedCourse(
+        student.semesters[state.selectedIndex].courses[index],
+      );
+
+      box.put('default', student);
     } else {
       CourseModel newCourse = CourseModel(
         name: name,
