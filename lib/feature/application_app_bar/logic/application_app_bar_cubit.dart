@@ -116,11 +116,22 @@ class ApplicationAppBarCubit extends Cubit<ApplicationAppBarState> {
 
     if (currentIndex == 0) return;
 
+    String grade;
+
     for (int i = currentIndex - 1; i >= 0; i--) {
       for (var oldCourse in currentSemesters[i].courses) {
         if (oldCourse.name.trim().toLowerCase() ==
             courseToDelete.name.trim().toLowerCase()) {
           oldCourse.isChanged = false;
+          grade = oldCourse.grade;
+          for (var j = i - 1; j >= 0; j--) {
+            for (var olderCourse in currentSemesters[j].courses) {
+              if (olderCourse.name.trim().toLowerCase() ==
+                  courseToDelete.name.trim().toLowerCase()) {
+                olderCourse.newGrade = grade;
+              }
+            }
+          }
 
           box.put('default', student);
 

@@ -33,10 +33,40 @@ class GpaCalculationsCubit extends Cubit<GpaCalculationsState> {
       double gpaCredits = 0.0;
       double earnedCredits = 0.0;
 
+      bool isRepeatedAndChangedFound = false;
+
       for (var course in semester.courses) {
-        if (course.isRepeated) {
-          cgpaPointsOriginal = cgpaPointsChanged;
+        if (course.isRepeated && course.isChanged) {
+          isRepeatedAndChangedFound = true;
           break;
+        }
+      }
+
+      if (isRepeatedAndChangedFound) {
+        for (var i = student.semesters.indexOf(semester); i >= 0; i--) {
+          for (var course in student.semesters[i].courses) {
+            if (course.isRepeated) {
+              outerloop:
+              for (var j = i - 1; j >= 0; j--) {
+                for (var oldCourse in student.semesters[j].courses) {
+                  if (oldCourse.name.trim().toLowerCase() ==
+                      course.name.trim().toLowerCase()) {
+                    cgpaPointsOriginal +=
+                        getGradePoint(course.grade) * course.credits -
+                        getGradePoint(oldCourse.grade) * oldCourse.credits;
+                    break outerloop;
+                  }
+                }
+              }
+            }
+          }
+        }
+      } else {
+        for (var course in semester.courses) {
+          if (course.isRepeated) {
+            cgpaPointsOriginal = cgpaPointsChanged;
+            break;
+          }
         }
       }
 

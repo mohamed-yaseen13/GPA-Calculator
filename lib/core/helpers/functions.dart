@@ -13,7 +13,7 @@ void printStudentData() {
 
     for (var course in semester.courses) {
       print(
-        '${course.name} - repeated: ${course.isRepeated} - changed: ${course.isChanged}',
+        '${course.name} - repeated: ${course.isRepeated} - changed: ${course.isChanged} - Grade: ${course.grade} - New Grade: ${course.newGrade}',
       );
     }
   }
