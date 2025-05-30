@@ -26,4 +26,38 @@ platform :android do
       upload_timeout: 18000
     )
   end
+  desc "Distribute build, commit, push to branch, merge to development"
+  lane :firebase_distribution_with_push_and_merge do
+    new_version = auto_increment_version
+    UI.message("🔢 Auto-updated to version: #{new_version}")
+
+    new_note = UI.input("📝 Enter release note:")
+    update_fastfile_release_note(new_note)
+
+    commit_message = UI.input("📝 Enter Git commit message:")
+    branch_name = UI.input("🌿 Enter Git branch name to push to:")
+
+    sh "flutter build apk --no-tree-shake-icons"
+
+    firebase_app_distribution(
+      app: "1:129700374667:android:61321739e4d272d425cc8e",
+      firebase_cli_token: ENV["FIREBASE_CLI_TOKEN"],
+      android_artifact_type: "APK",
+      android_artifact_path: "../build/app/outputs/flutter-apk/app-release.apk",
+      testers: "salafydawah2020@gmail.com",
+      release_notes: new_note,
+      upload_timeout: 18000
+    )
+
+    Dir.chdir("..") do
+      sh "git add ."
+      sh "git commit -m \"#{commit_message}\""
+      sh "git push -u origin #{branch_name}"
+      sh "git checkout development"
+      sleep 5
+      sh "git merge #{branch_name}"
+      sleep 5
+      sh "git push origin development"
+    end
+  end
 end
