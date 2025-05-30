@@ -23,6 +23,14 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 Distribute build with user prompt for version and release note
 
+### android firebase_distribution_with_push_and_merge
+
+```sh
+[bundle exec] fastlane android firebase_distribution_with_push_and_merge
+```
+
+Distribute build, commit, push to branch, merge to development
+
 ----
 
 This README.md is auto-generated and will be re-generated every time [_fastlane_](https://fastlane.tools) is run.
