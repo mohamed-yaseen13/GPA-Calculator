@@ -3,6 +3,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gpa_calculator/core/helpers/prefs_helper.dart';
 import 'package:gpa_calculator/feature/course/data/models/course_model.dart';
+import 'package:gpa_calculator/feature/course/data/models/section_model.dart';
 import 'package:gpa_calculator/feature/tabs/main_tab/data/models/student_model.dart';
 import 'package:gpa_calculator/feature/semester/data/models/semester_model.dart';
 import 'package:gpa_calculator/gpa_app.dart';
@@ -25,6 +26,7 @@ Future<void> initHive() async {
   Hive.registerAdapter(CourseModelAdapter());
   Hive.registerAdapter(SemesterModelAdapter());
   Hive.registerAdapter(StudentModelAdapter());
+  Hive.registerAdapter(SectionModelAdapter());
   Box box = await Hive.openBox('studentData');
   if (!box.containsKey('default')) {
     box.put('default', StudentModel(cgpa: 0, semesters: [], totalCredits: 0));

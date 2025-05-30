@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gpa_calculator/core/helpers/extensions.dart';
 import 'package:gpa_calculator/feature/scales/logic/scales_cubit.dart';
 
 class SaveScaleButton extends StatelessWidget {
@@ -27,7 +28,7 @@ class SaveScaleButton extends StatelessWidget {
           ).showSnackBar(SnackBar(content: Text(error)));
           return;
         }
-        Navigator.pop(context, {'title': titleController.text, 'scale': rows});
+        context.pop({'title': titleController.text, 'scale': rows});
       },
       child: Text('Save'),
     );

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gpa_calculator/core/constants/app_constants.dart';
+import 'package:gpa_calculator/core/logic/gpa_calculations_cubit.dart';
 import 'package:gpa_calculator/core/routing/app_routes.dart';
 import 'package:gpa_calculator/feature/application_app_bar/logic/application_app_bar_cubit.dart';
 import 'package:gpa_calculator/feature/application_app_bar/ui/application_app_bar.dart';
+import 'package:gpa_calculator/feature/course/logic/course_screen_cubit.dart';
+import 'package:gpa_calculator/feature/course/ui/course_screen.dart';
 import 'package:gpa_calculator/feature/scales/logic/scales_cubit.dart';
 import 'package:gpa_calculator/feature/scales/ui/scales_screen.dart';
 import 'package:gpa_calculator/feature/scales/ui/widgets/add_custom_scale_screen.dart';
@@ -69,6 +72,22 @@ class AppRouter {
               ),
         );
 
+      case AppRoutes.courseScreen:
+        return MaterialPageRoute(
+          builder: (context) {
+            final scale = context.read<GpaCalculationsCubit>().scale;
+            return BlocProvider(
+              create:
+                  (context) => CourseScreenCubit(
+                    box: AppConstants.box,
+                    student: AppConstants.student,
+                    scale: scale,
+                  ),
+              child: CourseScreen(),
+            );
+          },
+          settings: settings,
+        );
       default:
         return null;
     }

@@ -67,7 +67,11 @@ class CoursesTable extends StatelessWidget {
                       ),
                       Expanded(
                         flex: 7,
-                        child: CourseButton(index: index, course: course),
+                        child: CourseButton(
+                          courseIndex: index,
+                          course: course,
+                          semesterIndex: state.selectedIndex,
+                        ),
                       ),
                       Expanded(flex: 6, child: CourseGrade(course: course)),
                       Expanded(

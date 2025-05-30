@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gpa_calculator/core/constants/app_constants.dart';
-import 'package:gpa_calculator/feature/semester/data/models/semester_model.dart';
 
 void printStudentData() {
   for (var semester in AppConstants.student.semesters) {
@@ -19,7 +18,7 @@ void printStudentData() {
   }
 }
 
-double getMaxSemesterNameWidth(List<SemesterModel> semesters) {
+double getMaxSemesterNameWidth(List<dynamic> semesters) {
   double maxWidth1 = 0;
 
   for (var semester in semesters) {

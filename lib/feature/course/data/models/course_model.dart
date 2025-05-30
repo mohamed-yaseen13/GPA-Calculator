@@ -1,3 +1,4 @@
+import 'package:gpa_calculator/feature/course/data/models/section_model.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 part 'course_model.g.dart';
@@ -25,6 +26,9 @@ class CourseModel extends HiveObject {
   @HiveField(6)
   String newGrade;
 
+  @HiveField(7)
+  List<SectionModel> sections;
+
   CourseModel({
     required this.credits,
     required this.grade,
@@ -33,5 +37,6 @@ class CourseModel extends HiveObject {
     this.isRepeated = false,
     this.isChanged = false,
     this.newGrade = '--',
+    this.sections = const [],
   });
 }

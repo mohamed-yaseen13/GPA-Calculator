@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gpa_calculator/core/helpers/extensions.dart';
 import 'package:gpa_calculator/core/helpers/spacing.dart';
 import 'package:gpa_calculator/core/routing/app_routes.dart';
 import 'package:gpa_calculator/feature/scales/data/model/scales.dart';
@@ -30,8 +31,7 @@ class ScalesScreen extends StatelessWidget {
                   verticalSpace(32),
                   ElevatedButton.icon(
                     onPressed: () async {
-                      final result = await Navigator.pushNamed(
-                        context,
+                      final result = await context.pushNamed(
                         AppRoutes.customScaleScreen,
                       );
                       if (result is Map<String, dynamic>) {
