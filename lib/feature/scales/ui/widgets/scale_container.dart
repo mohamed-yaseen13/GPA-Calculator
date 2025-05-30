@@ -4,9 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gpa_calculator/core/helpers/spacing.dart';
 import 'package:gpa_calculator/core/logic/gpa_calculations_cubit.dart';
 import 'package:gpa_calculator/core/theming/app_colors.dart';
-import 'package:gpa_calculator/feature/scales/data/model/scales.dart';
 import 'package:gpa_calculator/feature/scales/logic/scales_cubit.dart';
 import 'package:gpa_calculator/feature/scales/ui/widgets/scales_grade_table.dart';
+import 'package:gpa_calculator/feature/semester/logic/semester_screen_cubit.dart';
 
 class ScaleContainer extends StatelessWidget {
   final int index;
@@ -68,8 +68,9 @@ class ScaleContainer extends StatelessWidget {
                       onTap: () {
                         context.read<ScalesCubit>().selectScale(index);
                         context.read<GpaCalculationsCubit>().changeScale(
-                          Scales.values[index],
+                          scales,
                         );
+                        context.read<SemesterScreenCubit>().loadGrades();
                       },
                       child: Icon(
                         isSelected

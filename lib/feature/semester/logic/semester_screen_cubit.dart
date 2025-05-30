@@ -10,6 +10,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 class SemesterScreenCubit extends Cubit<SemesterScreenState> {
   final Box box;
   final StudentModel student;
+
   SemesterScreenCubit({required this.box, required this.student})
     : super(
         SemesterScreenState(
@@ -23,10 +24,10 @@ class SemesterScreenCubit extends Cubit<SemesterScreenState> {
           grades: const [],
         ),
       ) {
-    _loadGrades();
+    loadGrades();
   }
 
-  Future<void> _loadGrades() async {
+  Future<void> loadGrades() async {
     final grades = await AppConstants.grades;
     emit(state.copyWith(grades: grades));
   }

@@ -6,4 +6,6 @@ class AppRoutes {
   static const String courseScreen = 'courseScreen';
 
   static const String scalesScreen = 'scalesScreen';
+
+  static const String customScaleScreen = 'customScaleScreen';
 }

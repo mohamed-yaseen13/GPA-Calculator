@@ -14,7 +14,10 @@ void main() async {
   await ScreenUtil.ensureScreenSize();
   await dotenv.load(fileName: ".env");
   final selectedScaleIndex = await PrefsHelper.getSelectedScaleIndex();
-  runApp(GpaApp(selectedScaleIndex: selectedScaleIndex));
+  final customScales = await PrefsHelper.loadCustomScales();
+  runApp(
+    GpaApp(selectedScaleIndex: selectedScaleIndex, customScales: customScales),
+  );
 }
 
 Future<void> initHive() async {

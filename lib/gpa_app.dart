@@ -10,7 +10,13 @@ import 'package:gpa_calculator/feature/scales/data/model/scales.dart';
 
 class GpaApp extends StatelessWidget {
   final int selectedScaleIndex;
-  const GpaApp({super.key, required this.selectedScaleIndex});
+  final List<Map<String, dynamic>> customScales;
+
+  const GpaApp({
+    super.key,
+    required this.selectedScaleIndex,
+    required this.customScales,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +29,10 @@ class GpaApp extends StatelessWidget {
             final cubit = GpaCalculationsCubit(
               box: AppConstants.box,
               student: AppConstants.student,
-              scale: Scales.values[selectedScaleIndex],
+              scale:
+                  Scales.getAllScales(
+                    customScales,
+                  )[selectedScaleIndex]['scale'],
             );
             cubit.calculateGpaAndCgpa();
             return cubit;

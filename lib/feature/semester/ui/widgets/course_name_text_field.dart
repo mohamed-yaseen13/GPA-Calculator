@@ -20,7 +20,7 @@ class CourseNameTextField extends StatelessWidget {
       builder: (context, state) {
         return TextFormField(
           controller: controller,
-          inputFormatters: [LengthLimitingTextInputFormatter(15)],
+          inputFormatters: [LengthLimitingTextInputFormatter(20)],
           decoration: InputDecoration(
             labelText: 'Course Name',
             border: OutlineInputBorder(),

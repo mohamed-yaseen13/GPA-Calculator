@@ -5,6 +5,7 @@ import 'package:gpa_calculator/core/helpers/spacing.dart';
 import 'package:gpa_calculator/feature/semester/logic/semester_screen_cubit.dart';
 import 'package:gpa_calculator/feature/semester/logic/semester_screen_state.dart';
 import 'package:gpa_calculator/feature/semester/ui/widgets/course_button.dart';
+import 'package:gpa_calculator/feature/semester/ui/widgets/course_grade.dart';
 import 'package:gpa_calculator/feature/semester/ui/widgets/edit_course_icon.dart';
 import 'package:gpa_calculator/feature/semester/ui/widgets/semester_selection.dart';
 
@@ -22,7 +23,7 @@ class CoursesTable extends StatelessWidget {
               Row(
                 children: [
                   Expanded(
-                    flex: 1,
+                    flex: 2,
                     child: Text('#', style: TextStyle(fontSize: 16.sp)),
                   ),
                   Expanded(
@@ -61,21 +62,14 @@ class CoursesTable extends StatelessWidget {
                   child: Row(
                     children: [
                       Expanded(
-                        flex: 1,
+                        flex: 2,
                         child: SemesterSelection(index: index, course: course),
                       ),
                       Expanded(
                         flex: 7,
                         child: CourseButton(index: index, course: course),
                       ),
-                      Expanded(
-                        flex: 6,
-                        child: Text(
-                          course.grade,
-                          style: TextStyle(fontSize: 16.sp),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
+                      Expanded(flex: 6, child: CourseGrade(course: course)),
                       Expanded(
                         flex: 6,
                         child: Text(

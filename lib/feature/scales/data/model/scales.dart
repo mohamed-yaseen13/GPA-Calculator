@@ -45,4 +45,15 @@ class Scales {
   ];
 
   static List<List<List<String>>> values = [scale1, scale2, scale3];
+
+  static List<Map<String, dynamic>> getAllScales(
+    List<Map<String, dynamic>> customScales,
+  ) {
+    return [
+      {'title': '4.00 Scale', 'scale': scale1},
+      {'title': '4.33 Scale', 'scale': scale2},
+      {'title': '0.70 Scale', 'scale': scale3},
+      ...customScales,
+    ];
+  }
 }

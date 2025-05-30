@@ -24,7 +24,7 @@ class SemestersTable extends StatelessWidget {
               Row(
                 children: [
                   Expanded(
-                    flex: 1,
+                    flex: 2,
                     child: Text('#', style: TextStyle(fontSize: 16.sp)),
                   ),
                   Expanded(
@@ -63,7 +63,7 @@ class SemestersTable extends StatelessWidget {
                   child: Row(
                     children: [
                       Expanded(
-                        flex: 1,
+                        flex: 2,
                         child: MainSelection(index: index, semester: semester),
                       ),
                       Expanded(

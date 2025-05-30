@@ -7,5 +7,6 @@ abstract class ScalesState with _$ScalesState {
   const factory ScalesState({
     int? selectedIndex,
     @Default({}) Map<int, bool> isExpandedMap,
+    @Default([]) List<Map<String, dynamic>> customScales,
   }) = _ScalesState;
 }

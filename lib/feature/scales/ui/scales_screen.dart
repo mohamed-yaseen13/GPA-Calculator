@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gpa_calculator/core/helpers/spacing.dart';
+import 'package:gpa_calculator/core/routing/app_routes.dart';
 import 'package:gpa_calculator/feature/scales/data/model/scales.dart';
 import 'package:gpa_calculator/feature/scales/logic/scales_cubit.dart';
 import 'package:gpa_calculator/feature/scales/logic/scales_state.dart';
@@ -16,24 +18,29 @@ class ScalesScreen extends StatelessWidget {
         child: SafeArea(
           child: BlocBuilder<ScalesCubit, ScalesState>(
             builder: (context, state) {
+              final allScales = Scales.getAllScales(state.customScales);
               return Column(
                 children: [
-                  ScaleContainer(
-                    index: 0,
-                    title: '4.00 Scale',
-                    scales: Scales.scale1,
+                  for (int i = 0; i < allScales.length; i++)
+                    ScaleContainer(
+                      index: i,
+                      title: allScales[i]['title'],
+                      scales: allScales[i]['scale'],
+                    ),
+                  verticalSpace(32),
+                  ElevatedButton.icon(
+                    onPressed: () async {
+                      final result = await Navigator.pushNamed(
+                        context,
+                        AppRoutes.customScaleScreen,
+                      );
+                      if (result is Map<String, dynamic>) {
+                        context.read<ScalesCubit>().addCustomScale(result);
+                      }
+                    },
+                    label: Text('Add Custom Scale'),
                   ),
-                  ScaleContainer(
-                    index: 1,
-                    title: '4.33 Scale',
-                    scales: Scales.scale2,
-                  ),
-                  ScaleContainer(
-                    index: 2,
-                    title: '0.70 Scale',
-                    scales: Scales.scale3,
-                  ),
-                  //ScalesList(title: 'Custom Scale'),
+                  verticalSpace(12),
                 ],
               );
             },
