@@ -29,6 +29,6 @@ Future<void> initHive() async {
   Hive.registerAdapter(SectionModelAdapter());
   Box box = await Hive.openBox('studentData');
   if (!box.containsKey('default')) {
-    box.put('default', StudentModel(cgpa: 0, semesters: [], totalCredits: 0));
+    box.put('default', StudentModel(semesters: []));
   }
 }

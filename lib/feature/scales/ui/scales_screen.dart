@@ -26,7 +26,7 @@ class ScalesScreen extends StatelessWidget {
                     ScaleContainer(
                       index: i,
                       title: allScales[i]['title'],
-                      scales: allScales[i]['scale'],
+                      scale: allScales[i]['scale'],
                     ),
                   verticalSpace(32),
                   ElevatedButton.icon(

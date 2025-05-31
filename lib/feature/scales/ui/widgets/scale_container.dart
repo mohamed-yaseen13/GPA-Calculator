@@ -2,28 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gpa_calculator/core/helpers/spacing.dart';
-import 'package:gpa_calculator/core/logic/gpa_calculations_cubit.dart';
-import 'package:gpa_calculator/core/theming/app_colors.dart';
 import 'package:gpa_calculator/feature/scales/logic/scales_cubit.dart';
-import 'package:gpa_calculator/feature/scales/ui/widgets/scales_grade_table.dart';
-import 'package:gpa_calculator/feature/semester/logic/semester_screen_cubit.dart';
+import 'package:gpa_calculator/feature/scales/ui/widgets/dot_container.dart';
+import 'package:gpa_calculator/feature/scales/ui/widgets/scale_checkbox.dart';
+import 'package:gpa_calculator/feature/scales/ui/widgets/scale_is_expanded.dart';
+import 'package:gpa_calculator/feature/scales/ui/widgets/scale_title.dart';
 
 class ScaleContainer extends StatelessWidget {
   final int index;
   final String title;
-  final List<List<String>> scales;
+  final List<List<String>> scale;
 
   const ScaleContainer({
     super.key,
     required this.title,
-    required this.scales,
+    required this.scale,
     required this.index,
   });
 
   @override
   Widget build(BuildContext context) {
     final state = context.watch<ScalesCubit>().state;
-    final isSelected = index == state.selectedIndex;
     final isExpanded = state.isExpandedMap[index] ?? false;
 
     return Column(
@@ -44,48 +43,18 @@ class ScaleContainer extends StatelessWidget {
               child: Row(
                 children: [
                   horizontalSpace(12),
-                  Container(
-                    width: 8.w,
-                    height: 8.h,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(color: Colors.black),
-                      color: isExpanded ? Colors.black : Colors.white,
-                    ),
-                  ),
+                  DotContainer(isExpanded: isExpanded),
                   horizontalSpace(12),
-                  Text(
-                    title,
-                    style: TextStyle(
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                  ScaleTitle(title: title),
                   Spacer(),
-                  Padding(
-                    padding: EdgeInsets.only(right: 12.w),
-                    child: GestureDetector(
-                      onTap: () {
-                        context.read<ScalesCubit>().selectScale(index);
-                        context.read<GpaCalculationsCubit>().changeScale(
-                          scales,
-                        );
-                        context.read<SemesterScreenCubit>().loadGrades();
-                      },
-                      child: Icon(
-                        isSelected
-                            ? Icons.check_box
-                            : Icons.check_box_outline_blank,
-                        color: isSelected ? AppColors.mainOrange : Colors.black,
-                      ),
-                    ),
-                  ),
+                  ScaleCheckbox(index: index, scale: scale),
                 ],
               ),
             ),
           ),
         ),
-        if (isExpanded) ScalesGradeTable(scales: scales),
+        if (isExpanded)
+          ScaleIsExpanded(index: index, scale: scale, title: title),
       ],
     );
   }

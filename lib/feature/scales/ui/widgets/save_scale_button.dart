@@ -6,11 +6,13 @@ import 'package:gpa_calculator/feature/scales/logic/scales_cubit.dart';
 class SaveScaleButton extends StatelessWidget {
   final TextEditingController titleController;
   final List<List<String>> rows;
+  final int? editIndex;
 
   const SaveScaleButton({
     super.key,
     required this.titleController,
     required this.rows,
+    this.editIndex,
   });
 
   @override
@@ -28,9 +30,13 @@ class SaveScaleButton extends StatelessWidget {
           ).showSnackBar(SnackBar(content: Text(error)));
           return;
         }
-        context.pop({'title': titleController.text, 'scale': rows});
+        context.pop({
+          'title': titleController.text,
+          'scale': rows,
+          if (editIndex != null) 'index': editIndex,
+        });
       },
-      child: Text('Save'),
+      child: Text(editIndex != null ? 'Save Changes' : 'Save Scale'),
     );
   }
 }

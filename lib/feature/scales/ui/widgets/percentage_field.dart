@@ -26,7 +26,7 @@ class PercentageField extends StatelessWidget {
         child: TextFormField(
           initialValue: value,
           decoration: InputDecoration(
-            hintText: 'xx-yy',
+            hintText: 'x-y',
             errorText: context.read<ScalesCubit>().validatePercentile(
               value,
               rowIndex,
@@ -35,10 +35,31 @@ class PercentageField extends StatelessWidget {
           ),
           inputFormatters: [
             FilteringTextInputFormatter.allow(RegExp(r'[\d\-]')),
+            _DashFormatter(),
           ],
           onChanged: onChanged,
         ),
       ),
+    );
+  }
+}
+
+class _DashFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
+    String text = newValue.text;
+    if (text.length == 2 && !text.contains('-')) {
+      text = '$text-';
+    }
+    if (text.indexOf('-') != text.lastIndexOf('-')) {
+      text = text.replaceFirst('-', '');
+    }
+    return TextEditingValue(
+      text: text,
+      selection: TextSelection.collapsed(offset: text.length),
     );
   }
 }

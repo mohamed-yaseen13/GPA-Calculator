@@ -70,6 +70,7 @@ class AppRouter {
                 create: (context) => ScalesCubit(),
                 child: AddCustomScaleScreen(),
               ),
+          settings: settings,
         );
 
       case AppRoutes.courseScreen:

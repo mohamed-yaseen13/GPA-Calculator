@@ -14,6 +14,12 @@ void printStudentData() {
       print(
         '${course.name} - repeated: ${course.isRepeated} - changed: ${course.isChanged} - Grade: ${course.grade} - New Grade: ${course.newGrade}',
       );
+
+      for (var section in course.sections) {
+        print(
+          '${section.name} - ${section.obtainedMark} - ${section.fullMark}',
+        );
+      }
     }
   }
 }

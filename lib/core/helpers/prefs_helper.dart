@@ -38,4 +38,11 @@ class PrefsHelper {
     }
     return customScales;
   }
+
+  static Future<void> saveCustomScales(
+    List<Map<String, dynamic>> customScales,
+  ) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('custom_scales', json.encode(customScales));
+  }
 }

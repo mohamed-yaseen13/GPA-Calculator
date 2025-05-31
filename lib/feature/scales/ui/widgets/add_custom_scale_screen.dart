@@ -14,6 +14,23 @@ class AddCustomScaleScreen extends StatefulWidget {
 class _AddCustomScaleScreenState extends State<AddCustomScaleScreen> {
   final TextEditingController _titleController = TextEditingController();
   final List<List<String>> _rows = [];
+  int? _editIndex;
+  bool _initialized = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_initialized) {
+      final args = ModalRoute.of(context)?.settings.arguments as Map?;
+      if (args != null) {
+        _titleController.text = args['title'] ?? '';
+        final rows = args['rows'] as List<List<String>>?;
+        if (rows != null) _rows.addAll(rows.map((e) => List<String>.from(e)));
+        _editIndex = args['index'] as int?;
+      }
+      _initialized = true;
+    }
+  }
 
   void _addRow() {
     setState(() {
@@ -24,7 +41,13 @@ class _AddCustomScaleScreenState extends State<AddCustomScaleScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Add Custom Scale')),
+      appBar: AppBar(
+        title: Text(
+          _editIndex != null
+              ? 'Edit ${_titleController.text.isNotEmpty ? _titleController.text : "Custom Scale"}'
+              : 'Add Custom Scale',
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -61,7 +84,11 @@ class _AddCustomScaleScreenState extends State<AddCustomScaleScreen> {
               children: [
                 ElevatedButton(onPressed: _addRow, child: Text('Add Row')),
                 Spacer(),
-                SaveScaleButton(titleController: _titleController, rows: _rows),
+                SaveScaleButton(
+                  titleController: _titleController,
+                  rows: _rows,
+                  editIndex: _editIndex,
+                ),
               ],
             ),
           ],

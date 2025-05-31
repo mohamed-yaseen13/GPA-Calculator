@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gpa_calculator/feature/scales/logic/scales_cubit.dart';
 
 class GradeField extends StatelessWidget {
   final String value;
@@ -22,11 +20,7 @@ class GradeField extends StatelessWidget {
             FilteringTextInputFormatter.allow(RegExp(r'[A-Za-z\+\-]')),
             LengthLimitingTextInputFormatter(2),
           ],
-          decoration: InputDecoration(
-            hintText: 'Grade',
-            counterText: '',
-            errorText: context.read<ScalesCubit>().validateGrade(value),
-          ),
+          decoration: InputDecoration(hintText: 'Grade', counterText: ''),
           onChanged: onChanged,
         ),
       ),

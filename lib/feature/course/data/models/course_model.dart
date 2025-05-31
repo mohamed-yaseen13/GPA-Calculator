@@ -37,6 +37,6 @@ class CourseModel extends HiveObject {
     this.isRepeated = false,
     this.isChanged = false,
     this.newGrade = '--',
-    this.sections = const [],
-  });
+    List<SectionModel>? sections,
+  }) : sections = sections ?? [];
 }

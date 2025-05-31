@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gpa_calculator/core/theming/app_colors.dart';
 
 class ScalesGradeTable extends StatelessWidget {
-  final List<List<String>> scales;
-  const ScalesGradeTable({super.key, required this.scales});
+  final List<List<String>> scale;
+  const ScalesGradeTable({super.key, required this.scale});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class ScalesGradeTable extends StatelessWidget {
             'Percentage',
             'Points',
           ], color: AppColors.lightOrange),
-          ...scales.map((scale) => buildRow(scale)),
+          ...scale.map((scale) => buildRow(scale)),
         ],
       ),
     );

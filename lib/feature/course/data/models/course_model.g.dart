@@ -24,7 +24,7 @@ class CourseModelAdapter extends TypeAdapter<CourseModel> {
       isRepeated: fields[4] as bool,
       isChanged: fields[5] as bool,
       newGrade: fields[6] as String,
-      sections: (fields[7] as List).cast<SectionModel>(),
+      sections: (fields[7] as List?)?.cast<SectionModel>(),
     );
   }
 

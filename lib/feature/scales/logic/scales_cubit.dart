@@ -42,34 +42,58 @@ class ScalesCubit extends Cubit<ScalesState> {
     emit(state.copyWith(isExpandedMap: updatedMap));
   }
 
-  void addCustomScale(Map<String, dynamic> scale) {
+  void addCustomScale(Map<String, dynamic> scale, {int index = -1}) async {
     final updatedCustomScales = List<Map<String, dynamic>>.from(
       state.customScales,
-    )..add(scale);
+    );
+    if (index != -1) {
+      updatedCustomScales[index] = scale;
+    } else {
+      updatedCustomScales.add(scale);
+    }
     emit(state.copyWith(customScales: updatedCustomScales));
+    await PrefsHelper.saveCustomScales(updatedCustomScales);
+  }
+
+  void deleteScale(int index) async {
+    if (index >= 3) {
+      final customIndex = index - 3;
+      final updatedCustomScales = List<Map<String, dynamic>>.from(
+        state.customScales,
+      );
+      if (customIndex >= 0 && customIndex < updatedCustomScales.length) {
+        updatedCustomScales.removeAt(customIndex);
+        emit(state.copyWith(customScales: updatedCustomScales));
+        await PrefsHelper.saveCustomScales(updatedCustomScales);
+      }
+    }
   }
 
   String? validateGrade(String value) {
-    if (value.length > 2) return 'Max 2 letters';
     if (!RegExp(r'^[A-Za-z\+\-]{1,2}$').hasMatch(value)) {
       return 'Only letters (+/- allowed)';
     }
     return null;
   }
 
-  String? validatePercentile(String value, int row, List<List<String>> rows) {
-    if (!RegExp(r'^\d{1,3}-\d{1,3}$').hasMatch(value)) return 'Format: xx-yy';
+  String? validatePercentile(
+    String value,
+    int rowIndex,
+    List<List<String>> rows,
+  ) {
     final parts = value.split('-');
-    final xx = int.tryParse(parts[0]);
-    final yy = int.tryParse(parts[1]);
-    if (xx == null || yy == null) return 'Invalid numbers';
-    if (yy < xx) return 'yy must be >= xx';
-    if (row > 0) {
-      final prev = rows[row - 1][1];
-      if (RegExp(r'^\d{1,3}-\d{1,3}$').hasMatch(prev)) {
-        final prevParts = prev.split('-');
-        final prevYy = int.tryParse(prevParts[1]);
-        if (prevYy != null && xx > prevYy) return 'xx must be <= previous yy';
+    if (parts.length != 2) return null;
+    final first = int.tryParse(parts[0]);
+    final second = int.tryParse(parts[1]);
+    if (first == null || second == null) return null;
+    if (second < first) return 'Second must be >= first';
+    if (rowIndex > 0) {
+      final prevParts = rows[rowIndex - 1][1].split('-');
+      if (prevParts.length == 2) {
+        final prevFirst = int.tryParse(prevParts[0]);
+        if (prevFirst != null && second >= prevFirst) {
+          return 'Second must be < previous first';
+        }
       }
     }
     return null;
