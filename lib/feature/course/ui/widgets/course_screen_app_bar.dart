@@ -40,7 +40,7 @@ class CourseScreenAppBar extends StatelessWidget
                       context.read<CourseScreenCubit>().deleteSelected();
                     },
                     selectedItem: state.selectedSections,
-                    content: 'Courses',
+                    content: 'Sections',
                   )
                   : null,
         );

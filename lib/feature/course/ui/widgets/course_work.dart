@@ -12,23 +12,39 @@ class CourseWork extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Course Work', style: TextStyle(fontSize: 16.sp)),
-        horizontalSpace(32),
-        Text(
-          context
-              .read<CourseScreenCubit>()
-              .getCourseWorkScore()['got']
-              .toString(),
-          style: TextStyle(fontSize: 16.sp),
+        Expanded(
+          flex: 9,
+          child: Text(
+            'Course Work',
+            style: TextStyle(fontSize: 16.sp),
+            textAlign: TextAlign.center,
+          ),
         ),
         horizontalSpace(32),
-        Text(
-          context
-              .read<CourseScreenCubit>()
-              .getCourseWorkScore()['from']
-              .toString(),
-          style: TextStyle(fontSize: 16.sp),
+        Expanded(
+          flex: 6,
+          child: Text(
+            context
+                .read<CourseScreenCubit>()
+                .getCourseWorkScore()['got']
+                .toString(),
+            style: TextStyle(fontSize: 16.sp),
+            textAlign: TextAlign.center,
+          ),
         ),
+        horizontalSpace(32),
+        Expanded(
+          flex: 6,
+          child: Text(
+            context
+                .read<CourseScreenCubit>()
+                .getCourseWorkScore()['from']
+                .toString(),
+            style: TextStyle(fontSize: 16.sp),
+            textAlign: TextAlign.center,
+          ),
+        ),
+        Expanded(flex: 1, child: SizedBox()),
       ],
     );
   }
