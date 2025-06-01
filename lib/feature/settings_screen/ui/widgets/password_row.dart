@@ -20,10 +20,10 @@ class PasswordRow extends StatelessWidget {
           onTap:
               state.passwordEnabled
                   ? () async {
-                    final confirmed =
-                        await PasswordDialogs.showConfirmPasswordDialog(
-                          context,
-                        );
+                    final confirmed = await PasswordDialogs.showPasswordDialog(
+                      context: context,
+                      dialogType: DialogType.confirmPassword,
+                    );
                     if (confirmed == true) {
                       context.pushNamed(AppRoutes.passwordScreen);
                     }
@@ -57,8 +57,9 @@ class PasswordRow extends StatelessWidget {
                   onChanged: (val) async {
                     if (!val) {
                       final confirmed =
-                          await PasswordDialogs.showConfirmPasswordDialog(
-                            context,
+                          await PasswordDialogs.showPasswordDialog(
+                            context: context,
+                            dialogType: DialogType.confirmPassword,
                           );
                       if (confirmed == true) {
                         await context.read<SettingsCubit>().disablePassword();
@@ -73,7 +74,7 @@ class PasswordRow extends StatelessWidget {
                       );
                       await PasswordDialogs.showPasswordDialog(
                         context: context,
-                        isNewPassword: true,
+                        dialogType: DialogType.setNewPassword,
                       );
                     }
                   },

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gpa_calculator/core/routing/app_router.dart';
-import 'package:gpa_calculator/core/routing/app_routes.dart';
 import 'package:gpa_calculator/core/theming/app_colors.dart';
+import 'package:gpa_calculator/feature/password_screen/password_gate.dart';
 
 class GpaApp extends StatelessWidget {
   final int selectedScaleIndex;
@@ -21,6 +21,7 @@ class GpaApp extends StatelessWidget {
       minTextAdapt: true,
       builder: (context, child) {
         return MaterialApp(
+          home: PasswordGate(),
           theme: ThemeData(
             scaffoldBackgroundColor: Colors.white,
             appBarTheme: AppBarTheme(
@@ -30,7 +31,6 @@ class GpaApp extends StatelessWidget {
             ),
           ),
           debugShowCheckedModeBanner: false,
-          initialRoute: AppRoutes.applicationAppBar,
           onGenerateRoute: AppRouter.generateRoute,
         );
       },

@@ -18,7 +18,7 @@ class PasswordKey extends StatelessWidget {
                   ? () {
                     PasswordDialogs.showPasswordDialog(
                       context: context,
-                      isNewPassword: true,
+                      dialogType: DialogType.setNewPassword,
                     );
                   }
                   : null,

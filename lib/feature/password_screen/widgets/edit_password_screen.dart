@@ -7,8 +7,8 @@ import 'package:gpa_calculator/feature/settings_screen/logic/settings_cubit.dart
 import 'package:gpa_calculator/feature/settings_screen/logic/settings_state.dart';
 import 'package:gpa_calculator/feature/settings_screen/ui/widgets/password_dialogs.dart';
 
-class PasswordScreen extends StatelessWidget {
-  const PasswordScreen({super.key});
+class EditPasswordScreen extends StatelessWidget {
+  const EditPasswordScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,20 +22,18 @@ class PasswordScreen extends StatelessWidget {
                 value: state.passwordEnabled,
                 onChanged: (val) async {
                   if (!val) {
-                    // Disable password
                     await context.read<SettingsCubit>().disablePassword();
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Password turned Off')),
                     );
                   } else {
-                    // Enable password
                     await context.read<SettingsCubit>().setNewPassword('');
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Password turned On')),
                     );
                     await PasswordDialogs.showPasswordDialog(
                       context: context,
-                      isNewPassword: true,
+                      dialogType: DialogType.setNewPassword,
                     );
                   }
                 },
