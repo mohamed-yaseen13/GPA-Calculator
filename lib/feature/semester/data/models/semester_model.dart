@@ -39,4 +39,29 @@ class SemesterModel extends HiveObject {
     this.attemptedCredits = 0,
     this.earnedCredits = 0,
   });
+
+  Map<String, dynamic> toJson() => {
+    'name': name,
+    'gpa': gpa,
+    'courses': courses.map((c) => c.toJson()).toList(),
+    'selected': selected,
+    'cgpaOriginal': cgpaOriginal,
+    'cgpaChanged': cgpaChanged,
+    'attemptedCredits': attemptedCredits,
+    'earnedCredits': earnedCredits,
+  };
+
+  factory SemesterModel.fromJson(Map<String, dynamic> json) => SemesterModel(
+    name: json['name'] as String,
+    gpa: (json['gpa'] as num).toDouble(),
+    courses:
+        (json['courses'] as List)
+            .map((c) => CourseModel.fromJson(c as Map<String, dynamic>))
+            .toList(),
+    selected: json['selected'] as bool,
+    cgpaOriginal: (json['cgpaOriginal'] as num).toDouble(),
+    cgpaChanged: (json['cgpaChanged'] as num).toDouble(),
+    attemptedCredits: (json['attemptedCredits'] as num).toDouble(),
+    earnedCredits: (json['earnedCredits'] as num).toDouble(),
+  );
 }

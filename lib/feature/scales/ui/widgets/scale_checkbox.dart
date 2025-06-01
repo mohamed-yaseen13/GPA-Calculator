@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gpa_calculator/core/logic/gpa_calculations_cubit.dart';
 import 'package:gpa_calculator/core/theming/app_colors.dart';
+import 'package:gpa_calculator/feature/course/logic/course_screen_cubit.dart';
 import 'package:gpa_calculator/feature/scales/logic/scales_cubit.dart';
 import 'package:gpa_calculator/feature/semester/logic/semester_screen_cubit.dart';
 
@@ -23,6 +24,7 @@ class ScaleCheckbox extends StatelessWidget {
           context.read<ScalesCubit>().selectScale(index);
           context.read<GpaCalculationsCubit>().changeScale(scale);
           context.read<SemesterScreenCubit>().loadGrades();
+          context.read<CourseScreenCubit>().changeScale(scale);
         },
         child: Icon(
           isSelected ? Icons.check_box : Icons.check_box_outline_blank,

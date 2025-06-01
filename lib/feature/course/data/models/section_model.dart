@@ -22,4 +22,18 @@ class SectionModel extends HiveObject {
     this.obtainedMark = 0,
     this.fullMark = 0,
   });
+
+  Map<String, dynamic> toJson() => {
+    'name': name,
+    'selected': selected,
+    'obtainedMark': obtainedMark,
+    'fullMark': fullMark,
+  };
+
+  factory SectionModel.fromJson(Map<String, dynamic> json) => SectionModel(
+    name: json['name'] as String,
+    selected: json['selected'] as bool,
+    obtainedMark: json['obtainedMark'] as int,
+    fullMark: json['fullMark'] as int,
+  );
 }

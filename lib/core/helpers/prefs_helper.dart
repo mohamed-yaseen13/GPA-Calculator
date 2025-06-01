@@ -45,4 +45,69 @@ class PrefsHelper {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('custom_scales', json.encode(customScales));
   }
+
+  static const String noteColorKey = 'note_color';
+
+  static Future<void> setNoteColor(String color) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(noteColorKey, color);
+  }
+
+  static Future<String?> getNoteColor() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString(noteColorKey);
+  }
+
+  static const String passwordKey = 'user_password';
+
+  static Future<void> setPassword(String password) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(passwordKey, password);
+  }
+
+  static Future<String?> getPassword() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString(passwordKey);
+  }
+
+  static const String passwordHintKey = 'password_hint';
+
+  static Future<void> setPasswordHint(String hint) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(passwordHintKey, hint);
+  }
+
+  static Future<String?> getPasswordHint() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString(passwordHintKey);
+  }
+
+  static const String recoveryEmailKey = 'recovery_email';
+
+  static Future<void> setRecoveryEmail(String email) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(recoveryEmailKey, email);
+  }
+
+  static Future<String?> getRecoveryEmail() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString(recoveryEmailKey);
+  }
+
+  static const String passwordEnabledKey = 'password_enabled';
+
+  static Future<void> setPasswordEnabled(bool enabled) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(passwordEnabledKey, enabled);
+  }
+
+  static Future<bool> isPasswordEnabled() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(passwordEnabledKey) ?? false;
+  }
+
+  static Future<void> removePassword() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove(passwordKey);
+  }
 }

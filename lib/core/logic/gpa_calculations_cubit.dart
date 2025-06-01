@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gpa_calculator/core/constants/app_constants.dart';
 import 'package:gpa_calculator/core/logic/gpa_calculations_state.dart';
 import 'package:gpa_calculator/feature/semester/data/models/semester_model.dart';
 import 'package:gpa_calculator/feature/tabs/main_tab/data/models/student_model.dart';
@@ -6,7 +7,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 class GpaCalculationsCubit extends Cubit<GpaCalculationsState> {
   final Box box;
-  final StudentModel student;
+  StudentModel student;
   List<List<String>> scale;
 
   GpaCalculationsCubit({
@@ -146,5 +147,18 @@ class GpaCalculationsCubit extends Cubit<GpaCalculationsState> {
   void changeScale(List<List<String>> newScale) {
     scale = newScale;
     calculateGpaAndCgpa();
+  }
+
+  void reloadStudent() {
+    final newStudent = AppConstants.student;
+    if (newStudent == null) return;
+    student = newStudent;
+    emit(
+      state.copyWith(
+        semesters: List<SemesterModel>.from(student.semesters),
+        cgpa: student.cgpa,
+        totalCredits: student.totalCredits,
+      ),
+    );
   }
 }

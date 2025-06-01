@@ -1,3 +1,4 @@
+import 'package:gpa_calculator/core/constants/app_constants.dart';
 import 'package:gpa_calculator/feature/application_app_bar/logic/application_app_bar_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gpa_calculator/feature/course/data/models/course_model.dart';
@@ -7,7 +8,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 class ApplicationAppBarCubit extends Cubit<ApplicationAppBarState> {
   final Box box;
-  final StudentModel student;
+  StudentModel student;
   ApplicationAppBarCubit({required this.box, required this.student})
     : super(
         ApplicationAppBarState(
@@ -139,5 +140,19 @@ class ApplicationAppBarCubit extends Cubit<ApplicationAppBarState> {
         }
       }
     }
+  }
+
+  void reloadStudent() {
+    final newStudent = AppConstants.student;
+    if (newStudent == null) return;
+    student = newStudent;
+    emit(
+      state.copyWith(
+        student: student,
+        semesters: List<SemesterModel>.from(student.semesters),
+        selectedItem: 0,
+        selectionMode: false,
+      ),
+    );
   }
 }

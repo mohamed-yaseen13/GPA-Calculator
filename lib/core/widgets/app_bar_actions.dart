@@ -24,7 +24,10 @@ List<Widget> buildAppBarActions({
             PopupMenuItem(value: 1, child: Text('Settings')),
             PopupMenuItem(value: 2, child: Text('Scales')),
           ],
-      onSelected: (value) {
+      onSelected: (value) async {
+        if (value == 1) {
+          context.pushNamed(AppRoutes.settingsScreen);
+        }
         if (value == 2) {
           context.pushNamed(AppRoutes.scalesScreen);
         }

@@ -8,4 +8,8 @@ class AppRoutes {
   static const String scalesScreen = 'scalesScreen';
 
   static const String customScaleScreen = 'customScaleScreen';
+
+  static const String settingsScreen = 'settingsScreen';
+
+  static const passwordScreen = 'passwordScreen';
 }

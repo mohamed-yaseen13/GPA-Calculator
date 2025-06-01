@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gpa_calculator/core/constants/app_constants.dart';
 
 void printStudentData() {
-  for (var semester in AppConstants.student.semesters) {
+  for (var semester in AppConstants.student!.semesters) {
     print(semester.name);
     print('');
     print('CGPA Original: ${semester.cgpaOriginal}');

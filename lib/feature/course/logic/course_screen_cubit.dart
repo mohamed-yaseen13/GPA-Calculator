@@ -208,4 +208,9 @@ class CourseScreenCubit extends Cubit<CourseScreenState> {
     }
     return '-';
   }
+
+  void changeScale(List<List<String>> newScale) {
+    scale = newScale;
+    emit(state.copyWith());
+  }
 }

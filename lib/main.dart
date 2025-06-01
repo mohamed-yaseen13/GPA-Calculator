@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gpa_calculator/bloc_providers.dart';
 import 'package:gpa_calculator/core/helpers/prefs_helper.dart';
 import 'package:gpa_calculator/feature/course/data/models/course_model.dart';
 import 'package:gpa_calculator/feature/course/data/models/section_model.dart';
 import 'package:gpa_calculator/feature/tabs/main_tab/data/models/student_model.dart';
 import 'package:gpa_calculator/feature/semester/data/models/semester_model.dart';
-import 'package:gpa_calculator/gpa_app.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 void main() async {
@@ -17,7 +17,10 @@ void main() async {
   final selectedScaleIndex = await PrefsHelper.getSelectedScaleIndex();
   final customScales = await PrefsHelper.loadCustomScales();
   runApp(
-    GpaApp(selectedScaleIndex: selectedScaleIndex, customScales: customScales),
+    BlocProviders(
+      selectedScaleIndex: selectedScaleIndex,
+      customScales: customScales,
+    ),
   );
 }
 
@@ -27,7 +30,7 @@ Future<void> initHive() async {
   Hive.registerAdapter(SemesterModelAdapter());
   Hive.registerAdapter(StudentModelAdapter());
   Hive.registerAdapter(SectionModelAdapter());
-  Box box = await Hive.openBox('studentData');
+  Box<StudentModel> box = await Hive.openBox<StudentModel>('studentData');
   if (!box.containsKey('default')) {
     box.put('default', StudentModel(semesters: []));
   }

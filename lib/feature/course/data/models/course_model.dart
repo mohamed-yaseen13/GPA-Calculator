@@ -39,4 +39,29 @@ class CourseModel extends HiveObject {
     this.newGrade = '--',
     List<SectionModel>? sections,
   }) : sections = sections ?? [];
+
+  Map<String, dynamic> toJson() => {
+    'name': name,
+    'grade': grade,
+    'credits': credits,
+    'selected': selected,
+    'isRepeated': isRepeated,
+    'isChanged': isChanged,
+    'newGrade': newGrade,
+    'sections': sections.map((s) => s.toJson()).toList(),
+  };
+
+  factory CourseModel.fromJson(Map<String, dynamic> json) => CourseModel(
+    name: json['name'] as String,
+    grade: json['grade'] as String,
+    credits: (json['credits'] as num).toDouble(),
+    selected: json['selected'] as bool,
+    isRepeated: json['isRepeated'] as bool,
+    isChanged: json['isChanged'] as bool,
+    newGrade: json['newGrade'] as String,
+    sections:
+        (json['sections'] as List)
+            .map((s) => SectionModel.fromJson(s as Map<String, dynamic>))
+            .toList(),
+  );
 }
