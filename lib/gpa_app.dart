@@ -2,16 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gpa_calculator/core/routing/app_router.dart';
 import 'package:gpa_calculator/core/theming/app_colors.dart';
+import 'package:gpa_calculator/feature/application_app_bar/ui/application_app_bar.dart';
 import 'package:gpa_calculator/feature/password_screen/password_gate.dart';
 
 class GpaApp extends StatelessWidget {
   final int selectedScaleIndex;
   final List<Map<String, dynamic>> customScales;
+  final bool isPasswordNull;
 
   const GpaApp({
     super.key,
     required this.selectedScaleIndex,
     required this.customScales,
+    required this.isPasswordNull,
   });
 
   @override
@@ -21,7 +24,7 @@ class GpaApp extends StatelessWidget {
       minTextAdapt: true,
       builder: (context, child) {
         return MaterialApp(
-          home: PasswordGate(),
+          home: isPasswordNull ? PasswordGate() : ApplicationAppBar(),
           theme: ThemeData(
             scaffoldBackgroundColor: Colors.white,
             appBarTheme: AppBarTheme(

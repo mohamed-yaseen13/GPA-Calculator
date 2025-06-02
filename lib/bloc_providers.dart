@@ -9,9 +9,11 @@ import 'package:gpa_calculator/feature/scales/data/model/scales.dart';
 import 'package:gpa_calculator/feature/scales/logic/scales_cubit.dart';
 import 'package:gpa_calculator/feature/semester/logic/semester_screen_cubit.dart';
 import 'package:gpa_calculator/feature/settings_screen/logic/settings_cubit.dart';
+import 'package:gpa_calculator/feature/tabs/mark_conventer_tab/logic/converter_cubit.dart';
 import 'package:gpa_calculator/gpa_app.dart';
 
 class BlocProviders extends StatelessWidget {
+  final bool isPasswordNull;
   final int selectedScaleIndex;
   final List<Map<String, dynamic>> customScales;
 
@@ -19,6 +21,7 @@ class BlocProviders extends StatelessWidget {
     super.key,
     required this.customScales,
     required this.selectedScaleIndex,
+    required this.isPasswordNull,
   });
 
   @override
@@ -63,10 +66,12 @@ class BlocProviders extends StatelessWidget {
         BlocProvider(create: (_) => ScalesCubit()),
         BlocProvider(create: (_) => SettingsCubit()..loadSettings()),
         BlocProvider(create: (_) => PasswordCubit()),
+        BlocProvider(create: (_) => ConverterCubit()),
       ],
       child: GpaApp(
         selectedScaleIndex: selectedScaleIndex,
         customScales: customScales,
+        isPasswordNull: isPasswordNull,
       ),
     );
   }

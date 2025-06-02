@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gpa_calculator/bloc_providers.dart';
+import 'package:gpa_calculator/core/helpers/extensions.dart';
 import 'package:gpa_calculator/core/helpers/prefs_helper.dart';
 import 'package:gpa_calculator/feature/course/data/models/course_model.dart';
 import 'package:gpa_calculator/feature/course/data/models/section_model.dart';
@@ -16,10 +17,13 @@ void main() async {
   await dotenv.load(fileName: ".env");
   final selectedScaleIndex = await PrefsHelper.getSelectedScaleIndex();
   final customScales = await PrefsHelper.loadCustomScales();
+  final password = await PrefsHelper.getPassword();
+  final isPasswordNull = password.toString().isNullOrEmpty();
   runApp(
     BlocProviders(
       selectedScaleIndex: selectedScaleIndex,
       customScales: customScales,
+      isPasswordNull: isPasswordNull,
     ),
   );
 }
