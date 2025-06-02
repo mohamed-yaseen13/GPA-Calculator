@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gpa_calculator/core/constants/app_constants.dart';
-import 'package:gpa_calculator/core/logic/gpa_calculations_cubit.dart';
+import 'package:gpa_calculator/core/dependency_injection/di.dart';
 import 'package:gpa_calculator/core/routing/app_routes.dart';
 import 'package:gpa_calculator/feature/application_app_bar/logic/application_app_bar_cubit.dart';
 import 'package:gpa_calculator/feature/application_app_bar/ui/application_app_bar.dart';
@@ -33,12 +33,8 @@ class AppRouter {
       case AppRoutes.semesterScreen:
         return MaterialPageRoute(
           builder:
-              (_) => BlocProvider(
-                create:
-                    (context) => SemesterScreenCubit(
-                      box: AppConstants.box,
-                      student: AppConstants.student,
-                    ),
+              (_) => BlocProvider.value(
+                value: getIt<SemesterScreenCubit>(),
                 child: SemesterScreen(),
               ),
           settings: settings,
@@ -49,14 +45,9 @@ class AppRouter {
           builder:
               (_) => MultiBlocProvider(
                 providers: [
-                  BlocProvider(create: (context) => ScalesCubit()),
-                  BlocProvider(
-                    create:
-                        (context) => SemesterScreenCubit(
-                          box: AppConstants.box,
-                          student: AppConstants.student,
-                        ),
-                  ),
+                  BlocProvider(create: (_) => getIt<ScalesCubit>()),
+                  BlocProvider.value(value: getIt<SemesterScreenCubit>()),
+                  BlocProvider.value(value: getIt<CourseScreenCubit>()),
                 ],
                 child: ScalesScreen(),
               ),
@@ -75,20 +66,14 @@ class AppRouter {
 
       case AppRoutes.courseScreen:
         return MaterialPageRoute(
-          builder: (context) {
-            final scale = context.read<GpaCalculationsCubit>().scale;
-            return BlocProvider(
-              create:
-                  (context) => CourseScreenCubit(
-                    box: AppConstants.box,
-                    student: AppConstants.student,
-                    scale: scale,
-                  ),
-              child: CourseScreen(),
-            );
-          },
+          builder:
+              (_) => BlocProvider.value(
+                value: getIt<CourseScreenCubit>(),
+                child: CourseScreen(),
+              ),
           settings: settings,
         );
+
       default:
         return null;
     }
