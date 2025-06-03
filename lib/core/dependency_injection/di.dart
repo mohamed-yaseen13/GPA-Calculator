@@ -8,6 +8,7 @@ import 'package:gpa_calculator/feature/scales/data/model/scales.dart';
 import 'package:gpa_calculator/feature/scales/logic/scales_cubit.dart';
 import 'package:gpa_calculator/feature/semester/logic/semester_screen_cubit.dart';
 import 'package:gpa_calculator/feature/settings_screen/logic/settings_cubit.dart';
+import 'package:gpa_calculator/feature/tabs/calculator_tab/logic/calculator_cubit.dart';
 import 'package:gpa_calculator/feature/tabs/mark_conventer_tab/logic/converter_cubit.dart';
 
 final getIt = GetIt.instance;
@@ -48,7 +49,10 @@ void setupGetIt(
   );
 
   getIt.registerFactory<PasswordCubit>(() => PasswordCubit());
+
   getIt.registerFactory<ConverterCubit>(() => ConverterCubit());
+
+  getIt.registerFactory<CalculatorCubit>(() => CalculatorCubit());
 }
 
 void resetSemesterScreenCubit() {

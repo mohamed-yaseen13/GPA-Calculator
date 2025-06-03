@@ -15,6 +15,8 @@ import 'package:gpa_calculator/feature/semester/logic/semester_screen_cubit.dart
 import 'package:gpa_calculator/feature/semester/ui/semester_screen.dart';
 import 'package:gpa_calculator/feature/settings_screen/logic/settings_cubit.dart';
 import 'package:gpa_calculator/feature/settings_screen/ui/settings_screen.dart';
+import 'package:gpa_calculator/feature/tabs/calculator_tab/logic/calculator_cubit.dart';
+import 'package:gpa_calculator/feature/tabs/mark_conventer_tab/logic/converter_cubit.dart';
 
 class AppRouter {
   static Route<dynamic>? generateRoute(RouteSettings settings) {
@@ -22,8 +24,12 @@ class AppRouter {
       case AppRoutes.applicationAppBar:
         return MaterialPageRoute(
           builder:
-              (_) => BlocProvider(
-                create: (context) => getIt<ApplicationAppBarCubit>(),
+              (_) => MultiBlocProvider(
+                providers: [
+                  BlocProvider(create: (_) => getIt<ApplicationAppBarCubit>()),
+                  BlocProvider(create: (_) => getIt<ConverterCubit>()),
+                  BlocProvider(create: (_) => getIt<CalculatorCubit>()),
+                ],
                 child: ApplicationAppBar(),
               ),
           settings: settings,
