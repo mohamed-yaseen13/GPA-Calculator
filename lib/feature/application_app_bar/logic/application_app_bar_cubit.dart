@@ -144,7 +144,6 @@ class ApplicationAppBarCubit extends Cubit<ApplicationAppBarState> {
 
   void reloadStudent() {
     final newStudent = AppConstants.student;
-    if (newStudent == null) return;
     student = newStudent;
     emit(
       state.copyWith(

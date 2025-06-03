@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gpa_calculator/core/dependency_injection/di.dart';
 import 'package:gpa_calculator/core/routing/app_routes.dart';
+import 'package:gpa_calculator/feature/application_app_bar/logic/application_app_bar_cubit.dart';
 import 'package:gpa_calculator/feature/application_app_bar/ui/application_app_bar.dart';
+import 'package:gpa_calculator/feature/course/logic/course_screen_cubit.dart';
 import 'package:gpa_calculator/feature/course/ui/course_screen.dart';
+import 'package:gpa_calculator/feature/password_screen/logic/password_cubit.dart';
 import 'package:gpa_calculator/feature/password_screen/widgets/edit_password_screen.dart';
+import 'package:gpa_calculator/feature/scales/logic/scales_cubit.dart';
 import 'package:gpa_calculator/feature/scales/ui/scales_screen.dart';
 import 'package:gpa_calculator/feature/scales/ui/widgets/add_custom_scale_screen.dart';
+import 'package:gpa_calculator/feature/semester/logic/semester_screen_cubit.dart';
 import 'package:gpa_calculator/feature/semester/ui/semester_screen.dart';
+import 'package:gpa_calculator/feature/settings_screen/logic/settings_cubit.dart';
 import 'package:gpa_calculator/feature/settings_screen/ui/settings_screen.dart';
 
 class AppRouter {
@@ -13,43 +21,82 @@ class AppRouter {
     switch (settings.name) {
       case AppRoutes.applicationAppBar:
         return MaterialPageRoute(
-          builder: (_) => ApplicationAppBar(),
+          builder:
+              (_) => BlocProvider(
+                create: (context) => getIt<ApplicationAppBarCubit>(),
+                child: ApplicationAppBar(),
+              ),
           settings: settings,
         );
 
       case AppRoutes.semesterScreen:
         return MaterialPageRoute(
-          builder: (_) => SemesterScreen(),
+          builder:
+              (_) => BlocProvider.value(
+                value: getIt<SemesterScreenCubit>(),
+                child: SemesterScreen(),
+              ),
           settings: settings,
         );
 
       case AppRoutes.scalesScreen:
         return MaterialPageRoute(
-          builder: (_) => ScalesScreen(),
+          builder:
+              (_) => MultiBlocProvider(
+                providers: [
+                  BlocProvider(create: (_) => getIt<ScalesCubit>()),
+                  BlocProvider.value(value: getIt<SemesterScreenCubit>()),
+                  BlocProvider.value(value: getIt<CourseScreenCubit>()),
+                ],
+                child: ScalesScreen(),
+              ),
           settings: settings,
         );
 
       case AppRoutes.customScaleScreen:
         return MaterialPageRoute(
-          builder: (_) => AddCustomScaleScreen(),
+          builder:
+              (_) => BlocProvider(
+                create: (context) => getIt<ScalesCubit>(),
+                child: AddCustomScaleScreen(),
+              ),
           settings: settings,
         );
 
       case AppRoutes.courseScreen:
         return MaterialPageRoute(
-          builder: (_) => CourseScreen(),
+          builder:
+              (_) => BlocProvider.value(
+                value: getIt<CourseScreenCubit>(),
+                child: CourseScreen(),
+              ),
           settings: settings,
         );
 
       case AppRoutes.settingsScreen:
         return MaterialPageRoute(
-          builder: (_) => SettingsScreen(),
+          builder:
+              (_) => MultiBlocProvider(
+                providers: [
+                  BlocProvider(create: (_) => getIt<ScalesCubit>()),
+                  BlocProvider.value(value: getIt<SettingsCubit>()),
+                  BlocProvider.value(value: getIt<ApplicationAppBarCubit>()),
+                ],
+                child: SettingsScreen(),
+              ),
           settings: settings,
         );
 
       case AppRoutes.passwordScreen:
         return MaterialPageRoute(
-          builder: (_) => EditPasswordScreen(),
+          builder:
+              (_) => MultiBlocProvider(
+                providers: [
+                  BlocProvider.value(value: getIt<SettingsCubit>()),
+                  BlocProvider.value(value: getIt<PasswordCubit>()),
+                ],
+                child: EditPasswordScreen(),
+              ),
           settings: settings,
         );
 

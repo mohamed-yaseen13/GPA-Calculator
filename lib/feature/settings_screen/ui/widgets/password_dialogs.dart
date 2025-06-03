@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:numberpicker/numberpicker.dart';
 import 'package:gpa_calculator/feature/settings_screen/logic/settings_cubit.dart';
 
 enum DialogType { setNewPassword, confirmPassword }
@@ -11,7 +11,9 @@ class PasswordDialogs {
     DialogType dialogType = DialogType.confirmPassword,
     String? currentPassword,
   }) async {
-    String tempPassword = '';
+    final settingsCubit = context.read<SettingsCubit>();
+
+    List<int> digits = [0, 0, 0, 0];
     bool wrong = false;
 
     return await showDialog<bool>(
@@ -26,46 +28,42 @@ class PasswordDialogs {
                     ? 'Set New Password'
                     : 'Enter Password',
               ),
-              content: TextField(
-                autofocus: true,
-                obscureText: true,
-                keyboardType: TextInputType.number,
-                inputFormatters: [
-                  FilteringTextInputFormatter.digitsOnly,
-                  LengthLimitingTextInputFormatter(4),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List.generate(4, (index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                        child: NumberPicker(
+                          value: digits[index],
+                          minValue: 0,
+                          maxValue: 9,
+                          zeroPad: true,
+                          itemWidth: 40,
+                          itemHeight: 60,
+                          onChanged: (value) {
+                            setStateDialog(() {
+                              digits[index] = value;
+                              wrong = false;
+                            });
+                          },
+                        ),
+                      );
+                    }),
+                  ),
+                  if (wrong)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: Text(
+                        dialogType == DialogType.setNewPassword
+                            ? 'Password cannot be empty'
+                            : 'Incorrect password',
+                        style: const TextStyle(color: Colors.red),
+                      ),
+                    ),
                 ],
-                onChanged: (val) {
-                  tempPassword = val;
-                  setStateDialog(() {
-                    wrong = false;
-                  });
-                },
-                decoration: InputDecoration(
-                  hintText:
-                      dialogType == DialogType.setNewPassword
-                          ? 'New Password'
-                          : 'Password',
-                  errorText:
-                      wrong
-                          ? (dialogType == DialogType.setNewPassword
-                              ? 'Password cannot be empty'
-                              : 'Incorrect password')
-                          : null,
-                ),
-                onSubmitted: (_) async {
-                  if (dialogType == DialogType.confirmPassword) {
-                    final confirmed = await context
-                        .read<SettingsCubit>()
-                        .confirmPassword(tempPassword);
-                    if (confirmed) {
-                      Navigator.pop(context, true);
-                    } else {
-                      setStateDialog(() {
-                        wrong = true;
-                      });
-                    }
-                  }
-                },
               ),
               actions: [
                 TextButton(
@@ -74,7 +72,8 @@ class PasswordDialogs {
                 ),
                 TextButton(
                   onPressed: () async {
-                    if (tempPassword.isEmpty &&
+                    final password = digits.join();
+                    if (password.isEmpty &&
                         dialogType == DialogType.setNewPassword) {
                       setStateDialog(() {
                         wrong = true;
@@ -83,14 +82,12 @@ class PasswordDialogs {
                     }
 
                     if (dialogType == DialogType.setNewPassword) {
-                      await context.read<SettingsCubit>().setNewPassword(
-                        tempPassword,
-                      );
+                      await settingsCubit.setNewPassword(password);
                       Navigator.pop(context, true);
                     } else {
-                      final confirmed = await context
-                          .read<SettingsCubit>()
-                          .confirmPassword(tempPassword);
+                      final confirmed = await settingsCubit.confirmPassword(
+                        password,
+                      );
                       if (confirmed) {
                         Navigator.pop(context, true);
                       } else {

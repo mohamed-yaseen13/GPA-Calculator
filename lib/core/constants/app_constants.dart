@@ -5,9 +5,9 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppConstants {
-  static final Box<StudentModel> box = Hive.box<StudentModel>('studentData');
+  static final Box box = Hive.box('studentData');
 
-  static StudentModel? get student => box.get('default');
+  static StudentModel get student => box.get('default');
 
   static Future<int> getSelectedScaleIndex() async {
     final prefs = await SharedPreferences.getInstance();

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gpa_calculator/bloc_providers.dart';
-import 'package:gpa_calculator/core/helpers/extensions.dart';
+import 'package:gpa_calculator/core/dependency_injection/di.dart';
 import 'package:gpa_calculator/core/helpers/prefs_helper.dart';
 import 'package:gpa_calculator/feature/course/data/models/course_model.dart';
 import 'package:gpa_calculator/feature/course/data/models/section_model.dart';
 import 'package:gpa_calculator/feature/tabs/main_tab/data/models/student_model.dart';
 import 'package:gpa_calculator/feature/semester/data/models/semester_model.dart';
+import 'package:gpa_calculator/gpa_app.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 void main() async {
@@ -18,14 +18,9 @@ void main() async {
   final selectedScaleIndex = await PrefsHelper.getSelectedScaleIndex();
   final customScales = await PrefsHelper.loadCustomScales();
   final password = await PrefsHelper.getPassword();
-  final isPasswordNull = password.toString().isNullOrEmpty();
-  runApp(
-    BlocProviders(
-      selectedScaleIndex: selectedScaleIndex,
-      customScales: customScales,
-      isPasswordNull: isPasswordNull,
-    ),
-  );
+  final isPasswordNull = password == null ? true : false;
+  setupGetIt(selectedScaleIndex, customScales);
+  runApp(GpaApp(isPasswordNull: isPasswordNull));
 }
 
 Future<void> initHive() async {
@@ -34,7 +29,7 @@ Future<void> initHive() async {
   Hive.registerAdapter(SemesterModelAdapter());
   Hive.registerAdapter(StudentModelAdapter());
   Hive.registerAdapter(SectionModelAdapter());
-  Box<StudentModel> box = await Hive.openBox<StudentModel>('studentData');
+  Box box = await Hive.openBox('studentData');
   if (!box.containsKey('default')) {
     box.put('default', StudentModel(semesters: []));
   }

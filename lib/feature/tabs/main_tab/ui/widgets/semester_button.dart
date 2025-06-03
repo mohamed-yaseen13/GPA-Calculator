@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gpa_calculator/core/dependency_injection/di.dart';
 import 'package:gpa_calculator/core/helpers/extensions.dart';
 import 'package:gpa_calculator/core/routing/app_routes.dart';
 import 'package:gpa_calculator/feature/semester/data/models/semester_model.dart';
@@ -25,6 +26,7 @@ class SemesterButton extends StatelessWidget {
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         ),
         onPressed: () {
+          resetSemesterScreenCubit();
           context.pushNamed(
             AppRoutes.semesterScreen,
             arguments: {'semesterIndex': index},
