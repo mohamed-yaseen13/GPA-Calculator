@@ -9,6 +9,16 @@ class CalculatorCubit extends Cubit<CalculatorState> {
       clear();
     }
 
+    if (number == '(' || number == ')') {
+      emit(
+        state.copyWith(
+          expression: state.expression + number,
+          isNewOperation: number == ')',
+        ),
+      );
+      return;
+    }
+
     if (state.isNewOperation) {
       emit(
         state.copyWith(
@@ -91,46 +101,7 @@ class CalculatorCubit extends Cubit<CalculatorState> {
 
       final cleanExpression = expression.split('=').first.trim();
 
-      final tokens = cleanExpression.split(RegExp(r'(\+|\-|\×|\÷|\%)'));
-      final operators =
-          cleanExpression
-              .split(RegExp(r'[0-9\.]+'))
-              .where((s) => s.trim().isNotEmpty)
-              .toList();
-
-      if (tokens.isEmpty || tokens.length != operators.length + 1) {
-        emit(state.copyWith(displayValue: 'Error', isError: true));
-        return;
-      }
-
-      double result = double.parse(tokens[0].trim());
-
-      for (int i = 0; i < operators.length; i++) {
-        final op = operators[i].trim();
-        final num = double.parse(tokens[i + 1].trim());
-
-        switch (op) {
-          case '+':
-            result += num;
-            break;
-          case '-':
-            result -= num;
-            break;
-          case '×':
-            result *= num;
-            break;
-          case '÷':
-            if (num == 0) {
-              emit(state.copyWith(displayValue: 'Error', isError: true));
-              return;
-            }
-            result /= num;
-            break;
-          case '%':
-            result %= num;
-            break;
-        }
-      }
+      final result = _evaluateExpression(cleanExpression);
 
       final displayResult =
           result == result.roundToDouble()
@@ -222,26 +193,86 @@ class CalculatorCubit extends Cubit<CalculatorState> {
     }
   }
 
+  double _evaluateExpression(String expression) {
+    expression = expression.replaceAll(' ', '');
+
+    while (expression.contains('(')) {
+      final start = expression.lastIndexOf('(');
+      final end = expression.indexOf(')', start);
+
+      if (end == -1) throw FormatException("Mismatched parentheses");
+
+      final subExpression = expression.substring(start + 1, end);
+      final subResult = _evaluateSimpleExpression(subExpression);
+
+      expression = expression.replaceRange(
+        start,
+        end + 1,
+        subResult.toString(),
+      );
+    }
+
+    return _evaluateSimpleExpression(expression);
+  }
+
+  double _evaluateSimpleExpression(String expression) {
+    final mdPattern = RegExp(r'(\d+\.?\d*)([×÷%])(\-?\d+\.?\d*)');
+    while (mdPattern.hasMatch(expression)) {
+      expression = expression.replaceFirstMapped(mdPattern, (match) {
+        final left = double.parse(match.group(1)!);
+        final op = match.group(2)!;
+        final right = double.parse(match.group(3)!);
+
+        switch (op) {
+          case '×':
+            return (left * right).toString();
+          case '÷':
+            if (right == 0) throw FormatException("Division by zero");
+            return (left / right).toString();
+          case '%':
+            if (right == 0) throw FormatException("Modulus by zero");
+            return (left % right).toString();
+          default:
+            throw FormatException("Unknown operator");
+        }
+      });
+    }
+
+    final asPattern = RegExp(r'(\d+\.?\d*)([+\-])(\-?\d+\.?\d*)');
+    while (asPattern.hasMatch(expression)) {
+      expression = expression.replaceFirstMapped(asPattern, (match) {
+        final left = double.parse(match.group(1)!);
+        final op = match.group(2)!;
+        final right = double.parse(match.group(3)!);
+
+        return op == '+'
+            ? (left + right).toString()
+            : (left - right).toString();
+      });
+    }
+
+    return double.parse(expression);
+  }
+
   void percentage() {
     if (state.isError) return;
 
-    try {
-      final current = double.parse(state.displayValue);
-      final result = current / 100;
-      final displayResult =
-          result == result.roundToDouble()
-              ? result.round().toString()
-              : result.toString();
-
+    if (!state.isNewOperation) {
       emit(
         state.copyWith(
-          displayValue: displayResult,
-          hasDecimal: displayResult.contains('.'),
+          operation: '%',
           isNewOperation: true,
+          expression: '${state.expression} %',
         ),
       );
-    } catch (e) {
-      emit(state.copyWith(displayValue: 'Error', isError: true));
+    } else {
+      emit(
+        state.copyWith(
+          operation: '%',
+          isNewOperation: true,
+          expression: '${state.displayValue} %',
+        ),
+      );
     }
   }
 }

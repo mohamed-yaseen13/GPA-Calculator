@@ -137,6 +137,10 @@ class SemesterScreenCubit extends Cubit<SemesterScreenState> {
     int index = -1,
   }) {
     if (index != -1) {
+      checkIfCourseIsRepeatedAtDelete(
+        student.semesters[state.selectedIndex].courses[index],
+      );
+
       student.semesters[state.selectedIndex].courses[index] = CourseModel(
         credits: credits,
         grade: grade,
