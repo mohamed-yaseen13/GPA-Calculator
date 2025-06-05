@@ -25,13 +25,14 @@ class SemesterModelAdapter extends TypeAdapter<SemesterModel> {
       cgpaChanged: fields[5] as double,
       attemptedCredits: fields[6] as double,
       earnedCredits: fields[7] as double,
+      note: fields[8] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, SemesterModel obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(9)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
@@ -47,7 +48,9 @@ class SemesterModelAdapter extends TypeAdapter<SemesterModel> {
       ..writeByte(6)
       ..write(obj.attemptedCredits)
       ..writeByte(7)
-      ..write(obj.earnedCredits);
+      ..write(obj.earnedCredits)
+      ..writeByte(8)
+      ..write(obj.note);
   }
 
   @override

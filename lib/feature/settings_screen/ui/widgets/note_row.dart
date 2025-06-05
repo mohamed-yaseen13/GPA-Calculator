@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gpa_calculator/core/helpers/spacing.dart';
+import 'package:gpa_calculator/feature/semester/logic/semester_screen_cubit.dart';
 import 'package:gpa_calculator/feature/settings_screen/logic/settings_cubit.dart';
 import 'package:gpa_calculator/feature/settings_screen/logic/settings_state.dart';
 import 'package:gpa_calculator/feature/settings_screen/ui/widgets/note_dialogs.dart';
@@ -22,6 +23,7 @@ class NoteRow extends StatelessWidget {
             );
             if (result != null) {
               await context.read<SettingsCubit>().setNoteColor(result);
+              await context.read<SemesterScreenCubit>().setNoteColor();
             }
           },
           child: Padding(

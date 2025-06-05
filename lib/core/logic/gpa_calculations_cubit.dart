@@ -72,8 +72,8 @@ class GpaCalculationsCubit extends Cubit<GpaCalculationsState> {
       }
 
       for (var course in semester.courses) {
-        if (course.grade == '--' ||
-            (course.newGrade == '--' && course.isChanged)) {
+        if (course.grade == '--') {
+          gpaCredits += course.credits;
           continue;
         }
         gpaPoints += getGradePoint(course.grade) * course.credits;

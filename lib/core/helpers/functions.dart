@@ -4,7 +4,7 @@ import 'package:gpa_calculator/core/constants/app_constants.dart';
 
 void printStudentData() {
   for (var semester in AppConstants.student.semesters) {
-    print(semester.name);
+    print('${semester.name} - ${semester.note}');
     print('');
     print('CGPA Original: ${semester.cgpaOriginal}');
     print('');

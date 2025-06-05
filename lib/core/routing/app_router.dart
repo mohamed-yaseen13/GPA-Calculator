@@ -87,6 +87,7 @@ class AppRouter {
                   BlocProvider(create: (_) => getIt<ScalesCubit>()),
                   BlocProvider.value(value: getIt<SettingsCubit>()),
                   BlocProvider.value(value: getIt<ApplicationAppBarCubit>()),
+                  BlocProvider.value(value: getIt<SemesterScreenCubit>()),
                 ],
                 child: SettingsScreen(),
               ),

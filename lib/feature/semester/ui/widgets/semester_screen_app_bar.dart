@@ -29,6 +29,7 @@ class SemesterScreenAppBar extends StatelessWidget
                     context: context,
                     currentTabIndex: 0,
                     onSelect: context.read<SemesterScreenCubit>().select,
+                    isSemesterScreen: true,
                   )
                   : [],
           flexibleSpace:

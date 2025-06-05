@@ -1,5 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:gpa_calculator/core/constants/app_constants.dart';
 import 'package:gpa_calculator/core/helpers/functions.dart';
+import 'package:gpa_calculator/core/helpers/prefs_helper.dart';
 import 'package:gpa_calculator/feature/course/data/models/course_model.dart';
 import 'package:gpa_calculator/feature/semester/data/models/semester_model.dart';
 import 'package:gpa_calculator/feature/semester/logic/semester_screen_state.dart';
@@ -25,6 +27,7 @@ class SemesterScreenCubit extends Cubit<SemesterScreenState> {
         ),
       ) {
     loadGrades();
+    setNoteColor();
   }
 
   Future<void> loadGrades() async {
@@ -229,6 +232,66 @@ class SemesterScreenCubit extends Cubit<SemesterScreenState> {
           return;
         }
       }
+    }
+  }
+
+  Future<void> setNoteColor() async {
+    final color = await PrefsHelper.getNoteColor();
+
+    switch (color) {
+      case 'Yellow':
+        emit(
+          state.copyWith(
+            headerColor: Color(0xFFF8F7B6),
+            bodyColor: Color(0xFFFFFEC6),
+          ),
+        );
+        break;
+
+      case 'Blue':
+        emit(
+          state.copyWith(
+            headerColor: Color(0xFFCAECF8),
+            bodyColor: Color(0xFFD4EEFB),
+          ),
+        );
+        break;
+
+      case 'Green':
+        emit(
+          state.copyWith(
+            headerColor: Color(0xFFC5F8C0),
+            bodyColor: Color(0xFFCEFDC9),
+          ),
+        );
+        break;
+
+      case 'Pink':
+        emit(
+          state.copyWith(
+            headerColor: Color(0xFFF1C3F1),
+            bodyColor: Color(0xFFF5CFF6),
+          ),
+        );
+        break;
+
+      case 'Purple':
+        emit(
+          state.copyWith(
+            headerColor: Color(0xFFD3CDF3),
+            bodyColor: Color(0xFFDCD7FF),
+          ),
+        );
+        break;
+
+      case 'White':
+        emit(
+          state.copyWith(
+            headerColor: Color(0xFFF5F5F5),
+            bodyColor: Color(0xFFFDFDFD),
+          ),
+        );
+        break;
     }
   }
 }

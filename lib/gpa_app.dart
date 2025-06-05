@@ -32,7 +32,7 @@ class GpaApp extends StatelessWidget {
               child: PasswordGate(),
             ),
             theme: ThemeData(
-              scaffoldBackgroundColor: Colors.white,
+              scaffoldBackgroundColor: Color(0xFFFFF6E7),
               appBarTheme: AppBarTheme(
                 color: AppColors.mainOrange,
                 titleTextStyle: TextStyle(fontSize: 18.sp, color: Colors.white),

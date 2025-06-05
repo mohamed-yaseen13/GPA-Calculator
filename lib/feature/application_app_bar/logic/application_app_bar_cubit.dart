@@ -154,4 +154,14 @@ class ApplicationAppBarCubit extends Cubit<ApplicationAppBarState> {
       ),
     );
   }
+
+  void saveSemesterNote(int semesterIndex, String updatedNote) {
+    student.semesters[semesterIndex].note = updatedNote;
+
+    box.put('default', student);
+
+    emit(
+      state.copyWith(semesters: List<SemesterModel>.from(student.semesters)),
+    );
+  }
 }

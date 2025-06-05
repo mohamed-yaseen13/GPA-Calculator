@@ -29,6 +29,9 @@ class SemesterModel extends HiveObject {
   @HiveField(7)
   double earnedCredits;
 
+  @HiveField(8)
+  String note;
+
   SemesterModel({
     required this.courses,
     required this.name,
@@ -38,6 +41,7 @@ class SemesterModel extends HiveObject {
     this.cgpaChanged = 0,
     this.attemptedCredits = 0,
     this.earnedCredits = 0,
+    this.note = '',
   });
 
   Map<String, dynamic> toJson() => {
@@ -49,6 +53,7 @@ class SemesterModel extends HiveObject {
     'cgpaChanged': cgpaChanged,
     'attemptedCredits': attemptedCredits,
     'earnedCredits': earnedCredits,
+    'note': note,
   };
 
   factory SemesterModel.fromJson(Map<String, dynamic> json) => SemesterModel(
@@ -63,5 +68,6 @@ class SemesterModel extends HiveObject {
     cgpaChanged: (json['cgpaChanged'] as num).toDouble(),
     attemptedCredits: (json['attemptedCredits'] as num).toDouble(),
     earnedCredits: (json['earnedCredits'] as num).toDouble(),
+    note: json['note'] as String? ?? '',
   );
 }

@@ -23,6 +23,8 @@ mixin _$SemesterScreenState {
   List<CourseModel> get courses;
   double? get dropdownWidth;
   List<String> get grades;
+  Color get headerColor;
+  Color get bodyColor;
 
   /// Create a copy of SemesterScreenState
   /// with the given fields replaced by the non-null parameter values.
@@ -49,7 +51,11 @@ mixin _$SemesterScreenState {
             const DeepCollectionEquality().equals(other.courses, courses) &&
             (identical(other.dropdownWidth, dropdownWidth) ||
                 other.dropdownWidth == dropdownWidth) &&
-            const DeepCollectionEquality().equals(other.grades, grades));
+            const DeepCollectionEquality().equals(other.grades, grades) &&
+            (identical(other.headerColor, headerColor) ||
+                other.headerColor == headerColor) &&
+            (identical(other.bodyColor, bodyColor) ||
+                other.bodyColor == bodyColor));
   }
 
   @override
@@ -62,11 +68,13 @@ mixin _$SemesterScreenState {
       const DeepCollectionEquality().hash(semesters),
       const DeepCollectionEquality().hash(courses),
       dropdownWidth,
-      const DeepCollectionEquality().hash(grades));
+      const DeepCollectionEquality().hash(grades),
+      headerColor,
+      bodyColor);
 
   @override
   String toString() {
-    return 'SemesterScreenState(selectedTerm: $selectedTerm, selectedIndex: $selectedIndex, selectionMode: $selectionMode, selectedItem: $selectedItem, semesters: $semesters, courses: $courses, dropdownWidth: $dropdownWidth, grades: $grades)';
+    return 'SemesterScreenState(selectedTerm: $selectedTerm, selectedIndex: $selectedIndex, selectionMode: $selectionMode, selectedItem: $selectedItem, semesters: $semesters, courses: $courses, dropdownWidth: $dropdownWidth, grades: $grades, headerColor: $headerColor, bodyColor: $bodyColor)';
   }
 }
 
@@ -84,7 +92,9 @@ abstract mixin class $SemesterScreenStateCopyWith<$Res> {
       List<SemesterModel> semesters,
       List<CourseModel> courses,
       double? dropdownWidth,
-      List<String> grades});
+      List<String> grades,
+      Color headerColor,
+      Color bodyColor});
 }
 
 /// @nodoc
@@ -108,6 +118,8 @@ class _$SemesterScreenStateCopyWithImpl<$Res>
     Object? courses = null,
     Object? dropdownWidth = freezed,
     Object? grades = null,
+    Object? headerColor = null,
+    Object? bodyColor = null,
   }) {
     return _then(_self.copyWith(
       selectedTerm: freezed == selectedTerm
@@ -142,6 +154,14 @@ class _$SemesterScreenStateCopyWithImpl<$Res>
           ? _self.grades
           : grades // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      headerColor: null == headerColor
+          ? _self.headerColor
+          : headerColor // ignore: cast_nullable_to_non_nullable
+              as Color,
+      bodyColor: null == bodyColor
+          ? _self.bodyColor
+          : bodyColor // ignore: cast_nullable_to_non_nullable
+              as Color,
     ));
   }
 }
@@ -157,7 +177,9 @@ class _SemesterScreenState implements SemesterScreenState {
       required final List<SemesterModel> semesters,
       required final List<CourseModel> courses,
       required this.dropdownWidth,
-      final List<String> grades = const []})
+      final List<String> grades = const [],
+      this.headerColor = const Color(0xFFF8F7B6),
+      this.bodyColor = const Color(0xFFFFFEC6)})
       : _semesters = semesters,
         _courses = courses,
         _grades = grades;
@@ -197,6 +219,13 @@ class _SemesterScreenState implements SemesterScreenState {
     return EqualUnmodifiableListView(_grades);
   }
 
+  @override
+  @JsonKey()
+  final Color headerColor;
+  @override
+  @JsonKey()
+  final Color bodyColor;
+
   /// Create a copy of SemesterScreenState
   /// with the given fields replaced by the non-null parameter values.
   @override
@@ -224,7 +253,11 @@ class _SemesterScreenState implements SemesterScreenState {
             const DeepCollectionEquality().equals(other._courses, _courses) &&
             (identical(other.dropdownWidth, dropdownWidth) ||
                 other.dropdownWidth == dropdownWidth) &&
-            const DeepCollectionEquality().equals(other._grades, _grades));
+            const DeepCollectionEquality().equals(other._grades, _grades) &&
+            (identical(other.headerColor, headerColor) ||
+                other.headerColor == headerColor) &&
+            (identical(other.bodyColor, bodyColor) ||
+                other.bodyColor == bodyColor));
   }
 
   @override
@@ -237,11 +270,13 @@ class _SemesterScreenState implements SemesterScreenState {
       const DeepCollectionEquality().hash(_semesters),
       const DeepCollectionEquality().hash(_courses),
       dropdownWidth,
-      const DeepCollectionEquality().hash(_grades));
+      const DeepCollectionEquality().hash(_grades),
+      headerColor,
+      bodyColor);
 
   @override
   String toString() {
-    return 'SemesterScreenState(selectedTerm: $selectedTerm, selectedIndex: $selectedIndex, selectionMode: $selectionMode, selectedItem: $selectedItem, semesters: $semesters, courses: $courses, dropdownWidth: $dropdownWidth, grades: $grades)';
+    return 'SemesterScreenState(selectedTerm: $selectedTerm, selectedIndex: $selectedIndex, selectionMode: $selectionMode, selectedItem: $selectedItem, semesters: $semesters, courses: $courses, dropdownWidth: $dropdownWidth, grades: $grades, headerColor: $headerColor, bodyColor: $bodyColor)';
   }
 }
 
@@ -261,7 +296,9 @@ abstract mixin class _$SemesterScreenStateCopyWith<$Res>
       List<SemesterModel> semesters,
       List<CourseModel> courses,
       double? dropdownWidth,
-      List<String> grades});
+      List<String> grades,
+      Color headerColor,
+      Color bodyColor});
 }
 
 /// @nodoc
@@ -285,6 +322,8 @@ class __$SemesterScreenStateCopyWithImpl<$Res>
     Object? courses = null,
     Object? dropdownWidth = freezed,
     Object? grades = null,
+    Object? headerColor = null,
+    Object? bodyColor = null,
   }) {
     return _then(_SemesterScreenState(
       selectedTerm: freezed == selectedTerm
@@ -319,6 +358,14 @@ class __$SemesterScreenStateCopyWithImpl<$Res>
           ? _self._grades
           : grades // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      headerColor: null == headerColor
+          ? _self.headerColor
+          : headerColor // ignore: cast_nullable_to_non_nullable
+              as Color,
+      bodyColor: null == bodyColor
+          ? _self.bodyColor
+          : bodyColor // ignore: cast_nullable_to_non_nullable
+              as Color,
     ));
   }
 }
