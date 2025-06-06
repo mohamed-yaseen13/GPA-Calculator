@@ -8,7 +8,7 @@ part of 'section_model.dart';
 
 class SectionModelAdapter extends TypeAdapter<SectionModel> {
   @override
-  final int typeId = 7;
+  final int typeId = 0;
 
   @override
   SectionModel read(BinaryReader reader) {

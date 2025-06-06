@@ -25,10 +25,10 @@ void main() async {
 
 Future<void> initHive() async {
   await Hive.initFlutter();
+  Hive.registerAdapter(SectionModelAdapter());
   Hive.registerAdapter(CourseModelAdapter());
   Hive.registerAdapter(SemesterModelAdapter());
   Hive.registerAdapter(StudentModelAdapter());
-  Hive.registerAdapter(SectionModelAdapter());
   Box box = await Hive.openBox('studentData');
   if (!box.containsKey('default')) {
     box.put('default', StudentModel(semesters: []));

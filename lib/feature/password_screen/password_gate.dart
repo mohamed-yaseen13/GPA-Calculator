@@ -59,6 +59,11 @@ class PasswordGate extends StatelessWidget {
                   ),
                   verticalSpace(16),
                   OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      shape: ContinuousRectangleBorder(
+                        borderRadius: BorderRadius.circular(12.sp),
+                      ),
+                    ),
                     onPressed: () {
                       context.read<PasswordCubit>().sendPasswordToRecoveryEmail(
                         context,

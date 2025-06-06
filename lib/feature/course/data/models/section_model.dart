@@ -2,7 +2,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 part 'section_model.g.dart';
 
-@HiveType(typeId: 7)
+@HiveType(typeId: 0)
 class SectionModel extends HiveObject {
   @HiveField(0)
   String name;
