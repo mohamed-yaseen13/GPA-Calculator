@@ -51,8 +51,8 @@ class AppRouter {
               (_) => MultiBlocProvider(
                 providers: [
                   BlocProvider(create: (_) => getIt<ScalesCubit>()),
-                  BlocProvider.value(value: getIt<SemesterScreenCubit>()),
-                  BlocProvider.value(value: getIt<CourseScreenCubit>()),
+                  BlocProvider(create: (_) => getIt<SemesterScreenCubit>()),
+                  BlocProvider(create: (_) => getIt<CourseScreenCubit>()),
                 ],
                 child: ScalesScreen(),
               ),
@@ -87,7 +87,7 @@ class AppRouter {
                   BlocProvider(create: (_) => getIt<ScalesCubit>()),
                   BlocProvider.value(value: getIt<SettingsCubit>()),
                   BlocProvider.value(value: getIt<ApplicationAppBarCubit>()),
-                  BlocProvider.value(value: getIt<SemesterScreenCubit>()),
+                  BlocProvider(create: (_) => getIt<SemesterScreenCubit>()),
                 ],
                 child: SettingsScreen(),
               ),

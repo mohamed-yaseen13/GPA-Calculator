@@ -119,6 +119,7 @@ class GpaCalculationsCubit extends Cubit<GpaCalculationsState> {
           cgpaChanged: cgpaChanged,
           attemptedCredits: gpaCredits,
           earnedCredits: earnedCredits,
+          note: semester.note,
         ),
       );
     }
