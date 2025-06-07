@@ -20,7 +20,10 @@ class SemesterScreenCubit extends Cubit<SemesterScreenState> {
           selectionMode: false,
           selectedItem: 0,
           semesters: List<SemesterModel>.from(student.semesters),
-          courses: List<CourseModel>.from(student.semesters[0].courses),
+          courses:
+              student.semesters.isNotEmpty
+                  ? List<CourseModel>.from(student.semesters[0].courses)
+                  : [],
           selectedTerm: null,
           dropdownWidth: null,
           grades: const [],

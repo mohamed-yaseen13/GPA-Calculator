@@ -22,10 +22,17 @@ class CourseScreenCubit extends Cubit<CourseScreenState> {
            selectedCourseIndex: 0,
            selectionMode: false,
            selectedSections: 0,
-           courses: List<CourseModel>.from(student.semesters[0].courses),
-           sections: List<SectionModel>.from(
-             student.semesters[0].courses[0].sections,
-           ),
+           courses:
+               student.semesters.isNotEmpty
+                   ? List<CourseModel>.from(student.semesters[0].courses)
+                   : [],
+           sections:
+               (student.semesters.isNotEmpty &&
+                       student.semesters[0].courses.isNotEmpty)
+                   ? List<SectionModel>.from(
+                     student.semesters[0].courses[0].sections,
+                   )
+                   : [],
            dropdownWidth: null,
          ),
        );

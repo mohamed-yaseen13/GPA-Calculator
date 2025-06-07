@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gpa_calculator/core/helpers/functions.dart';
 import 'package:gpa_calculator/core/helpers/spacing.dart';
 import 'package:gpa_calculator/feature/application_app_bar/logic/application_app_bar_cubit.dart';
 import 'package:gpa_calculator/feature/semester/logic/semester_screen_cubit.dart';
@@ -83,7 +82,6 @@ class _NoteState extends State<Note> {
                                       widget.semesterIndex,
                                       noteText,
                                     );
-                                printStudentData();
                               },
                               child: Row(
                                 children: [
