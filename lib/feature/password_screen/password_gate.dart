@@ -60,9 +60,11 @@ class PasswordGate extends StatelessWidget {
                   verticalSpace(16),
                   OutlinedButton(
                     style: OutlinedButton.styleFrom(
+                      side: BorderSide(color: Colors.black),
                       shape: ContinuousRectangleBorder(
                         borderRadius: BorderRadius.circular(12.sp),
                       ),
+                      padding: EdgeInsets.symmetric(horizontal: 8.w),
                     ),
                     onPressed: () {
                       context.read<PasswordCubit>().sendPasswordToRecoveryEmail(
@@ -74,6 +76,7 @@ class PasswordGate extends StatelessWidget {
                       style: TextStyle(color: Colors.black),
                     ),
                   ),
+                  verticalSpace(4),
                 ],
               ),
             ),

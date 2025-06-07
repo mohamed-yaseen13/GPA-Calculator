@@ -101,8 +101,16 @@ class _NoteState extends State<Note> {
                 height: 194.h,
                 decoration: BoxDecoration(color: state.bodyColor),
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 2.h),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 12.w,
+                    vertical: 2.h,
+                  ),
                   child: TextField(
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16.sp,
+                    ),
                     controller: noteController,
                     readOnly: !isEditMode,
                     enabled: isEditMode,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gpa_calculator/feature/scales/logic/scales_cubit.dart';
 
 class DeleteScaleButton extends StatelessWidget {
@@ -9,8 +10,17 @@ class DeleteScaleButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton.icon(
-      label: Text('Delete Scale'),
+    return OutlinedButton(
+      style: OutlinedButton.styleFrom(
+        side: BorderSide(color: Colors.black),
+        shape: ContinuousRectangleBorder(
+          borderRadius: BorderRadius.circular(12.sp),
+        ),
+      ),
+      child: Text(
+        'Delete Scale',
+        style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+      ),
       onPressed: () {
         context.read<ScalesCubit>().deleteScale(index);
       },

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gpa_calculator/feature/scales/ui/widgets/grade_field.dart';
 import 'package:gpa_calculator/feature/scales/ui/widgets/percentage_field.dart';
 import 'package:gpa_calculator/feature/scales/ui/widgets/points_field.dart';
@@ -82,7 +83,22 @@ class _AddCustomScaleScreenState extends State<AddCustomScaleScreen> {
             ),
             Row(
               children: [
-                ElevatedButton(onPressed: _addRow, child: Text('Add Row')),
+                OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    side: BorderSide(color: Colors.black),
+                    shape: ContinuousRectangleBorder(
+                      borderRadius: BorderRadius.circular(12.sp),
+                    ),
+                  ),
+                  onPressed: _addRow,
+                  child: Text(
+                    'Add Row',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
                 Spacer(),
                 SaveScaleButton(
                   titleController: _titleController,

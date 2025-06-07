@@ -25,13 +25,18 @@ class NoteBodyContainer extends StatelessWidget {
               height: 194.h,
               decoration: BoxDecoration(color: state.bodyColor),
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 2.h),
+                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
                 child: Text(
                   context
                       .read<ApplicationAppBarCubit>()
                       .state
                       .semesters[state.selectedIndex]
                       .note,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16.sp,
+                  ),
                 ),
               ),
             ),

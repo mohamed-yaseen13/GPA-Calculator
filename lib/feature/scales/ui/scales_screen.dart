@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gpa_calculator/core/helpers/extensions.dart';
 import 'package:gpa_calculator/core/helpers/spacing.dart';
 import 'package:gpa_calculator/core/routing/app_routes.dart';
@@ -29,7 +30,14 @@ class ScalesScreen extends StatelessWidget {
                       scale: allScales[i]['scale'],
                     ),
                   verticalSpace(32),
-                  ElevatedButton.icon(
+                  OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      side: BorderSide(color: Colors.black),
+                      shape: ContinuousRectangleBorder(
+                        borderRadius: BorderRadius.circular(12.sp),
+                      ),
+                      padding: EdgeInsets.symmetric(horizontal: 8.w),
+                    ),
                     onPressed: () async {
                       final result = await context.pushNamed(
                         AppRoutes.customScaleScreen,
@@ -38,7 +46,13 @@ class ScalesScreen extends StatelessWidget {
                         context.read<ScalesCubit>().addCustomScale(result);
                       }
                     },
-                    label: Text('Add Custom Scale'),
+                    child: Text(
+                      'Add Custom Scale',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                   verticalSpace(12),
                 ],

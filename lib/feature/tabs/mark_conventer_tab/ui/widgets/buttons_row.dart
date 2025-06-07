@@ -23,10 +23,23 @@ class ButtonsRow extends StatelessWidget {
         Expanded(
           child: SizedBox(
             height: 48.h,
-            child: ElevatedButton(
+            child: OutlinedButton(
+              style: OutlinedButton.styleFrom(
+                side: BorderSide(color: Colors.black),
+                shape: ContinuousRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.sp),
+                ),
+                padding: EdgeInsets.symmetric(horizontal: 8.w),
+              ),
               onPressed:
                   context.read<ConverterCubit>().calculateConvertedResult,
-              child: Text("Calculate"),
+              child: Text(
+                "Calculate",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
         ),
@@ -34,14 +47,27 @@ class ButtonsRow extends StatelessWidget {
         Expanded(
           child: SizedBox(
             height: 48.h,
-            child: ElevatedButton(
+            child: OutlinedButton(
+              style: OutlinedButton.styleFrom(
+                side: BorderSide(color: Colors.black),
+                shape: ContinuousRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.sp),
+                ),
+                padding: EdgeInsets.symmetric(horizontal: 8.w),
+              ),
               onPressed: () {
                 obtainedMardController.clear();
                 totalMardController.clear();
                 converterMarkController.clear();
                 context.read<ConverterCubit>().reset();
               },
-              child: Text("Reset"),
+              child: Text(
+                "Reset",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
         ),

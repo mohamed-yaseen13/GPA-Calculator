@@ -21,6 +21,10 @@ class SemesterButton extends StatelessWidget {
       alignment: Alignment.center,
       child: OutlinedButton(
         style: OutlinedButton.styleFrom(
+          side: BorderSide(color: Colors.black),
+          shape: ContinuousRectangleBorder(
+            borderRadius: BorderRadius.circular(12.sp),
+          ),
           padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 4.h),
           minimumSize: const Size(0, 0),
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -34,7 +38,7 @@ class SemesterButton extends StatelessWidget {
         },
         child: Text(
           semester.name,
-          style: TextStyle(fontSize: 16.sp),
+          style: TextStyle(fontSize: 16.sp, color: Colors.black),
           overflow: TextOverflow.ellipsis,
           maxLines: 1,
         ),

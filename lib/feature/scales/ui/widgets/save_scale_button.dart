@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gpa_calculator/core/helpers/extensions.dart';
 import 'package:gpa_calculator/feature/scales/logic/scales_cubit.dart';
 
@@ -17,7 +18,13 @@ class SaveScaleButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
+    return OutlinedButton(
+      style: OutlinedButton.styleFrom(
+        side: BorderSide(color: Colors.black),
+        shape: ContinuousRectangleBorder(
+          borderRadius: BorderRadius.circular(12.sp),
+        ),
+      ),
       onPressed: () async {
         final cubit = context.read<ScalesCubit>();
         final error = await cubit.saveCustomScaleWithValidation(
@@ -36,7 +43,10 @@ class SaveScaleButton extends StatelessWidget {
           if (editIndex != null) 'index': editIndex,
         });
       },
-      child: Text(editIndex != null ? 'Save Changes' : 'Save Scale'),
+      child: Text(
+        editIndex != null ? 'Save Changes' : 'Save Scale',
+        style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+      ),
     );
   }
 }
