@@ -1,7 +1,9 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gpa_calculator/core/helpers/prefs_helper.dart';
 import 'package:gpa_calculator/feature/password_screen/logic/password_state.dart';
+import 'package:http/http.dart' as http;
 
 class PasswordCubit extends Cubit<PasswordState> {
   static const int passwordLength = 4;
@@ -58,7 +60,6 @@ class PasswordCubit extends Cubit<PasswordState> {
   Future<void> sendPasswordToRecoveryEmail(BuildContext context) async {
     try {
       final recoveryEmail = await PrefsHelper.getRecoveryEmail();
-
       if (recoveryEmail == null || recoveryEmail.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
@@ -69,18 +70,37 @@ class PasswordCubit extends Cubit<PasswordState> {
         return;
       }
 
-      // Simulate sending the password to the recovery email
-      // In a real app, you would integrate an email-sending service here
+      final password = await PrefsHelper.getPassword();
+
+      final url = Uri.parse("https://api.emailjs.com/api/v1.0/email/send");
+
+      await http.post(
+        url,
+        headers: {
+          'origin': 'http:/localhost',
+          'Content-Type': 'application/json',
+        },
+        body: json.encode({
+          "service_id": "service_cnz6vts",
+          "template_id": "template_8810hz2",
+          "user_id": "EvujsAAehpMxYQef_",
+          "template_params": {
+            "user_password": password,
+            "to_email": recoveryEmail,
+          },
+        }),
+      );
+
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('We have sent the password to $recoveryEmail.'),
+          content: Text('Password sent to $recoveryEmail successfully.'),
           backgroundColor: Colors.green,
         ),
       );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Failed to send password: $e'),
+          content: Text('Failed to send password: ${e.toString()}'),
           backgroundColor: Colors.red,
         ),
       );

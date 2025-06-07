@@ -15,19 +15,29 @@ class RecoveryEmailDialogs {
           builder: (context, setStateDialog) {
             return AlertDialog(
               title: const Text('Enter Recovery Email'),
-              content: TextField(
-                autofocus: true,
-                keyboardType: TextInputType.emailAddress,
-                onChanged: (value) {
-                  tempEmail = value;
-                  setStateDialog(() {
-                    errorText = null;
-                  });
-                },
-                decoration: InputDecoration(
-                  hintText: currentEmail ?? 'Email',
-                  errorText: errorText,
-                ),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Please provide a Gmail address for recovery purposes.',
+                  ),
+                  const SizedBox(height: 12),
+                  TextField(
+                    autofocus: true,
+                    keyboardType: TextInputType.emailAddress,
+                    onChanged: (value) {
+                      tempEmail = value;
+                      setStateDialog(() {
+                        errorText = null;
+                      });
+                    },
+                    decoration: InputDecoration(
+                      hintText: currentEmail ?? 'example@gmail.com',
+                      errorText: errorText,
+                    ),
+                  ),
+                ],
               ),
               actions: [
                 TextButton(
@@ -39,10 +49,17 @@ class RecoveryEmailDialogs {
                     final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
                     if (!emailRegex.hasMatch(tempEmail)) {
                       setStateDialog(() {
-                        errorText = 'Enter a valid email';
+                        errorText = 'Enter a valid email address';
                       });
                       return;
                     }
+                    if (!tempEmail.toLowerCase().endsWith('@gmail.com')) {
+                      setStateDialog(() {
+                        errorText = 'Please provide a Gmail address';
+                      });
+                      return;
+                    }
+
                     Navigator.pop(context, tempEmail);
                   },
                   child: const Text('Save'),
