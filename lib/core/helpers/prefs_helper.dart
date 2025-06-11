@@ -110,4 +110,16 @@ class PrefsHelper {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove(passwordKey);
   }
+
+  static const String adsRemovedKey = 'ads_removed';
+
+  static Future<void> setAdsRemoved(bool removed) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(adsRemovedKey, removed);
+  }
+
+  static Future<bool> isAdsRemoved() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(adsRemovedKey) ?? false;
+  }
 }

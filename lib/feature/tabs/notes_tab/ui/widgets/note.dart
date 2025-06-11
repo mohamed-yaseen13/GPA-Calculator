@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gpa_calculator/core/helpers/check_internet_connection.dart';
+import 'package:gpa_calculator/core/helpers/interstitial_ad_manager.dart';
 import 'package:gpa_calculator/core/helpers/spacing.dart';
 import 'package:gpa_calculator/feature/application_app_bar/logic/application_app_bar_cubit.dart';
 import 'package:gpa_calculator/feature/semester/logic/semester_screen_cubit.dart';
@@ -39,7 +41,29 @@ class _NoteState extends State<Note> {
                 child:
                     !isEditMode
                         ? GestureDetector(
-                          onTap: () {
+                          onTap: () async {
+                            final hasInternet =
+                                await CheckInternetConnection.isInternetAvailable();
+                            if (!hasInternet) {
+                              showDialog(
+                                context: context,
+                                builder:
+                                    (_) => AlertDialog(
+                                      title: Text('No Internet'),
+                                      content: Text(
+                                        'Please turn on the internet',
+                                      ),
+                                      actions: [
+                                        TextButton(
+                                          onPressed:
+                                              () => Navigator.pop(context),
+                                          child: Text('OK'),
+                                        ),
+                                      ],
+                                    ),
+                              );
+                              return;
+                            }
                             setState(() {
                               isEditMode = true;
                             });
@@ -82,6 +106,7 @@ class _NoteState extends State<Note> {
                                       widget.semesterIndex,
                                       noteText,
                                     );
+                                InterstitialAdManager.showInterstitialAd();
                               },
                               child: Row(
                                 children: [

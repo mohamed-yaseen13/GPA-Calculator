@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gpa_calculator/core/helpers/interstitial_ad_manager.dart';
 import 'package:gpa_calculator/core/logic/gpa_calculations_cubit.dart';
 import 'package:gpa_calculator/core/widgets/app_bar_actions.dart';
 import 'package:gpa_calculator/core/widgets/selection_ui.dart';
@@ -44,6 +45,7 @@ class SemesterScreenAppBar extends StatelessWidget
                       context
                           .read<GpaCalculationsCubit>()
                           .calculateGpaAndCgpa();
+                      InterstitialAdManager.showInterstitialAd();
                     },
                     selectedItem: state.selectedItem,
                     content: 'Courses',

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gpa_calculator/core/helpers/spacing.dart';
 import 'package:gpa_calculator/core/logic/gpa_calculations_cubit.dart';
+import 'package:gpa_calculator/core/widgets/banner_ad_widget.dart';
 import 'package:gpa_calculator/core/widgets/custom_floating_action_button.dart';
 import 'package:gpa_calculator/feature/semester/logic/semester_screen_cubit.dart';
 import 'package:gpa_calculator/feature/semester/ui/widgets/add_course_bottom_sheet.dart';
@@ -16,7 +18,13 @@ class SemesterScreenBody extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [SemesterData(), CoursesTable()],
+          children: [
+            verticalSpace(8),
+            BannerAdWidget(),
+            verticalSpace(8),
+            SemesterData(),
+            CoursesTable(),
+          ],
         ),
       ),
       floatingActionButton: CustomFloatingActionButton<SemesterScreenCubit>(

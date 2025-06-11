@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gpa_calculator/core/helpers/check_internet_connection.dart';
 
 typedef ResultHandler =
     Future<void> Function(BuildContext context, dynamic result);
@@ -19,6 +20,24 @@ class CustomFloatingActionButton<TCubit extends Cubit<Object>>
   Widget build(BuildContext context) {
     return FloatingActionButton(
       onPressed: () async {
+        final hasInternet = await CheckInternetConnection.isInternetAvailable();
+        if (!hasInternet) {
+          showDialog(
+            context: context,
+            builder:
+                (_) => AlertDialog(
+                  title: Text('No Internet'),
+                  content: Text('Please turn on the internet'),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: Text('OK'),
+                    ),
+                  ],
+                ),
+          );
+          return;
+        }
         final result = await showModalBottomSheet(
           context: context,
           isScrollControlled: true,

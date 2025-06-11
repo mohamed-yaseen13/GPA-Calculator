@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gpa_calculator/core/dependency_injection/di.dart';
 import 'package:gpa_calculator/core/helpers/spacing.dart';
+import 'package:gpa_calculator/core/widgets/banner_ad_widget.dart';
 import 'package:gpa_calculator/feature/application_app_bar/logic/application_app_bar_cubit.dart';
 import 'package:gpa_calculator/feature/application_app_bar/logic/application_app_bar_state.dart';
 import 'package:gpa_calculator/feature/semester/logic/semester_screen_cubit.dart';
@@ -21,6 +22,9 @@ class NotesScreen extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 8.w),
               child: Column(
                 children: [
+                  verticalSpace(8),
+                  BannerAdWidget(),
+                  verticalSpace(16),
                   Center(
                     child: Text('Notes', style: TextStyle(fontSize: 16.sp)),
                   ),

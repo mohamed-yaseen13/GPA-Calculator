@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gpa_calculator/core/helpers/spacing.dart';
+import 'package:gpa_calculator/core/widgets/banner_ad_widget.dart';
 import 'package:gpa_calculator/feature/tabs/mark_conventer_tab/logic/converter_cubit.dart';
 import 'package:gpa_calculator/feature/tabs/mark_conventer_tab/ui/widgets/buttons_row.dart';
 import 'package:gpa_calculator/feature/tabs/mark_conventer_tab/ui/widgets/show_example_container.dart';
@@ -29,6 +30,9 @@ class _MarkConverterScreenState extends State<MarkConverterScreen> {
         padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 12.w),
         child: Column(
           children: [
+            verticalSpace(8),
+            BannerAdWidget(),
+            verticalSpace(16),
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
