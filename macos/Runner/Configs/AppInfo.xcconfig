@@ -8,7 +8,7 @@
 PRODUCT_NAME = gpa_calculator
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.example.gpaCalculator
+PRODUCT_BUNDLE_IDENTIFIER = com.engmo.gpacalculator
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2025 com.example. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2025 com.engmo. All rights reserved.
