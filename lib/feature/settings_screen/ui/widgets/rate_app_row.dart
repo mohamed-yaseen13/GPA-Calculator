@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gpa_calculator/core/helpers/spacing.dart';
+import 'package:in_app_review/in_app_review.dart';
 
 class RateAppRow extends StatelessWidget {
   const RateAppRow({super.key});
@@ -9,7 +10,9 @@ class RateAppRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () async {
+        await rateApp();
+      },
       child: Padding(
         padding: EdgeInsets.only(top: 8.h, bottom: 18.h),
         child: Row(
@@ -36,5 +39,15 @@ class RateAppRow extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+Future<void> rateApp() async {
+  final inAppReview = InAppReview.instance;
+
+  if (await inAppReview.isAvailable()) {
+    await inAppReview.requestReview();
+  } else {
+    await inAppReview.openStoreListing();
   }
 }

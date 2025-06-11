@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gpa_calculator/core/helpers/spacing.dart';
 import 'package:gpa_calculator/core/theming/app_colors.dart';
 import 'package:gpa_calculator/feature/settings_screen/ui/widgets/rate_app_row.dart';
-import 'package:gpa_calculator/feature/settings_screen/ui/widgets/remove_ads_row.dart';
 
 class OthersColumn extends StatelessWidget {
   const OthersColumn({super.key});
@@ -21,8 +20,6 @@ class OthersColumn extends StatelessWidget {
           ),
           verticalSpace(12),
           RateAppRow(),
-          Divider(color: Colors.grey, thickness: 1, height: 0),
-          RemoveAdsRow(),
         ],
       ),
     );
