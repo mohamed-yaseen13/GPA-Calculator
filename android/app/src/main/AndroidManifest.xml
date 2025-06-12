@@ -1,7 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-     <uses-permission android:name="com.android.vending.BILLING" />
     <application
         android:label="GPA Calculator"
         android:name="${applicationName}"
@@ -9,9 +8,6 @@
         <meta-data
         android:name="com.google.android.gms.ads.APPLICATION_ID"
         android:value="са-app-pub-3001005463674932~9522263619"/>
-        <meta-data
-            android:name="com.google.android.play.billingclient.version"
-            android:value="7.0.0" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
