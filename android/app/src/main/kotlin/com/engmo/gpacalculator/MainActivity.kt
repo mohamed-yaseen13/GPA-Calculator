@@ -1,4 +1,4 @@
-package com.example.gpa_calculator
+package com.engmo.gpacalculator
 
 import io.flutter.embedding.android.FlutterActivity
 
