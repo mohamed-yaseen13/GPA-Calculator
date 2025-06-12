@@ -41,6 +41,7 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = 4
         versionName = "1.5.1"
+
     }
 
     signingConfigs {

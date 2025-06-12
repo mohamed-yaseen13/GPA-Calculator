@@ -25,4 +25,3 @@ GPA Calculator is a smart and easy-to-use app designed to help students accurate
 
     🎨 Modern, User-Friendly Interface
         Clean, responsive design built for ease of use and productivity.
-
