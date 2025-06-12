@@ -1,6 +1,7 @@
 import java.util.Properties
 import java.io.FileInputStream
 
+
 plugins {
     id("com.android.application")
     // START: FlutterFire Configuration
@@ -38,8 +39,9 @@ android {
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = 23
         targetSdk = flutter.targetSdkVersion
-        versionCode = 3
-        versionName = "1.5.0"
+        versionCode = 4
+        versionName = "1.5.1"
+
     }
 
     signingConfigs {

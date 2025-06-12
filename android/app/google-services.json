@@ -7,6 +7,25 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:129700374667:android:c85cae7e2a7cb37c25cc8e",
+        "android_client_info": {
+          "package_name": "com.engmo.gpacalculator"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATMGBishvHQ6MpVd5qiJU_dBf1RVNjaW4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:129700374667:android:61321739e4d272d425cc8e",
         "android_client_info": {
           "package_name": "com.engmo.gpacalculator"
