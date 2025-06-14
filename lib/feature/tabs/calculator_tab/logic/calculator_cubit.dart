@@ -176,6 +176,7 @@ class CalculatorCubit extends Cubit<CalculatorState> {
           currentInput: '0',
           isNewOperation: true,
           hasDecimal: false,
+          expression: '',
         ),
       );
     } else {
@@ -188,6 +189,7 @@ class CalculatorCubit extends Cubit<CalculatorState> {
           displayValue: newValue,
           currentInput: newValue,
           hasDecimal: newValue.contains('.'),
+          expression: newValue,
         ),
       );
     }
