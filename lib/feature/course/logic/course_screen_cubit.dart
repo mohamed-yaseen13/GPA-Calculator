@@ -144,7 +144,7 @@ class CourseScreenCubit extends Cubit<CourseScreenState> {
           .courses[state.selectedCourseIndex]
           .sections[index] = SectionModel(
         name: name,
-        obtainedMark: obtainedMark.toInt(),
+        obtainedMark: obtainedMark,
         fullMark: fullMark.toInt(),
       );
 
@@ -153,7 +153,7 @@ class CourseScreenCubit extends Cubit<CourseScreenState> {
       SectionModel newSection = SectionModel(
         name: name,
         selected: false,
-        obtainedMark: obtainedMark.toInt(),
+        obtainedMark: obtainedMark,
         fullMark: fullMark.toInt(),
       );
 
@@ -177,8 +177,8 @@ class CourseScreenCubit extends Cubit<CourseScreenState> {
     );
   }
 
-  Map<String, int> getCourseWorkScore() {
-    int got = 0;
+  Map<String, dynamic> getCourseWorkScore() {
+    double got = 0;
     int from = 0;
     for (var section in state.sections) {
       got += section.obtainedMark;
@@ -191,7 +191,7 @@ class CourseScreenCubit extends Cubit<CourseScreenState> {
     List<SectionModel> sections, {
     int? totalCourseMarks,
   }) {
-    int? got = getCourseWorkScore()['got'];
+    double? got = getCourseWorkScore()['got'];
     int? from = getCourseWorkScore()['from'];
 
     double maxPercent = (got! + (100 - from!)) / 100 * 100;

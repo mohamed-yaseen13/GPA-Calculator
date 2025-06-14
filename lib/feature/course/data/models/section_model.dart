@@ -11,7 +11,7 @@ class SectionModel extends HiveObject {
   bool selected;
 
   @HiveField(2)
-  int obtainedMark;
+  double obtainedMark;
 
   @HiveField(3)
   int fullMark;
@@ -33,7 +33,7 @@ class SectionModel extends HiveObject {
   factory SectionModel.fromJson(Map<String, dynamic> json) => SectionModel(
     name: json['name'] as String,
     selected: json['selected'] as bool,
-    obtainedMark: json['obtainedMark'] as int,
+    obtainedMark: json['obtainedMark'] as double,
     fullMark: json['fullMark'] as int,
   );
 }

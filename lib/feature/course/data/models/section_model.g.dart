@@ -19,7 +19,7 @@ class SectionModelAdapter extends TypeAdapter<SectionModel> {
     return SectionModel(
       name: fields[0] as String,
       selected: fields[1] as bool,
-      obtainedMark: fields[2] as int,
+      obtainedMark: fields[2] as double,
       fullMark: fields[3] as int,
     );
   }
