@@ -194,12 +194,10 @@ class SemesterScreenCubit extends Cubit<SemesterScreenState> {
             newCourse.name.trim().toLowerCase()) {
           oldCourse.isChanged = true;
 
-          oldCourse.newGrade =
-              oldCourse.isRepeated
-                  ? '--'
-                  : newCourse.grade == '--'
-                  ? oldCourse.grade
-                  : newCourse.grade;
+          if (newCourse.grade == '--') {
+          } else {
+            oldCourse.newGrade = newCourse.grade;
+          }
 
           newCourse.isRepeated = true;
 

@@ -18,7 +18,7 @@ class CourseGrade extends StatelessWidget {
                 )
             ? Colors.red
             : Colors.green;
-    if (course.isChanged) {
+    if (course.isChanged && course.newGrade != '--') {
       return RichText(
         textAlign: TextAlign.center,
         text: TextSpan(
