@@ -16,7 +16,10 @@ class SectionNameTextField extends StatelessWidget {
       builder: (context, state) {
         return TextFormField(
           controller: controller,
-          inputFormatters: [LengthLimitingTextInputFormatter(20)],
+          inputFormatters: [
+            LengthLimitingTextInputFormatter(20),
+            FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]')),
+          ],
           decoration: InputDecoration(
             labelText: 'Section Name',
             border: OutlineInputBorder(),

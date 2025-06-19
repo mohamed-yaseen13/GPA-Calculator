@@ -87,15 +87,6 @@ class ScalesCubit extends Cubit<ScalesState> {
     final second = int.tryParse(parts[1]);
     if (first == null || second == null) return null;
     if (second < first) return 'Second must be >= first';
-    if (rowIndex > 0) {
-      final prevParts = rows[rowIndex - 1][1].split('-');
-      if (prevParts.length == 2) {
-        final prevFirst = int.tryParse(prevParts[0]);
-        if (prevFirst != null && second >= prevFirst) {
-          return 'Second must be < previous first';
-        }
-      }
-    }
     return null;
   }
 

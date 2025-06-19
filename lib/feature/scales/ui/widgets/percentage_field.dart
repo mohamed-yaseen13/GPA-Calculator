@@ -35,7 +35,7 @@ class PercentageField extends StatelessWidget {
           ),
           inputFormatters: [
             FilteringTextInputFormatter.allow(RegExp(r'[\d\-]')),
-            _DashFormatter(),
+            DashFormatter(rowIndex: rowIndex, rows: rows),
           ],
           onChanged: onChanged,
         ),
@@ -44,7 +44,12 @@ class PercentageField extends StatelessWidget {
   }
 }
 
-class _DashFormatter extends TextInputFormatter {
+class DashFormatter extends TextInputFormatter {
+  final int rowIndex;
+  final List<List<String>> rows;
+
+  DashFormatter({required this.rowIndex, required this.rows});
+
   @override
   TextEditingValue formatEditUpdate(
     TextEditingValue oldValue,
@@ -52,7 +57,18 @@ class _DashFormatter extends TextInputFormatter {
   ) {
     String text = newValue.text;
     if (text.length == 2 && !text.contains('-')) {
-      text = '$text-';
+      if (rowIndex == 0) {
+        text = '$text-';
+      } else {
+        final prev = rows[rowIndex - 1][1];
+        final prevParts = prev.split('-');
+        if (prevParts.length == 2) {
+          final prevStart = prevParts[0];
+          text = '$text-$prevStart';
+        } else {
+          text = '$text-';
+        }
+      }
     }
     if (text.indexOf('-') != text.lastIndexOf('-')) {
       text = text.replaceFirst('-', '');
