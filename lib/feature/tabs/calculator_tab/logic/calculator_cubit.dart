@@ -218,7 +218,7 @@ class CalculatorCubit extends Cubit<CalculatorState> {
   }
 
   double _evaluateSimpleExpression(String expression) {
-    final mdPattern = RegExp(r'(\d+\.?\d*)([×÷%])(\-?\d+\.?\d*)');
+    final mdPattern = RegExp(r'(\-?\d+\.?\d*)([×÷%])(\-?\d+\.?\d*)');
     while (mdPattern.hasMatch(expression)) {
       expression = expression.replaceFirstMapped(mdPattern, (match) {
         final left = double.parse(match.group(1)!);
@@ -240,7 +240,7 @@ class CalculatorCubit extends Cubit<CalculatorState> {
       });
     }
 
-    final asPattern = RegExp(r'(\d+\.?\d*)([+\-])(\-?\d+\.?\d*)');
+    final asPattern = RegExp(r'(\-?\d+\.?\d*)([+\-])(\-?\d+\.?\d*)');
     while (asPattern.hasMatch(expression)) {
       expression = expression.replaceFirstMapped(asPattern, (match) {
         final left = double.parse(match.group(1)!);
