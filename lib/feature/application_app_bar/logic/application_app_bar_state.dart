@@ -7,9 +7,11 @@ part 'application_app_bar_state.freezed.dart';
 @freezed
 abstract class ApplicationAppBarState with _$ApplicationAppBarState {
   const factory ApplicationAppBarState({
-    required bool selectionMode,
-    required int selectedItem,
-    required List<SemesterModel> semesters,
     required StudentModel student,
+    required List<SemesterModel> semesters,
+    @Default(false) bool selectionMode,
+    @Default(0) int selectedItem,
+    @Default([]) List<Map<String, dynamic>> searchResults,
+    @Default(false) bool showSearchOverlay,
   }) = _ApplicationAppBarState;
 }

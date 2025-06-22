@@ -7,6 +7,7 @@ import 'package:gpa_calculator/core/widgets/banner_ad_widget.dart';
 import 'package:gpa_calculator/core/widgets/custom_floating_action_button.dart';
 import 'package:gpa_calculator/feature/application_app_bar/logic/application_app_bar_cubit.dart';
 import 'package:gpa_calculator/feature/tabs/main_tab/ui/widgets/add_semester_bottom_sheet.dart';
+import 'package:gpa_calculator/feature/tabs/main_tab/ui/widgets/app_search_bar.dart';
 import 'package:gpa_calculator/feature/tabs/main_tab/ui/widgets/main_student_data.dart';
 import 'package:gpa_calculator/feature/tabs/main_tab/ui/widgets/semesters_table.dart';
 
@@ -33,6 +34,8 @@ class _MainScreenState extends State<MainScreen> {
           children: [
             verticalSpace(12),
             BannerAdWidget(),
+            verticalSpace(12),
+            AppSearchBar(),
             verticalSpace(12),
             MainStudentData(),
             verticalSpace(12),

@@ -12,10 +12,8 @@ class ApplicationAppBarCubit extends Cubit<ApplicationAppBarState> {
   ApplicationAppBarCubit({required this.box, required this.student})
     : super(
         ApplicationAppBarState(
-          selectionMode: false,
-          selectedItem: 0,
-          semesters: List<SemesterModel>.from(student.semesters),
           student: student,
+          semesters: List<SemesterModel>.from(student.semesters),
         ),
       );
 
@@ -162,6 +160,33 @@ class ApplicationAppBarCubit extends Cubit<ApplicationAppBarState> {
 
     emit(
       state.copyWith(semesters: List<SemesterModel>.from(student.semesters)),
+    );
+  }
+
+  void searchOnCourse(String query) {
+    final lowerQuery = query.toLowerCase();
+    final results = <Map<String, dynamic>>[];
+
+    if (query.isNotEmpty) {
+      for (int i = 0; i < state.semesters.length; i++) {
+        final semester = state.semesters[i];
+        for (final course in semester.courses) {
+          if (course.name.toLowerCase().contains(lowerQuery)) {
+            results.add({
+              'course': course.name,
+              'semester': semester.name,
+              'semesterIndex': i,
+            });
+          }
+        }
+      }
+    }
+
+    emit(
+      state.copyWith(
+        searchResults: results,
+        showSearchOverlay: query.isNotEmpty && results.isNotEmpty,
+      ),
     );
   }
 }
