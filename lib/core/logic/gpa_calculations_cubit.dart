@@ -149,6 +149,66 @@ class GpaCalculationsCubit extends Cubit<GpaCalculationsState> {
     return 0.0;
   }
 
+  double getMaxGpaPossible(int semesterIndex) {
+    double result = 0.0;
+
+    for (var course in state.semesters[semesterIndex].courses) {
+      result +=
+          course.grade == '--'
+              ? getGradePoint(
+                    getMaxGradePossible(
+                      semesterIndex,
+                      state.semesters[semesterIndex].courses.indexOf(course),
+                    ),
+                  ) *
+                  course.credits
+              : getGradePoint(course.grade) * course.credits;
+    }
+
+    return state.semesters[semesterIndex].attemptedCredits == 0
+        ? 0.0
+        : result / state.semesters[semesterIndex].attemptedCredits;
+  }
+
+  Map<String, dynamic> getCourseWorkScore(int semesterIndex, int courseIndex) {
+    double got = 0;
+    int from = 0;
+    for (var section
+        in state.semesters[semesterIndex].courses[courseIndex].sections) {
+      got += section.obtainedMark;
+      from += section.fullMark;
+    }
+    return {'got': got, 'from': from};
+  }
+
+  String getMaxGradePossible(int semesterIndex, int courseIndex) {
+    double? got = getCourseWorkScore(semesterIndex, courseIndex)['got'];
+    int? from = getCourseWorkScore(semesterIndex, courseIndex)['from'];
+
+    double maxPercent = (got! + (100 - from!)) / 100 * 100;
+
+    String maxGrade = '--';
+
+    for (var row in scale) {
+      String range = row[1];
+      if (range.contains('-')) {
+        var parts = range.split('-');
+        double min = double.tryParse(parts[0]) ?? 0;
+        double max = double.tryParse(parts[1]) ?? 100;
+        if (maxPercent >= min && maxPercent <= max) {
+          maxGrade = row[0];
+        }
+      } else if (range.toLowerCase().contains('below')) {
+        double below =
+            double.tryParse(range.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
+        if (maxPercent < below) {
+          maxGrade = row[0];
+        }
+      }
+    }
+    return maxGrade;
+  }
+
   void changeScale(List<List<String>> newScale) {
     scale = newScale;
     calculateGpaAndCgpa();

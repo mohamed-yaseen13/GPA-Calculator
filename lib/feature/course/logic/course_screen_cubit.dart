@@ -187,10 +187,7 @@ class CourseScreenCubit extends Cubit<CourseScreenState> {
     return {'got': got, 'from': from};
   }
 
-  String getMaxGradePossible(
-    List<SectionModel> sections, {
-    int? totalCourseMarks,
-  }) {
+  String getMaxGradePossible() {
     double? got = getCourseWorkScore()['got'];
     int? from = getCourseWorkScore()['from'];
 

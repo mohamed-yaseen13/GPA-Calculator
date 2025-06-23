@@ -38,6 +38,7 @@ class CourseButton extends StatelessWidget {
               'courseIndex': courseIndex,
             },
           );
+          print('semester index: $semesterIndex -- course index: $courseIndex');
         },
         child: Text(
           course.name,

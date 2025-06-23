@@ -21,7 +21,7 @@ class SectionCourseGrade extends StatelessWidget {
             : Colors.green;
     if (course.grade == '--') {
       return Text(
-        'Max Grade You Can Get : ${context.read<CourseScreenCubit>().getMaxGradePossible(course.sections)}',
+        'Max Grade You Can Get : ${context.read<CourseScreenCubit>().getMaxGradePossible()}',
         style: TextStyle(fontSize: 16.sp),
       );
     }
