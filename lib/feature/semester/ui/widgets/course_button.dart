@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gpa_calculator/core/dependency_injection/di.dart';
 import 'package:gpa_calculator/core/helpers/extensions.dart';
 import 'package:gpa_calculator/core/routing/app_routes.dart';
 import 'package:gpa_calculator/feature/course/data/models/course_model.dart';
@@ -31,6 +32,7 @@ class CourseButton extends StatelessWidget {
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         ),
         onPressed: () {
+          resetCourseScreenCubit();
           context.pushNamed(
             AppRoutes.courseScreen,
             arguments: {
@@ -38,7 +40,6 @@ class CourseButton extends StatelessWidget {
               'courseIndex': courseIndex,
             },
           );
-          print('semester index: $semesterIndex -- course index: $courseIndex');
         },
         child: Text(
           course.name,

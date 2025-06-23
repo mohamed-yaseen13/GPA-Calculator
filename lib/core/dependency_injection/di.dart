@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:gpa_calculator/core/constants/app_constants.dart';
+import 'package:gpa_calculator/core/helpers/prefs_helper.dart';
 import 'package:gpa_calculator/core/logic/gpa_calculations_cubit.dart';
 import 'package:gpa_calculator/feature/application_app_bar/logic/application_app_bar_cubit.dart';
 import 'package:gpa_calculator/feature/course/logic/course_screen_cubit.dart';
@@ -19,13 +20,7 @@ void setupGetIt(
 ) {
   resetSemesterScreenCubit();
 
-  getIt.registerLazySingleton<CourseScreenCubit>(
-    () => CourseScreenCubit(
-      box: AppConstants.box,
-      student: AppConstants.student,
-      scale: Scales.getAllScales(customScales)[selectedScaleIndex]['scale'],
-    ),
-  );
+  resetCourseScreenCubit();
 
   getIt.registerFactory<ScalesCubit>(() => ScalesCubit());
 
@@ -63,6 +58,23 @@ void resetSemesterScreenCubit() {
     () => SemesterScreenCubit(
       box: AppConstants.box,
       student: AppConstants.student,
+    ),
+  );
+}
+
+void resetCourseScreenCubit() async {
+  if (getIt.isRegistered<CourseScreenCubit>()) {
+    getIt.unregister<CourseScreenCubit>();
+  }
+
+  final selectedScaleIndex = await PrefsHelper.getSelectedScaleIndex();
+  final customScales = await PrefsHelper.loadCustomScales();
+
+  getIt.registerLazySingleton<CourseScreenCubit>(
+    () => CourseScreenCubit(
+      box: AppConstants.box,
+      student: AppConstants.student,
+      scale: Scales.getAllScales(customScales)[selectedScaleIndex]['scale'],
     ),
   );
 }
