@@ -170,13 +170,18 @@ class CalculatorCubit extends Cubit<CalculatorState> {
         }
       }
     } else if (state.currentInput.length <= 1 || state.currentInput == '0') {
+      final newExpression =
+          state.expression.isNotEmpty
+              ? state.expression.substring(0, state.expression.length - 1)
+              : '';
+
       emit(
         state.copyWith(
           displayValue: '0',
           currentInput: '0',
           isNewOperation: true,
           hasDecimal: false,
-          expression: '',
+          expression: newExpression,
         ),
       );
     } else {
@@ -184,12 +189,18 @@ class CalculatorCubit extends Cubit<CalculatorState> {
         0,
         state.currentInput.length - 1,
       );
+
+      final newExpression =
+          state.expression.isNotEmpty
+              ? state.expression.substring(0, state.expression.length - 1)
+              : '';
+
       emit(
         state.copyWith(
           displayValue: newValue,
           currentInput: newValue,
           hasDecimal: newValue.contains('.'),
-          expression: newValue,
+          expression: newExpression,
         ),
       );
     }
@@ -218,7 +229,7 @@ class CalculatorCubit extends Cubit<CalculatorState> {
   }
 
   double _evaluateSimpleExpression(String expression) {
-    final mdPattern = RegExp(r'(\-?\d+\.?\d*)([×÷%])(\-?\d+\.?\d*)');
+    final mdPattern = RegExp(r'(-?(?:\d+)?\.?\d+)([×÷%])(-?(?:\d+)?\.?\d+)');
     while (mdPattern.hasMatch(expression)) {
       expression = expression.replaceFirstMapped(mdPattern, (match) {
         final left = double.parse(match.group(1)!);
@@ -240,7 +251,7 @@ class CalculatorCubit extends Cubit<CalculatorState> {
       });
     }
 
-    final asPattern = RegExp(r'(\-?\d+\.?\d*)([+\-])(\-?\d+\.?\d*)');
+    final asPattern = RegExp(r'(-?(?:\d+)?\.?\d+)([+\-])(-?(?:\d+)?\.?\d+)');
     while (asPattern.hasMatch(expression)) {
       expression = expression.replaceFirstMapped(asPattern, (match) {
         final left = double.parse(match.group(1)!);

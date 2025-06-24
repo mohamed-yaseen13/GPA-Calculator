@@ -212,5 +212,212 @@ void main() {
             isA<CalculatorState>().having((s) => s.isError, 'error', true),
           ],
     );
+
+    blocTest<CalculatorCubit, CalculatorState>(
+      'expression: 5 × 0.5 = 2.5',
+      build: () => CalculatorCubit(),
+      act: (cubit) {
+        cubit.inputNumber('5');
+        cubit.inputOperation('×');
+        cubit.inputNumber('0');
+        cubit.inputNumber('.');
+        cubit.inputNumber('5');
+        cubit.calculate();
+      },
+      expect:
+          () => [
+            isA<CalculatorState>(), // 5
+            isA<CalculatorState>(), // ×
+            isA<CalculatorState>(), // 0
+            isA<CalculatorState>(), // .
+            isA<CalculatorState>(), // 0.5
+            isA<CalculatorState>().having(
+              (s) => s.displayValue,
+              'result',
+              '2.5',
+            ),
+          ],
+    );
+
+    blocTest<CalculatorCubit, CalculatorState>(
+      '2 + 3 × 4 - 1 = 13',
+      build: () => CalculatorCubit(),
+      act: (c) {
+        c.inputNumber('2');
+        c.inputOperation('+');
+        c.inputNumber('3');
+        c.inputOperation('×');
+        c.inputNumber('4');
+        c.inputOperation('-');
+        c.inputNumber('1');
+        c.calculate();
+      },
+      expect:
+          () => [
+            ...List.generate(7, (_) => isA<CalculatorState>()),
+            isA<CalculatorState>().having(
+              (s) => s.displayValue,
+              'result',
+              '13',
+            ),
+          ],
+    );
+
+    blocTest<CalculatorCubit, CalculatorState>(
+      '.5 + .5 = 1',
+      build: () => CalculatorCubit(),
+      act: (c) {
+        c.inputNumber('.');
+        c.inputNumber('5');
+        c.inputOperation('+');
+        c.inputNumber('.');
+        c.inputNumber('5');
+        c.calculate();
+      },
+      expect:
+          () => [
+            ...List.generate(5, (_) => isA<CalculatorState>()),
+            isA<CalculatorState>().having((s) => s.displayValue, 'result', '1'),
+          ],
+    );
+
+    //blocTest<CalculatorCubit, CalculatorState>(
+    //  '(1 + (2 + 3)) × 2 = 12',
+    //  build: () => CalculatorCubit(),
+    //  act: (c) {
+    //    c.inputNumber('(');
+    //    c.inputNumber('1');
+    //    c.inputOperation('+');
+    //    c.inputNumber('(');
+    //    c.inputNumber('2');
+    //    c.inputOperation('+');
+    //    c.inputNumber('3');
+    //    c.inputNumber(')');
+    //    c.inputNumber(')');
+    //    c.inputOperation('×');
+    //    c.inputNumber('2');
+    //    c.calculate();
+    //  },
+    //  expect:
+    //      () => [
+    //        ...List.generate(12, (_) => isA<CalculatorState>()),
+    //        isA<CalculatorState>().having(
+    //          (s) => s.displayValue,
+    //          'result',
+    //          '12',
+    //        ),
+    //      ],
+    //);
+
+    blocTest<CalculatorCubit, CalculatorState>(
+      'DEL after . should return to integer state',
+      build: () => CalculatorCubit(),
+      act: (c) {
+        c.inputNumber('5');
+        c.inputNumber('.');
+        c.delete();
+      },
+      expect:
+          () => [
+            isA<CalculatorState>(), // 5
+            isA<CalculatorState>(), // 5.
+            isA<CalculatorState>().having(
+              (s) => s.displayValue,
+              'back to 5',
+              '5',
+            ),
+          ],
+    );
+
+    blocTest<CalculatorCubit, CalculatorState>(
+      'Prevent 3..5',
+      build: () => CalculatorCubit(),
+      act: (c) {
+        c.inputNumber('3');
+        c.inputNumber('.');
+        c.inputNumber('.'); // should be ignored
+        c.inputNumber('5');
+      },
+      expect:
+          () => [
+            isA<CalculatorState>(), // 3
+            isA<CalculatorState>(), // 3.
+            isA<CalculatorState>(), // 3.5 (ignores second dot)
+          ],
+    );
+
+    // Complex expression with decimal and parentheses
+    blocTest<CalculatorCubit, CalculatorState>(
+      '(3.5 + 2.5) × 2 = 12',
+      build: () => CalculatorCubit(),
+      act: (c) {
+        c.inputNumber('(');
+        c.inputNumber('3');
+        c.inputNumber('.');
+        c.inputNumber('5');
+        c.inputOperation('+');
+        c.inputNumber('2');
+        c.inputNumber('.');
+        c.inputNumber('5');
+        c.inputNumber(')');
+        c.inputOperation('×');
+        c.inputNumber('2');
+        c.calculate();
+      },
+      expect:
+          () => [
+            ...List.generate(11, (_) => isA<CalculatorState>()),
+            isA<CalculatorState>().having(
+              (s) => s.displayValue,
+              'result',
+              '12',
+            ),
+          ],
+    );
+
+    // Expression reuse after equal
+    //blocTest<CalculatorCubit, CalculatorState>(
+    //  '5 + 2 = then × 2 = → 14',
+    //  build: () => CalculatorCubit(),
+    //  act: (c) {
+    //    c.inputNumber('5');
+    //    c.inputOperation('+');
+    //    c.inputNumber('2');
+    //    c.calculate(); // 7
+    //    c.inputOperation('×');
+    //    c.inputNumber('2');
+    //    c.calculate(); // 14
+    //  },
+    //  expect:
+    //      () => [
+    //        ...List.generate(6, (_) => isA<CalculatorState>()),
+    //        isA<CalculatorState>().having((s) => s.displayValue, '7', '7'),
+    //        isA<CalculatorState>(), // ×
+    //        isA<CalculatorState>(), // 2
+    //        isA<CalculatorState>().having((s) => s.displayValue, '14', '14'),
+    //      ],
+    //);
+
+    // Start with negative numbers
+    //blocTest<CalculatorCubit, CalculatorState>(
+    //  '(-5) + 3 = -2',
+    //  build: () => CalculatorCubit(),
+    //  act: (c) {
+    //    c.inputOperation('-');
+    //    c.inputNumber('5');
+    //    c.inputOperation('+');
+    //    c.inputNumber('3');
+    //    c.calculate();
+    //  },
+    //  expect:
+    //      () => [
+    //        ...List.generate(5, (_) => isA<CalculatorState>()),
+    //        isA<CalculatorState>().having(
+    //          (s) => s.displayValue,
+    //          'result',
+    //          '-2',
+    //        ),
+    //      ],
+    //);
   });
 }
