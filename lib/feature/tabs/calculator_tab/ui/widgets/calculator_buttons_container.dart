@@ -33,11 +33,11 @@ class CalculatorButtonsContainer extends StatelessWidget {
           CalculatorRow(
             calculatorHeight: calculatorHeight - 2.sp,
             color1: Colors.white,
-            onTap1: () => context.read<CalculatorCubit>().inputNumber('('),
+            onTap1: () => context.read<CalculatorCubit>().inputSymbol('('),
             text1: '(',
 
             color2: Colors.white,
-            onTap2: () => context.read<CalculatorCubit>().inputNumber(')'),
+            onTap2: () => context.read<CalculatorCubit>().inputSymbol(')'),
             text2: ')',
 
             color3: AppColors.darkOrange,
@@ -63,7 +63,7 @@ class CalculatorButtonsContainer extends StatelessWidget {
             text3: '9',
 
             color4: AppColors.lightOrange,
-            onTap4: () => context.read<CalculatorCubit>().inputOperation('÷'),
+            onTap4: () => context.read<CalculatorCubit>().inputSymbol('÷'),
             text4: '÷',
           ),
           CalculatorRow(
@@ -81,7 +81,7 @@ class CalculatorButtonsContainer extends StatelessWidget {
             text3: '6',
 
             color4: AppColors.lightOrange,
-            onTap4: () => context.read<CalculatorCubit>().inputOperation('×'),
+            onTap4: () => context.read<CalculatorCubit>().inputSymbol('×'),
             text4: '×',
           ),
           CalculatorRow(
@@ -99,7 +99,7 @@ class CalculatorButtonsContainer extends StatelessWidget {
             text3: '3',
 
             color4: AppColors.lightOrange,
-            onTap4: () => context.read<CalculatorCubit>().inputOperation('-'),
+            onTap4: () => context.read<CalculatorCubit>().inputSymbol('-'),
             text4: '-',
           ),
           CalculatorRow(
@@ -117,7 +117,7 @@ class CalculatorButtonsContainer extends StatelessWidget {
             text3: '%',
 
             color4: AppColors.lightOrange,
-            onTap4: () => context.read<CalculatorCubit>().inputOperation('+'),
+            onTap4: () => context.read<CalculatorCubit>().inputSymbol('+'),
             text4: '+',
           ),
           CalculatorEqualRow(calculatorHeight: calculatorHeight - 2.sp),

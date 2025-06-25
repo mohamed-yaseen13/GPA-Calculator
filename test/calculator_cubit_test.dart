@@ -36,11 +36,11 @@ void main() {
     );
 
     blocTest<CalculatorCubit, CalculatorState>(
-      'inputOperation "+" after "7"',
+      'inputSymbol "+" after "7"',
       build: () => CalculatorCubit(),
       act: (cubit) {
         cubit.inputNumber('7');
-        cubit.inputOperation('+');
+        cubit.inputSymbol('+');
       },
       expect:
           () => [
@@ -90,7 +90,7 @@ void main() {
       build: () => CalculatorCubit(),
       act: (cubit) {
         cubit.inputNumber('2');
-        cubit.inputOperation('+');
+        cubit.inputSymbol('+');
         cubit.inputNumber('3');
         cubit.calculate();
       },
@@ -111,12 +111,12 @@ void main() {
       'calculate (2 + 3) × 2 = 10',
       build: () => CalculatorCubit(),
       act: (cubit) {
-        cubit.inputNumber('(');
+        cubit.inputSymbol('(');
         cubit.inputNumber('2');
-        cubit.inputOperation('+');
+        cubit.inputSymbol('+');
         cubit.inputNumber('3');
-        cubit.inputNumber(')');
-        cubit.inputOperation('×');
+        cubit.inputSymbol(')');
+        cubit.inputSymbol('×');
         cubit.inputNumber('2');
         cubit.calculate();
       },
@@ -200,7 +200,7 @@ void main() {
       build: () => CalculatorCubit(),
       act: (cubit) {
         cubit.inputNumber('7');
-        cubit.inputOperation('÷');
+        cubit.inputSymbol('÷');
         cubit.inputNumber('0');
         cubit.calculate();
       },
@@ -218,7 +218,7 @@ void main() {
       build: () => CalculatorCubit(),
       act: (cubit) {
         cubit.inputNumber('5');
-        cubit.inputOperation('×');
+        cubit.inputSymbol('×');
         cubit.inputNumber('0');
         cubit.inputNumber('.');
         cubit.inputNumber('5');
@@ -244,11 +244,11 @@ void main() {
       build: () => CalculatorCubit(),
       act: (c) {
         c.inputNumber('2');
-        c.inputOperation('+');
+        c.inputSymbol('+');
         c.inputNumber('3');
-        c.inputOperation('×');
+        c.inputSymbol('×');
         c.inputNumber('4');
-        c.inputOperation('-');
+        c.inputSymbol('-');
         c.inputNumber('1');
         c.calculate();
       },
@@ -269,7 +269,7 @@ void main() {
       act: (c) {
         c.inputNumber('.');
         c.inputNumber('5');
-        c.inputOperation('+');
+        c.inputSymbol('+');
         c.inputNumber('.');
         c.inputNumber('5');
         c.calculate();
@@ -285,16 +285,16 @@ void main() {
     //  '(1 + (2 + 3)) × 2 = 12',
     //  build: () => CalculatorCubit(),
     //  act: (c) {
-    //    c.inputNumber('(');
+    //    c.inputSymbol('(');
     //    c.inputNumber('1');
-    //    c.inputOperation('+');
-    //    c.inputNumber('(');
+    //    c.inputSymbol('+');
+    //    c.inputSymbol('(');
     //    c.inputNumber('2');
-    //    c.inputOperation('+');
+    //    c.inputSymbol('+');
     //    c.inputNumber('3');
-    //    c.inputNumber(')');
-    //    c.inputNumber(')');
-    //    c.inputOperation('×');
+    //    c.inputSymbol(')');
+    //    c.inputSymbol(')');
+    //    c.inputSymbol('×');
     //    c.inputNumber('2');
     //    c.calculate();
     //  },
@@ -351,16 +351,16 @@ void main() {
       '(3.5 + 2.5) × 2 = 12',
       build: () => CalculatorCubit(),
       act: (c) {
-        c.inputNumber('(');
+        c.inputSymbol('(');
         c.inputNumber('3');
         c.inputNumber('.');
         c.inputNumber('5');
-        c.inputOperation('+');
+        c.inputSymbol('+');
         c.inputNumber('2');
         c.inputNumber('.');
         c.inputNumber('5');
-        c.inputNumber(')');
-        c.inputOperation('×');
+        c.inputSymbol(')');
+        c.inputSymbol('×');
         c.inputNumber('2');
         c.calculate();
       },
@@ -381,10 +381,10 @@ void main() {
     //  build: () => CalculatorCubit(),
     //  act: (c) {
     //    c.inputNumber('5');
-    //    c.inputOperation('+');
+    //    c.inputSymbol('+');
     //    c.inputNumber('2');
     //    c.calculate(); // 7
-    //    c.inputOperation('×');
+    //    c.inputSymbol('×');
     //    c.inputNumber('2');
     //    c.calculate(); // 14
     //  },
@@ -403,9 +403,9 @@ void main() {
     //  '(-5) + 3 = -2',
     //  build: () => CalculatorCubit(),
     //  act: (c) {
-    //    c.inputOperation('-');
+    //    c.inputSymbol('-');
     //    c.inputNumber('5');
-    //    c.inputOperation('+');
+    //    c.inputSymbol('+');
     //    c.inputNumber('3');
     //    c.calculate();
     //  },

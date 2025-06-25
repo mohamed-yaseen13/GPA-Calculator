@@ -9,15 +9,12 @@ class CalculatorCubit extends Cubit<CalculatorState> {
       clear();
     }
 
-    if (number == '(' || number == ')') {
-      emit(
-        state.copyWith(
-          expression: state.expression + number,
-          isNewOperation: number == ')',
-        ),
-      );
-      return;
-    }
+    final expr = state.expression;
+    final lastChar = expr.isNotEmpty ? expr[expr.length - 1] : null;
+
+    // Auto insert × after ')'
+    final needsMultiplication = lastChar == ')';
+    final newExpr = (needsMultiplication ? '$expr×' : expr) + number;
 
     if (state.isNewOperation) {
       emit(
@@ -25,10 +22,7 @@ class CalculatorCubit extends Cubit<CalculatorState> {
           displayValue: number,
           isNewOperation: false,
           hasDecimal: number == '.',
-          expression:
-              state.expression.contains('=')
-                  ? number
-                  : state.expression + number,
+          expression: expr.contains('=') ? number : newExpr,
         ),
       );
     } else {
@@ -44,44 +38,69 @@ class CalculatorCubit extends Cubit<CalculatorState> {
           displayValue: newValue,
           currentInput: newValue,
           hasDecimal: state.hasDecimal || number == '.',
-          expression: state.expression + number,
+          expression: newExpr,
         ),
       );
     }
   }
 
-  void inputOperation(String op) {
+  void inputSymbol(String symbol) {
     if (state.isError) return;
 
-    if (op == '-' && state.isNewOperation && state.operation == '-') {
+    final expr = state.expression;
+    final lastChar = expr.isNotEmpty ? expr[expr.length - 1] : null;
+
+    String symbolToAdd = symbol;
+
+    // Auto insert × before '('
+    if (symbol == '(' &&
+        lastChar != null &&
+        RegExp(r'\d|\)').hasMatch(lastChar)) {
+      symbolToAdd = '×(';
+    }
+
+    // Auto insert × after ')' if followed by number is handled in inputNumber
+
+    if (symbol == '(' || symbol == ')') {
       emit(
         state.copyWith(
-          displayValue: '-',
-          currentInput: '-',
-          isNewOperation: false,
-          expression: '${state.expression} -',
+          expression: expr + symbolToAdd,
+          displayValue: symbol,
+          isNewOperation: symbol == ')',
         ),
       );
       return;
     }
 
-    if (!state.expression.contains('=')) {
+    if (symbol == '-' && state.isNewOperation && state.operation == '-') {
+      emit(
+        state.copyWith(
+          displayValue: '-',
+          currentInput: '-',
+          isNewOperation: false,
+          expression: '$expr -',
+        ),
+      );
+      return;
+    }
+
+    if (!expr.contains('=')) {
       emit(
         state.copyWith(
           previousValue: state.displayValue,
-          operation: op,
+          operation: symbol,
           isNewOperation: true,
           hasDecimal: false,
           currentInput: '',
-          expression: '${state.expression} $op',
+          expression: '$expr $symbol',
         ),
       );
     } else {
-      final newExpression = '${state.displayValue} $op';
+      final newExpression = '${state.displayValue} $symbol';
       emit(
         state.copyWith(
           previousValue: state.displayValue,
-          operation: op,
+          operation: symbol,
           isNewOperation: true,
           hasDecimal: false,
           currentInput: '',
@@ -100,7 +119,6 @@ class CalculatorCubit extends Cubit<CalculatorState> {
       if (expression.isEmpty) return;
 
       final cleanExpression = expression.split('=').first.trim();
-
       final result = _evaluateExpression(cleanExpression);
 
       final displayResult =
@@ -189,7 +207,6 @@ class CalculatorCubit extends Cubit<CalculatorState> {
         0,
         state.currentInput.length - 1,
       );
-
       final newExpression =
           state.expression.isNotEmpty
               ? state.expression.substring(0, state.expression.length - 1)

@@ -25,23 +25,29 @@ class CalculatorDisplayContainer extends StatelessWidget {
             children: [
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
-                child: Text(
-                  state.expression,
-                  style: TextStyle(fontSize: 24.sp, color: Colors.black54),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  reverse: true,
+                  child: Text(
+                    state.expression,
+                    style: TextStyle(fontSize: 24.sp, color: Colors.black54),
+                    textAlign: TextAlign.left,
+                  ),
                 ),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
-                child: Text(
-                  state.displayValue,
-                  style: TextStyle(
-                    fontSize: 32.sp,
-                    color: state.isError ? Colors.red : Colors.black,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  reverse: true,
+                  child: Text(
+                    state.displayValue,
+                    style: TextStyle(
+                      fontSize: 32.sp,
+                      color: state.isError ? Colors.red : Colors.black,
+                    ),
+                    textAlign: TextAlign.left,
                   ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
                 ),
               ),
             ],
