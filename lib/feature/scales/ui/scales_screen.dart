@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gpa_calculator/core/helpers/extensions.dart';
 import 'package:gpa_calculator/core/helpers/spacing.dart';
 import 'package:gpa_calculator/core/routing/app_routes.dart';
-import 'package:gpa_calculator/core/widgets/banner_ad_widget.dart';
+//import 'package:gpa_calculator/core/widgets/banner_ad_widget.dart';
 import 'package:gpa_calculator/feature/scales/data/model/scales.dart';
 import 'package:gpa_calculator/feature/scales/logic/scales_cubit.dart';
 import 'package:gpa_calculator/feature/scales/logic/scales_state.dart';
@@ -24,9 +24,9 @@ class ScalesScreen extends StatelessWidget {
               final allScales = Scales.getAllScales(state.customScales);
               return Column(
                 children: [
-                  verticalSpace(8),
-                  BannerAdWidget(),
-                  verticalSpace(16),
+                  //verticalSpace(8),
+                  //BannerAdWidget(),
+                  verticalSpace(4),
                   for (int i = 0; i < allScales.length; i++)
                     ScaleContainer(
                       index: i,

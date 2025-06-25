@@ -18,7 +18,7 @@ class CalculationsColumn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: 18.h, left: 12.w),
+      padding: EdgeInsets.only(top: 16.h, left: 12.w),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

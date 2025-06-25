@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gpa_calculator/feature/semester/ui/widgets/semester_data_data_column.dart';
-import 'package:gpa_calculator/feature/semester/ui/widgets/semester_data_text_column.dart';
 
-class SemesterData extends StatelessWidget {
-  const SemesterData({super.key});
+class DataContainer extends StatelessWidget {
+  final Widget leftColumn;
+  final Widget rightColumn;
+
+  const DataContainer({
+    super.key,
+    required this.leftColumn,
+    required this.rightColumn,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: 24.h, bottom: 8.h, left: 16.w, right: 32.w),
+      padding: EdgeInsets.only(top: 4.h, bottom: 8.h, left: 12.w, right: 12.w),
       child: Container(
         decoration: BoxDecoration(
           shape: BoxShape.rectangle,
@@ -20,11 +25,7 @@ class SemesterData extends StatelessWidget {
           padding: EdgeInsets.all(8.sp),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              SemesterDataTextColumn(),
-              Spacer(),
-              SemesterDataDataColumn(),
-            ],
+            children: [leftColumn, Spacer(), rightColumn],
           ),
         ),
       ),

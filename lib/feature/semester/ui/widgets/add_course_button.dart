@@ -3,13 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gpa_calculator/core/dependency_injection/di.dart';
 import 'package:gpa_calculator/core/helpers/check_internet_connection.dart';
-import 'package:gpa_calculator/core/helpers/interstitial_ad_manager.dart';
 import 'package:gpa_calculator/core/logic/gpa_calculations_cubit.dart';
-import 'package:gpa_calculator/feature/course/logic/course_screen_cubit.dart';
-import 'package:gpa_calculator/feature/course/ui/widgets/add_section_bottom_sheet.dart';
+import 'package:gpa_calculator/feature/semester/logic/semester_screen_cubit.dart';
+import 'package:gpa_calculator/feature/semester/ui/widgets/add_course_bottom_sheet.dart';
 
-class AddSectionButton extends StatelessWidget {
-  const AddSectionButton({super.key});
+class AddCourseButton extends StatelessWidget {
+  const AddCourseButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -48,28 +47,27 @@ class AddSectionButton extends StatelessWidget {
             isScrollControlled: true,
             builder:
                 (bottomSheetContext) => BlocProvider.value(
-                  value: getIt<CourseScreenCubit>(),
+                  value: getIt<SemesterScreenCubit>(),
                   child: Padding(
                     padding: EdgeInsets.only(
                       bottom:
                           MediaQuery.of(bottomSheetContext).viewInsets.bottom,
                     ),
-                    child: AddSectionBottomSheet(text: 'Add'),
+                    child: AddCourseBottomSheet(text: 'Add'),
                   ),
                 ),
           );
           if (result != null) {
-            context.read<CourseScreenCubit>().addSection(
+            context.read<SemesterScreenCubit>().addCourse(
               name: result['name'],
-              obtainedMark: result['obtainedMark'],
-              fullMark: result['fullMark'],
+              grade: result['grade'],
+              credits: result['credits'],
             );
             context.read<GpaCalculationsCubit>().calculateGpaAndCgpa();
-            InterstitialAdManager.showInterstitialAd();
           }
         },
         child: Text(
-          'Add Section',
+          'Add Course',
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
       ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gpa_calculator/core/helpers/interstitial_ad_manager.dart';
+import 'package:gpa_calculator/core/logic/gpa_calculations_cubit.dart';
 import 'package:gpa_calculator/feature/course/data/models/section_model.dart';
 import 'package:gpa_calculator/feature/course/logic/course_screen_cubit.dart';
 import 'package:gpa_calculator/feature/course/ui/widgets/add_section_bottom_sheet.dart';
@@ -49,6 +51,8 @@ class EditSectionIcon extends StatelessWidget {
             fullMark: result['fullMark'],
             index: index,
           );
+          context.read<GpaCalculationsCubit>().calculateGpaAndCgpa();
+          InterstitialAdManager.showInterstitialAd();
         }
       },
     );

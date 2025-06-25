@@ -5,11 +5,11 @@ import 'package:gpa_calculator/core/dependency_injection/di.dart';
 import 'package:gpa_calculator/core/helpers/check_internet_connection.dart';
 import 'package:gpa_calculator/core/helpers/interstitial_ad_manager.dart';
 import 'package:gpa_calculator/core/logic/gpa_calculations_cubit.dart';
-import 'package:gpa_calculator/feature/course/logic/course_screen_cubit.dart';
-import 'package:gpa_calculator/feature/course/ui/widgets/add_section_bottom_sheet.dart';
+import 'package:gpa_calculator/feature/application_app_bar/logic/application_app_bar_cubit.dart';
+import 'package:gpa_calculator/feature/tabs/main_tab/ui/widgets/add_semester_bottom_sheet.dart';
 
-class AddSectionButton extends StatelessWidget {
-  const AddSectionButton({super.key});
+class AddSemesterButton extends StatelessWidget {
+  const AddSemesterButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -47,29 +47,27 @@ class AddSectionButton extends StatelessWidget {
             context: context,
             isScrollControlled: true,
             builder:
-                (bottomSheetContext) => BlocProvider.value(
-                  value: getIt<CourseScreenCubit>(),
+                (bottomSheetContext) => BlocProvider(
+                  create: (_) => getIt<ApplicationAppBarCubit>(),
                   child: Padding(
                     padding: EdgeInsets.only(
                       bottom:
                           MediaQuery.of(bottomSheetContext).viewInsets.bottom,
                     ),
-                    child: AddSectionBottomSheet(text: 'Add'),
+                    child: AddSemesterBottomSheet(text: 'Add'),
                   ),
                 ),
           );
           if (result != null) {
-            context.read<CourseScreenCubit>().addSection(
+            context.read<ApplicationAppBarCubit>().addSemester(
               name: result['name'],
-              obtainedMark: result['obtainedMark'],
-              fullMark: result['fullMark'],
             );
             context.read<GpaCalculationsCubit>().calculateGpaAndCgpa();
             InterstitialAdManager.showInterstitialAd();
           }
         },
         child: Text(
-          'Add Section',
+          'Add Semester',
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
       ),

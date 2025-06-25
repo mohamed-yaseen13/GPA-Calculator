@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gpa_calculator/core/helpers/interstitial_ad_manager.dart';
 import 'package:gpa_calculator/core/logic/gpa_calculations_cubit.dart';
 import 'package:gpa_calculator/feature/application_app_bar/logic/application_app_bar_cubit.dart';
 import 'package:gpa_calculator/feature/semester/data/models/semester_model.dart';
@@ -46,6 +47,7 @@ class EditSemesterIcon extends StatelessWidget {
             index: index,
           );
           context.read<GpaCalculationsCubit>().calculateGpaAndCgpa();
+          InterstitialAdManager.showInterstitialAd();
         }
       },
     );
