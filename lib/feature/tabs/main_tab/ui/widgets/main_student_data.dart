@@ -24,6 +24,7 @@ class MainStudentData extends StatelessWidget {
             children: [
               Text('Cumulative GPA: ', style: TextStyle(fontSize: 18.sp)),
               Text('Total Credits: ', style: TextStyle(fontSize: 18.sp)),
+              Text('Max CGPA you can get: ', style: TextStyle(fontSize: 18.sp)),
             ],
           ),
           horizontalSpace(12),
@@ -38,6 +39,16 @@ class MainStudentData extends StatelessWidget {
                   ),
                   Text(
                     '${state.totalCredits}',
+                    style: TextStyle(
+                      fontSize: 18.sp,
+                      color: AppColors.mainOrange,
+                    ),
+                  ),
+                  Text(
+                    context
+                        .read<GpaCalculationsCubit>()
+                        .getMaxCgpaPossible()
+                        .toStringAsFixed(2),
                     style: TextStyle(
                       fontSize: 18.sp,
                       color: AppColors.mainOrange,

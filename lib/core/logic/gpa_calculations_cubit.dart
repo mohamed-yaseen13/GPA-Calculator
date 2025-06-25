@@ -150,10 +150,10 @@ class GpaCalculationsCubit extends Cubit<GpaCalculationsState> {
   }
 
   double getMaxGpaPossible(int semesterIndex) {
-    double result = 0.0;
+    double points = 0.0;
 
     for (var course in state.semesters[semesterIndex].courses) {
-      result +=
+      points +=
           course.grade == '--'
               ? getGradePoint(
                     getMaxGradePossible(
@@ -167,7 +167,7 @@ class GpaCalculationsCubit extends Cubit<GpaCalculationsState> {
 
     return state.semesters[semesterIndex].attemptedCredits == 0
         ? 0.0
-        : result / state.semesters[semesterIndex].attemptedCredits;
+        : points / state.semesters[semesterIndex].attemptedCredits;
   }
 
   Map<String, dynamic> getCourseWorkScore(int semesterIndex, int courseIndex) {
@@ -207,6 +207,46 @@ class GpaCalculationsCubit extends Cubit<GpaCalculationsState> {
       }
     }
     return maxGrade;
+  }
+
+  double getMaxCgpaPossible() {
+    double points = 0.0;
+    double credits = 0.0;
+
+    for (var semester in student.semesters) {
+      for (var course in semester.courses) {
+        points +=
+            course.isRepeated
+                ? 0.0
+                : course.isChanged
+                ? course.newGrade == '--'
+                    ? getGradePoint(
+                          getMaxGradePossible(
+                            student.semesters.indexOf(semester),
+                            state
+                                .semesters[student.semesters.indexOf(semester)]
+                                .courses
+                                .indexOf(course),
+                          ),
+                        ) *
+                        course.credits
+                    : getGradePoint(course.newGrade) * course.credits
+                : course.grade == '--'
+                ? getGradePoint(
+                      getMaxGradePossible(
+                        student.semesters.indexOf(semester),
+                        state
+                            .semesters[student.semesters.indexOf(semester)]
+                            .courses
+                            .indexOf(course),
+                      ),
+                    ) *
+                    course.credits
+                : getGradePoint(course.grade) * course.credits;
+        credits += course.isRepeated ? 0.0 : course.credits;
+      }
+    }
+    return credits == 0 ? 0.0 : points / credits;
   }
 
   void changeScale(List<List<String>> newScale) {
