@@ -11,11 +11,40 @@ class AppSearchBar extends StatefulWidget {
 }
 
 class _AppSearchBarState extends State<AppSearchBar> {
+  late FocusNode _focusNode;
+
+  @override
+  void initState() {
+    super.initState();
+    _focusNode = FocusNode();
+
+    _focusNode.addListener(() {
+      if (!_focusNode.hasFocus) {
+        _overlayEntry?.remove();
+        _overlayEntry = null;
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    _focusNode.dispose();
+    _overlayEntry?.remove();
+    super.dispose();
+  }
+
   final _controller = TextEditingController();
   final _layerLink = LayerLink();
   OverlayEntry? _overlayEntry;
 
   void _showOverlay() {
+    if (!mounted) return;
+
+    final overlay = Overlay.of(context);
+
+    _overlayEntry?.remove();
+
     _overlayEntry = OverlayEntry(
       builder: (_) {
         return Positioned(
@@ -30,7 +59,7 @@ class _AppSearchBarState extends State<AppSearchBar> {
       },
     );
 
-    Overlay.of(context).insert(_overlayEntry!);
+    overlay.insert(_overlayEntry!);
   }
 
   @override
@@ -39,6 +68,7 @@ class _AppSearchBarState extends State<AppSearchBar> {
       link: _layerLink,
       child: SearchInputField(
         controller: _controller,
+        focusNode: _focusNode,
         showOverlay: _showOverlay,
       ),
     );

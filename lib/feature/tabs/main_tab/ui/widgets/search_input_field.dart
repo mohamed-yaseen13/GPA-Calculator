@@ -7,11 +7,13 @@ import 'package:gpa_calculator/feature/application_app_bar/logic/application_app
 class SearchInputField extends StatelessWidget {
   final TextEditingController controller;
   final Function showOverlay;
+  final FocusNode focusNode;
 
   const SearchInputField({
     super.key,
     required this.controller,
     required this.showOverlay,
+    required this.focusNode,
   });
 
   @override
@@ -27,9 +29,10 @@ class SearchInputField extends StatelessWidget {
               borderRadius: BorderRadius.circular(8.r),
               border: Border.all(color: Colors.black),
             ),
-            child: BlocProvider(
-              create: (_) => getIt<ApplicationAppBarCubit>(),
+            child: BlocProvider.value(
+              value: getIt<ApplicationAppBarCubit>(),
               child: TextField(
+                focusNode: focusNode,
                 controller: controller,
                 onChanged: (query) {
                   context.read<ApplicationAppBarCubit>().searchOnCourse(query);

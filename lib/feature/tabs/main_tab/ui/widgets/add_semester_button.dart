@@ -47,8 +47,8 @@ class AddSemesterButton extends StatelessWidget {
             context: context,
             isScrollControlled: true,
             builder:
-                (bottomSheetContext) => BlocProvider(
-                  create: (_) => getIt<ApplicationAppBarCubit>(),
+                (bottomSheetContext) => BlocProvider.value(
+                  value: getIt<ApplicationAppBarCubit>(),
                   child: Padding(
                     padding: EdgeInsets.only(
                       bottom:

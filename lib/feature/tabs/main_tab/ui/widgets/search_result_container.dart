@@ -17,30 +17,33 @@ class SearchResultContainer extends StatelessWidget {
       color: Color(0xFFFFF6E7),
       elevation: 4,
       borderRadius: BorderRadius.circular(8.r),
-      child: BlocProvider(
-        create: (_) => getIt<ApplicationAppBarCubit>(),
+      child: BlocProvider.value(
+        value: getIt<ApplicationAppBarCubit>(),
         child: BlocBuilder<ApplicationAppBarCubit, ApplicationAppBarState>(
           builder: (context, state) {
-            return ListView.separated(
-              shrinkWrap: true,
-              padding: EdgeInsets.zero,
-              itemCount: state.searchResults.length,
-              separatorBuilder: (_, __) => Divider(height: 1.h),
-              itemBuilder:
-                  (_, i) => ListTile(
-                    onTap: () {
-                      resetSemesterScreenCubit();
-                      context.pushNamed(
-                        AppRoutes.semesterScreen,
-                        arguments: {
-                          'semesterIndex':
-                              state.searchResults[i]['semesterIndex'],
-                        },
-                      );
-                    },
-                    title: Text(state.searchResults[i]['course'] ?? ''),
-                    subtitle: Text(state.searchResults[i]['semester'] ?? ''),
-                  ),
+            return SizedBox(
+              height: state.searchResults.isEmpty ? 0.0 : 300.h,
+              child: ListView.separated(
+                shrinkWrap: true,
+                padding: EdgeInsets.zero,
+                itemCount: state.searchResults.length,
+                separatorBuilder: (_, __) => Divider(height: 1.h),
+                itemBuilder:
+                    (_, i) => ListTile(
+                      onTap: () {
+                        resetSemesterScreenCubit();
+                        context.pushNamed(
+                          AppRoutes.semesterScreen,
+                          arguments: {
+                            'semesterIndex':
+                                state.searchResults[i]['semesterIndex'],
+                          },
+                        );
+                      },
+                      title: Text(state.searchResults[i]['course'] ?? ''),
+                      subtitle: Text(state.searchResults[i]['semester'] ?? ''),
+                    ),
+              ),
             );
           },
         ),

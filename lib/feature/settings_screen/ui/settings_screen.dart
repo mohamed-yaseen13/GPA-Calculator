@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gpa_calculator/core/helpers/spacing.dart';
-//import 'package:gpa_calculator/core/widgets/banner_ad_widget.dart';
 import 'package:gpa_calculator/feature/settings_screen/ui/widgets/backup_and_restore_column.dart';
 import 'package:gpa_calculator/feature/settings_screen/ui/widgets/calculations_column.dart';
 import 'package:gpa_calculator/feature/settings_screen/ui/widgets/others_column.dart';
@@ -17,9 +16,6 @@ class SettingsScreen extends StatelessWidget {
         child: SafeArea(
           child: Column(
             children: [
-              //verticalSpace(8),
-              //BannerAdWidget(),
-              //verticalSpace(4),
               CalculationsColumn(),
               verticalSpace(18),
               PreferencesColumn(),
