@@ -46,24 +46,30 @@ Future<void> migrateOldData(Box box) async {
 
   bool updated = false;
 
-  for (var i = student.semesters.length - 1; i > 0; i--) {
-    outlerLoop:
-    for (var course in student.semesters[i].courses) {
-      for (var j = i - 1; j >= 0; j--) {
-        for (var oldCourse in student.semesters[j].courses) {
+  for (int i = 1; i < student.semesters.length; i++) {
+    final currentSemester = student.semesters[i];
+
+    for (final course in currentSemester.courses) {
+      if (course.isFailedBefore != null) continue;
+
+      bool failedBefore = false;
+
+      for (int j = 0; j < i; j++) {
+        for (final oldCourse in student.semesters[j].courses) {
           if (oldCourse.name.trim().toLowerCase() ==
-                  course.name.trim().toLowerCase() &&
-              getGradePoint(oldCourse.grade) == 0.0) {
-            course.isFailedBefore = true;
-            break outlerLoop;
-          } else {
-            course.isFailedBefore = false;
-            break outlerLoop;
+              course.name.trim().toLowerCase()) {
+            if (getGradePoint(oldCourse.grade) == 0.0) {
+              failedBefore = true;
+              break;
+            }
           }
         }
+        if (failedBefore) break;
       }
+
+      course.isFailedBefore = failedBefore;
+      updated = true;
     }
-    updated = true;
   }
   if (updated) {
     await box.put('default', student);
