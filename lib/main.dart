@@ -56,6 +56,9 @@ Future<void> migrateOldData(Box box) async {
               getGradePoint(oldCourse.grade) == 0.0) {
             course.isFailedBefore = true;
             break outlerLoop;
+          } else {
+            course.isFailedBefore = false;
+            break outlerLoop;
           }
         }
       }
