@@ -23,6 +23,8 @@ mixin _$CourseScreenState {
   List<CourseModel> get courses;
   List<SectionModel> get sections;
   double? get dropdownWidth;
+  bool get isThereLimitationsAfterFallOnCourse;
+  String? get limitationAfterFallOnCourse;
 
   /// Create a copy of CourseScreenState
   /// with the given fields replaced by the non-null parameter values.
@@ -50,7 +52,15 @@ mixin _$CourseScreenState {
             const DeepCollectionEquality().equals(other.courses, courses) &&
             const DeepCollectionEquality().equals(other.sections, sections) &&
             (identical(other.dropdownWidth, dropdownWidth) ||
-                other.dropdownWidth == dropdownWidth));
+                other.dropdownWidth == dropdownWidth) &&
+            (identical(other.isThereLimitationsAfterFallOnCourse,
+                    isThereLimitationsAfterFallOnCourse) ||
+                other.isThereLimitationsAfterFallOnCourse ==
+                    isThereLimitationsAfterFallOnCourse) &&
+            (identical(other.limitationAfterFallOnCourse,
+                    limitationAfterFallOnCourse) ||
+                other.limitationAfterFallOnCourse ==
+                    limitationAfterFallOnCourse));
   }
 
   @override
@@ -63,11 +73,13 @@ mixin _$CourseScreenState {
       selectedSections,
       const DeepCollectionEquality().hash(courses),
       const DeepCollectionEquality().hash(sections),
-      dropdownWidth);
+      dropdownWidth,
+      isThereLimitationsAfterFallOnCourse,
+      limitationAfterFallOnCourse);
 
   @override
   String toString() {
-    return 'CourseScreenState(selectedCourseName: $selectedCourseName, selectedTermIndex: $selectedTermIndex, selectedCourseIndex: $selectedCourseIndex, selectionMode: $selectionMode, selectedSections: $selectedSections, courses: $courses, sections: $sections, dropdownWidth: $dropdownWidth)';
+    return 'CourseScreenState(selectedCourseName: $selectedCourseName, selectedTermIndex: $selectedTermIndex, selectedCourseIndex: $selectedCourseIndex, selectionMode: $selectionMode, selectedSections: $selectedSections, courses: $courses, sections: $sections, dropdownWidth: $dropdownWidth, isThereLimitationsAfterFallOnCourse: $isThereLimitationsAfterFallOnCourse, limitationAfterFallOnCourse: $limitationAfterFallOnCourse)';
   }
 }
 
@@ -85,7 +97,9 @@ abstract mixin class $CourseScreenStateCopyWith<$Res> {
       int selectedSections,
       List<CourseModel> courses,
       List<SectionModel> sections,
-      double? dropdownWidth});
+      double? dropdownWidth,
+      bool isThereLimitationsAfterFallOnCourse,
+      String? limitationAfterFallOnCourse});
 }
 
 /// @nodoc
@@ -109,6 +123,8 @@ class _$CourseScreenStateCopyWithImpl<$Res>
     Object? courses = null,
     Object? sections = null,
     Object? dropdownWidth = freezed,
+    Object? isThereLimitationsAfterFallOnCourse = null,
+    Object? limitationAfterFallOnCourse = freezed,
   }) {
     return _then(_self.copyWith(
       selectedCourseName: freezed == selectedCourseName
@@ -143,6 +159,15 @@ class _$CourseScreenStateCopyWithImpl<$Res>
           ? _self.dropdownWidth
           : dropdownWidth // ignore: cast_nullable_to_non_nullable
               as double?,
+      isThereLimitationsAfterFallOnCourse: null ==
+              isThereLimitationsAfterFallOnCourse
+          ? _self.isThereLimitationsAfterFallOnCourse
+          : isThereLimitationsAfterFallOnCourse // ignore: cast_nullable_to_non_nullable
+              as bool,
+      limitationAfterFallOnCourse: freezed == limitationAfterFallOnCourse
+          ? _self.limitationAfterFallOnCourse
+          : limitationAfterFallOnCourse // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -158,7 +183,9 @@ class _CourseScreenState implements CourseScreenState {
       required this.selectedSections,
       required final List<CourseModel> courses,
       required final List<SectionModel> sections,
-      required this.dropdownWidth})
+      required this.dropdownWidth,
+      required this.isThereLimitationsAfterFallOnCourse,
+      required this.limitationAfterFallOnCourse})
       : _courses = courses,
         _sections = sections;
 
@@ -190,6 +217,10 @@ class _CourseScreenState implements CourseScreenState {
 
   @override
   final double? dropdownWidth;
+  @override
+  final bool isThereLimitationsAfterFallOnCourse;
+  @override
+  final String? limitationAfterFallOnCourse;
 
   /// Create a copy of CourseScreenState
   /// with the given fields replaced by the non-null parameter values.
@@ -217,7 +248,15 @@ class _CourseScreenState implements CourseScreenState {
             const DeepCollectionEquality().equals(other._courses, _courses) &&
             const DeepCollectionEquality().equals(other._sections, _sections) &&
             (identical(other.dropdownWidth, dropdownWidth) ||
-                other.dropdownWidth == dropdownWidth));
+                other.dropdownWidth == dropdownWidth) &&
+            (identical(other.isThereLimitationsAfterFallOnCourse,
+                    isThereLimitationsAfterFallOnCourse) ||
+                other.isThereLimitationsAfterFallOnCourse ==
+                    isThereLimitationsAfterFallOnCourse) &&
+            (identical(other.limitationAfterFallOnCourse,
+                    limitationAfterFallOnCourse) ||
+                other.limitationAfterFallOnCourse ==
+                    limitationAfterFallOnCourse));
   }
 
   @override
@@ -230,11 +269,13 @@ class _CourseScreenState implements CourseScreenState {
       selectedSections,
       const DeepCollectionEquality().hash(_courses),
       const DeepCollectionEquality().hash(_sections),
-      dropdownWidth);
+      dropdownWidth,
+      isThereLimitationsAfterFallOnCourse,
+      limitationAfterFallOnCourse);
 
   @override
   String toString() {
-    return 'CourseScreenState(selectedCourseName: $selectedCourseName, selectedTermIndex: $selectedTermIndex, selectedCourseIndex: $selectedCourseIndex, selectionMode: $selectionMode, selectedSections: $selectedSections, courses: $courses, sections: $sections, dropdownWidth: $dropdownWidth)';
+    return 'CourseScreenState(selectedCourseName: $selectedCourseName, selectedTermIndex: $selectedTermIndex, selectedCourseIndex: $selectedCourseIndex, selectionMode: $selectionMode, selectedSections: $selectedSections, courses: $courses, sections: $sections, dropdownWidth: $dropdownWidth, isThereLimitationsAfterFallOnCourse: $isThereLimitationsAfterFallOnCourse, limitationAfterFallOnCourse: $limitationAfterFallOnCourse)';
   }
 }
 
@@ -254,7 +295,9 @@ abstract mixin class _$CourseScreenStateCopyWith<$Res>
       int selectedSections,
       List<CourseModel> courses,
       List<SectionModel> sections,
-      double? dropdownWidth});
+      double? dropdownWidth,
+      bool isThereLimitationsAfterFallOnCourse,
+      String? limitationAfterFallOnCourse});
 }
 
 /// @nodoc
@@ -278,6 +321,8 @@ class __$CourseScreenStateCopyWithImpl<$Res>
     Object? courses = null,
     Object? sections = null,
     Object? dropdownWidth = freezed,
+    Object? isThereLimitationsAfterFallOnCourse = null,
+    Object? limitationAfterFallOnCourse = freezed,
   }) {
     return _then(_CourseScreenState(
       selectedCourseName: freezed == selectedCourseName
@@ -312,6 +357,15 @@ class __$CourseScreenStateCopyWithImpl<$Res>
           ? _self.dropdownWidth
           : dropdownWidth // ignore: cast_nullable_to_non_nullable
               as double?,
+      isThereLimitationsAfterFallOnCourse: null ==
+              isThereLimitationsAfterFallOnCourse
+          ? _self.isThereLimitationsAfterFallOnCourse
+          : isThereLimitationsAfterFallOnCourse // ignore: cast_nullable_to_non_nullable
+              as bool,
+      limitationAfterFallOnCourse: freezed == limitationAfterFallOnCourse
+          ? _self.limitationAfterFallOnCourse
+          : limitationAfterFallOnCourse // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }

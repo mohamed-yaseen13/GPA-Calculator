@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:gpa_calculator/core/helpers/prefs_helper.dart';
 
 class BannerAdWidget extends StatefulWidget {
   const BannerAdWidget({super.key});
@@ -37,21 +36,14 @@ class _BannerAdWidgetState extends State<BannerAdWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<bool>(
-      future: PrefsHelper.isAdsRemoved(),
-      builder: (context, snapshot) {
-        final adsRemoved = snapshot.data ?? false;
+    if (!_isAdLoaded || _bannerAd == null) {
+      return const SizedBox.shrink();
+    }
 
-        if (adsRemoved || !_isAdLoaded || _bannerAd == null) {
-          return const SizedBox.shrink();
-        }
-
-        return SizedBox(
-          width: double.infinity,
-          height: _bannerAd!.size.height.toDouble(),
-          child: AdWidget(ad: _bannerAd!),
-        );
-      },
+    return SizedBox(
+      width: double.infinity,
+      height: _bannerAd!.size.height.toDouble(),
+      child: AdWidget(ad: _bannerAd!),
     );
   }
 

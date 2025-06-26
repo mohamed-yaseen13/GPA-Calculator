@@ -18,6 +18,7 @@ class SettingsCubit extends Cubit<SettingsState> {
           selectedScaleIndex: 0,
           passwordEnabled: false,
           selectedColor: 'Yellow',
+          isThereLimitationsAfterFallOnCourse: false,
         ),
       );
 
@@ -28,6 +29,8 @@ class SettingsCubit extends Cubit<SettingsState> {
     final password = await PrefsHelper.getPassword();
     final passwordHint = await PrefsHelper.getPasswordHint();
     final recoveryEmail = await PrefsHelper.getRecoveryEmail();
+    final isThereLimitationsAfterFallOnCourse =
+        await PrefsHelper.isThereLimitationsAfterFallOnCourse();
 
     emit(
       state.copyWith(
@@ -37,6 +40,8 @@ class SettingsCubit extends Cubit<SettingsState> {
         password: password,
         passwordHint: passwordHint,
         recoveryEmail: recoveryEmail,
+        isThereLimitationsAfterFallOnCourse:
+            isThereLimitationsAfterFallOnCourse,
       ),
     );
   }
@@ -140,5 +145,10 @@ class SettingsCubit extends Cubit<SettingsState> {
   Future<void> setRecoveryEmail(String recoveryEmail) async {
     await PrefsHelper.setRecoveryEmail(recoveryEmail);
     emit(state.copyWith(recoveryEmail: recoveryEmail));
+  }
+
+  Future<void> enableOrDisableLimitationsAfterFallOnCourse(bool value) async {
+    await PrefsHelper.enableOrDisableLimitationAfterFallOnCourse(value);
+    emit(state.copyWith(isThereLimitationsAfterFallOnCourse: value));
   }
 }

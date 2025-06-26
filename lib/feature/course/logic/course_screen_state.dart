@@ -15,5 +15,7 @@ abstract class CourseScreenState with _$CourseScreenState {
     required List<CourseModel> courses,
     required List<SectionModel> sections,
     required double? dropdownWidth,
+    required bool isThereLimitationsAfterFallOnCourse,
+    required String? limitationAfterFallOnCourse,
   }) = _CourseScreenState;
 }

@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gpa_calculator/core/constants/app_constants.dart';
+import 'package:gpa_calculator/core/helpers/prefs_helper.dart';
 import 'package:gpa_calculator/core/logic/gpa_calculations_state.dart';
 import 'package:gpa_calculator/feature/semester/data/models/semester_model.dart';
 import 'package:gpa_calculator/feature/tabs/main_tab/data/models/student_model.dart';
@@ -19,6 +20,8 @@ class GpaCalculationsCubit extends Cubit<GpaCalculationsState> {
            cgpa: 0.0,
            totalCredits: 0,
            semesters: List<SemesterModel>.from(student.semesters),
+           isThereLimitationsAfterFallOnCourse: false,
+           limitationAfterFallOnCourse: null,
          ),
        );
 
@@ -187,7 +190,7 @@ class GpaCalculationsCubit extends Cubit<GpaCalculationsState> {
 
     double maxPercent = (got! + (100 - from!)) / 100 * 100;
 
-    String maxGrade = '--';
+    String? maxGrade = '--';
 
     for (var row in scale) {
       String range = row[1];
@@ -206,7 +209,17 @@ class GpaCalculationsCubit extends Cubit<GpaCalculationsState> {
         }
       }
     }
-    return maxGrade;
+
+    if (state.semesters[semesterIndex].courses[courseIndex].isFailedBefore &&
+        state.isThereLimitationsAfterFallOnCourse) {
+      maxGrade =
+          getGradePoint(state.limitationAfterFallOnCourse!) >
+                  getGradePoint(maxGrade!)
+              ? maxGrade
+              : state.limitationAfterFallOnCourse;
+    }
+
+    return maxGrade!;
   }
 
   double getMaxCgpaPossible() {
@@ -216,10 +229,10 @@ class GpaCalculationsCubit extends Cubit<GpaCalculationsState> {
     for (var semester in student.semesters) {
       for (var course in semester.courses) {
         points +=
-            course.isRepeated
+            course.isChanged
                 ? 0.0
-                : course.isChanged
-                ? course.newGrade == '--'
+                : course.isRepeated
+                ? course.grade == '--'
                     ? getGradePoint(
                           getMaxGradePossible(
                             student.semesters.indexOf(semester),
@@ -230,20 +243,20 @@ class GpaCalculationsCubit extends Cubit<GpaCalculationsState> {
                           ),
                         ) *
                         course.credits
-                    : getGradePoint(course.newGrade) * course.credits
+                    : getGradePoint(course.grade) * course.credits
                 : course.grade == '--'
                 ? getGradePoint(
                       getMaxGradePossible(
-                        student.semesters.indexOf(semester),
+                        state.semesters.indexOf(semester),
                         state
-                            .semesters[student.semesters.indexOf(semester)]
+                            .semesters[state.semesters.indexOf(semester)]
                             .courses
                             .indexOf(course),
                       ),
                     ) *
                     course.credits
                 : getGradePoint(course.grade) * course.credits;
-        credits += course.isRepeated ? 0.0 : course.credits;
+        credits += course.isChanged ? 0.0 : course.credits;
       }
     }
     return credits == 0 ? 0.0 : points / credits;
@@ -262,6 +275,25 @@ class GpaCalculationsCubit extends Cubit<GpaCalculationsState> {
         semesters: List<SemesterModel>.from(student.semesters),
         cgpa: student.cgpa,
         totalCredits: student.totalCredits,
+      ),
+    );
+  }
+
+    Future<void> enableOrDisableLimitationsAfterFallOnCourse(bool value) async {
+    await PrefsHelper.enableOrDisableLimitationAfterFallOnCourse(value);
+    emit(state.copyWith(isThereLimitationsAfterFallOnCourse: value));
+  }
+
+  Future<void> loadSettings() async {
+    final isThereLimitationsAfterFallOnCourse =
+        await PrefsHelper.isThereLimitationsAfterFallOnCourse();
+    final limitation = await PrefsHelper.getLimitation();
+
+    emit(
+      state.copyWith(
+        isThereLimitationsAfterFallOnCourse:
+            isThereLimitationsAfterFallOnCourse,
+        limitationAfterFallOnCourse: limitation,
       ),
     );
   }

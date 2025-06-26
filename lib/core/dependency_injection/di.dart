@@ -25,11 +25,15 @@ void setupGetIt(
   getIt.registerFactory<ScalesCubit>(() => ScalesCubit());
 
   getIt.registerFactory<GpaCalculationsCubit>(
-    () => GpaCalculationsCubit(
-      box: AppConstants.box,
-      student: AppConstants.student,
-      scale: Scales.getAllScales(customScales)[selectedScaleIndex]['scale'],
-    )..calculateGpaAndCgpa(),
+    () =>
+        GpaCalculationsCubit(
+            box: AppConstants.box,
+            student: AppConstants.student,
+            scale:
+                Scales.getAllScales(customScales)[selectedScaleIndex]['scale'],
+          )
+          ..calculateGpaAndCgpa()
+          ..loadSettings(),
   );
 
   getIt.registerLazySingleton<ApplicationAppBarCubit>(
@@ -50,14 +54,19 @@ void setupGetIt(
   getIt.registerFactory<CalculatorCubit>(() => CalculatorCubit());
 }
 
-void resetSemesterScreenCubit() {
+void resetSemesterScreenCubit() async {
   if (getIt.isRegistered<SemesterScreenCubit>()) {
     getIt.unregister<SemesterScreenCubit>();
   }
+
+  final selectedScaleIndex = await PrefsHelper.getSelectedScaleIndex();
+  final customScales = await PrefsHelper.loadCustomScales();
+
   getIt.registerLazySingleton<SemesterScreenCubit>(
     () => SemesterScreenCubit(
       box: AppConstants.box,
       student: AppConstants.student,
+      scale: Scales.getAllScales(customScales)[selectedScaleIndex]['scale'],
     ),
   );
 }
@@ -75,6 +84,6 @@ void resetCourseScreenCubit() async {
       box: AppConstants.box,
       student: AppConstants.student,
       scale: Scales.getAllScales(customScales)[selectedScaleIndex]['scale'],
-    ),
+    )..loadSettings(),
   );
 }

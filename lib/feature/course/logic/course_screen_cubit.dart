@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gpa_calculator/core/helpers/functions.dart';
+import 'package:gpa_calculator/core/helpers/prefs_helper.dart';
 import 'package:gpa_calculator/feature/course/data/models/course_model.dart';
 import 'package:gpa_calculator/feature/course/data/models/section_model.dart';
 import 'package:gpa_calculator/feature/course/logic/course_screen_state.dart';
@@ -34,6 +35,8 @@ class CourseScreenCubit extends Cubit<CourseScreenState> {
                    )
                    : [],
            dropdownWidth: null,
+           isThereLimitationsAfterFallOnCourse: false,
+           limitationAfterFallOnCourse: null,
          ),
        );
 
@@ -187,11 +190,20 @@ class CourseScreenCubit extends Cubit<CourseScreenState> {
     return {'got': got, 'from': from};
   }
 
+  double getGradePoint(String grade) {
+    for (var row in scale) {
+      if (row[0] == grade) return double.tryParse(row[2]) ?? 0.0;
+    }
+    return 0.0;
+  }
+
   String getMaxGradePossible() {
     double? got = getCourseWorkScore()['got'];
     int? from = getCourseWorkScore()['from'];
 
     double maxPercent = (got! + (100 - from!)) / 100 * 100;
+
+    String? result = '--';
 
     for (var row in scale) {
       String range = row[1];
@@ -200,21 +212,50 @@ class CourseScreenCubit extends Cubit<CourseScreenState> {
         double min = double.tryParse(parts[0]) ?? 0;
         double max = double.tryParse(parts[1]) ?? 100;
         if (maxPercent >= min && maxPercent <= max) {
-          return row[0];
+          result = row[0];
         }
       } else if (range.toLowerCase().contains('below')) {
         double below =
             double.tryParse(range.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
         if (maxPercent < below) {
-          return row[0];
+          result = row[0];
         }
       }
     }
-    return '-';
+
+    if (state.courses[state.selectedCourseIndex].isFailedBefore &&
+        state.isThereLimitationsAfterFallOnCourse) {
+      result =
+          getGradePoint(state.limitationAfterFallOnCourse!) >
+                  getGradePoint(result!)
+              ? result
+              : state.limitationAfterFallOnCourse;
+    }
+
+    return result!;
   }
 
   void changeScale(List<List<String>> newScale) {
     scale = newScale;
     emit(state.copyWith());
+  }
+
+  Future<void> enableOrDisableLimitationsAfterFallOnCourse(bool value) async {
+    await PrefsHelper.enableOrDisableLimitationAfterFallOnCourse(value);
+    emit(state.copyWith(isThereLimitationsAfterFallOnCourse: value));
+  }
+
+  Future<void> loadSettings() async {
+    final isThereLimitationsAfterFallOnCourse =
+        await PrefsHelper.isThereLimitationsAfterFallOnCourse();
+    final limitation = await PrefsHelper.getLimitation();
+
+    emit(
+      state.copyWith(
+        isThereLimitationsAfterFallOnCourse:
+            isThereLimitationsAfterFallOnCourse,
+        limitationAfterFallOnCourse: limitation,
+      ),
+    );
   }
 }

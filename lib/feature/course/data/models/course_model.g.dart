@@ -25,13 +25,14 @@ class CourseModelAdapter extends TypeAdapter<CourseModel> {
       isChanged: fields[5] as bool,
       newGrade: fields[6] as String,
       sections: (fields[7] as List?)?.cast<SectionModel>(),
+      isFailedBefore: fields[8] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, CourseModel obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(9)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
@@ -47,7 +48,9 @@ class CourseModelAdapter extends TypeAdapter<CourseModel> {
       ..writeByte(6)
       ..write(obj.newGrade)
       ..writeByte(7)
-      ..write(obj.sections);
+      ..write(obj.sections)
+      ..writeByte(8)
+      ..write(obj.isFailedBefore);
   }
 
   @override

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:gpa_calculator/core/helpers/prefs_helper.dart';
 
 class InterstitialAdManager {
   static InterstitialAd? _interstitialAd;
@@ -28,12 +27,6 @@ class InterstitialAdManager {
   }
 
   static Future<void> showInterstitialAd({VoidCallback? onAdClosed}) async {
-    final adsRemoved = await PrefsHelper.isAdsRemoved();
-    if (adsRemoved) {
-      if (onAdClosed != null) onAdClosed();
-      return;
-    }
-
     if (_interstitialAd != null) {
       _interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
         onAdDismissedFullScreenContent: (ad) {

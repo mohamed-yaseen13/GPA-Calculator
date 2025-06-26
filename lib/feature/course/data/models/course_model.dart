@@ -29,6 +29,9 @@ class CourseModel extends HiveObject {
   @HiveField(7)
   List<SectionModel> sections;
 
+  @HiveField(8)
+  bool isFailedBefore;
+
   CourseModel({
     required this.credits,
     required this.grade,
@@ -38,6 +41,7 @@ class CourseModel extends HiveObject {
     this.isChanged = false,
     this.newGrade = '--',
     List<SectionModel>? sections,
+    this.isFailedBefore = false,
   }) : sections = sections ?? [];
 
   Map<String, dynamic> toJson() => {
@@ -49,6 +53,7 @@ class CourseModel extends HiveObject {
     'isChanged': isChanged,
     'newGrade': newGrade,
     'sections': sections.map((s) => s.toJson()).toList(),
+    'isFailedBefore': isFailedBefore,
   };
 
   factory CourseModel.fromJson(Map<String, dynamic> json) => CourseModel(
@@ -63,5 +68,6 @@ class CourseModel extends HiveObject {
         (json['sections'] as List)
             .map((s) => SectionModel.fromJson(s as Map<String, dynamic>))
             .toList(),
+    isFailedBefore: json['isFailedBefore'] as bool,
   );
 }

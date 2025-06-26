@@ -111,15 +111,33 @@ class PrefsHelper {
     await prefs.remove(passwordKey);
   }
 
-  static const String adsRemovedKey = 'ads_removed';
+  static const String isThereLimitationAfterFallOnCourseKey =
+      'isThereLimitationsAfterFall';
 
-  static Future<void> setAdsRemoved(bool removed) async {
+  static Future<bool> isThereLimitationsAfterFallOnCourse() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool(adsRemovedKey, removed);
+    return prefs.getBool(isThereLimitationAfterFallOnCourseKey) ?? false;
   }
 
-  static Future<bool> isAdsRemoved() async {
+  static Future<void> enableOrDisableLimitationAfterFallOnCourse(
+    bool isThereLimitations,
+  ) async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.getBool(adsRemovedKey) ?? false;
+    await prefs.setBool(
+      isThereLimitationAfterFallOnCourseKey,
+      isThereLimitations,
+    );
+  }
+
+  static const String limitationAfterFallOnCourseKey = 'limitationAfterFall';
+
+  static Future<void> setLimitationsAfterFallOnCourse(String maxGrade) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(limitationAfterFallOnCourseKey, maxGrade);
+  }
+
+  static Future<String?> getLimitation() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString(limitationAfterFallOnCourseKey);
   }
 }

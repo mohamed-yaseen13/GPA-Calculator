@@ -18,6 +18,7 @@ mixin _$SettingsState {
   int get selectedScaleIndex;
   bool get passwordEnabled;
   String get selectedColor;
+  bool get isThereLimitationsAfterFallOnCourse;
   String? get password;
   String? get passwordHint;
   String? get recoveryEmail;
@@ -41,6 +42,10 @@ mixin _$SettingsState {
                 other.passwordEnabled == passwordEnabled) &&
             (identical(other.selectedColor, selectedColor) ||
                 other.selectedColor == selectedColor) &&
+            (identical(other.isThereLimitationsAfterFallOnCourse,
+                    isThereLimitationsAfterFallOnCourse) ||
+                other.isThereLimitationsAfterFallOnCourse ==
+                    isThereLimitationsAfterFallOnCourse) &&
             (identical(other.password, password) ||
                 other.password == password) &&
             (identical(other.passwordHint, passwordHint) ||
@@ -50,12 +55,19 @@ mixin _$SettingsState {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, selectedScaleIndex,
-      passwordEnabled, selectedColor, password, passwordHint, recoveryEmail);
+  int get hashCode => Object.hash(
+      runtimeType,
+      selectedScaleIndex,
+      passwordEnabled,
+      selectedColor,
+      isThereLimitationsAfterFallOnCourse,
+      password,
+      passwordHint,
+      recoveryEmail);
 
   @override
   String toString() {
-    return 'SettingsState(selectedScaleIndex: $selectedScaleIndex, passwordEnabled: $passwordEnabled, selectedColor: $selectedColor, password: $password, passwordHint: $passwordHint, recoveryEmail: $recoveryEmail)';
+    return 'SettingsState(selectedScaleIndex: $selectedScaleIndex, passwordEnabled: $passwordEnabled, selectedColor: $selectedColor, isThereLimitationsAfterFallOnCourse: $isThereLimitationsAfterFallOnCourse, password: $password, passwordHint: $passwordHint, recoveryEmail: $recoveryEmail)';
   }
 }
 
@@ -69,6 +81,7 @@ abstract mixin class $SettingsStateCopyWith<$Res> {
       {int selectedScaleIndex,
       bool passwordEnabled,
       String selectedColor,
+      bool isThereLimitationsAfterFallOnCourse,
       String? password,
       String? passwordHint,
       String? recoveryEmail});
@@ -90,6 +103,7 @@ class _$SettingsStateCopyWithImpl<$Res>
     Object? selectedScaleIndex = null,
     Object? passwordEnabled = null,
     Object? selectedColor = null,
+    Object? isThereLimitationsAfterFallOnCourse = null,
     Object? password = freezed,
     Object? passwordHint = freezed,
     Object? recoveryEmail = freezed,
@@ -107,6 +121,11 @@ class _$SettingsStateCopyWithImpl<$Res>
           ? _self.selectedColor
           : selectedColor // ignore: cast_nullable_to_non_nullable
               as String,
+      isThereLimitationsAfterFallOnCourse: null ==
+              isThereLimitationsAfterFallOnCourse
+          ? _self.isThereLimitationsAfterFallOnCourse
+          : isThereLimitationsAfterFallOnCourse // ignore: cast_nullable_to_non_nullable
+              as bool,
       password: freezed == password
           ? _self.password
           : password // ignore: cast_nullable_to_non_nullable
@@ -130,6 +149,7 @@ class _SettingsState implements SettingsState {
       {required this.selectedScaleIndex,
       required this.passwordEnabled,
       required this.selectedColor,
+      required this.isThereLimitationsAfterFallOnCourse,
       this.password,
       this.passwordHint,
       this.recoveryEmail});
@@ -140,6 +160,8 @@ class _SettingsState implements SettingsState {
   final bool passwordEnabled;
   @override
   final String selectedColor;
+  @override
+  final bool isThereLimitationsAfterFallOnCourse;
   @override
   final String? password;
   @override
@@ -166,6 +188,10 @@ class _SettingsState implements SettingsState {
                 other.passwordEnabled == passwordEnabled) &&
             (identical(other.selectedColor, selectedColor) ||
                 other.selectedColor == selectedColor) &&
+            (identical(other.isThereLimitationsAfterFallOnCourse,
+                    isThereLimitationsAfterFallOnCourse) ||
+                other.isThereLimitationsAfterFallOnCourse ==
+                    isThereLimitationsAfterFallOnCourse) &&
             (identical(other.password, password) ||
                 other.password == password) &&
             (identical(other.passwordHint, passwordHint) ||
@@ -175,12 +201,19 @@ class _SettingsState implements SettingsState {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, selectedScaleIndex,
-      passwordEnabled, selectedColor, password, passwordHint, recoveryEmail);
+  int get hashCode => Object.hash(
+      runtimeType,
+      selectedScaleIndex,
+      passwordEnabled,
+      selectedColor,
+      isThereLimitationsAfterFallOnCourse,
+      password,
+      passwordHint,
+      recoveryEmail);
 
   @override
   String toString() {
-    return 'SettingsState(selectedScaleIndex: $selectedScaleIndex, passwordEnabled: $passwordEnabled, selectedColor: $selectedColor, password: $password, passwordHint: $passwordHint, recoveryEmail: $recoveryEmail)';
+    return 'SettingsState(selectedScaleIndex: $selectedScaleIndex, passwordEnabled: $passwordEnabled, selectedColor: $selectedColor, isThereLimitationsAfterFallOnCourse: $isThereLimitationsAfterFallOnCourse, password: $password, passwordHint: $passwordHint, recoveryEmail: $recoveryEmail)';
   }
 }
 
@@ -196,6 +229,7 @@ abstract mixin class _$SettingsStateCopyWith<$Res>
       {int selectedScaleIndex,
       bool passwordEnabled,
       String selectedColor,
+      bool isThereLimitationsAfterFallOnCourse,
       String? password,
       String? passwordHint,
       String? recoveryEmail});
@@ -217,6 +251,7 @@ class __$SettingsStateCopyWithImpl<$Res>
     Object? selectedScaleIndex = null,
     Object? passwordEnabled = null,
     Object? selectedColor = null,
+    Object? isThereLimitationsAfterFallOnCourse = null,
     Object? password = freezed,
     Object? passwordHint = freezed,
     Object? recoveryEmail = freezed,
@@ -234,6 +269,11 @@ class __$SettingsStateCopyWithImpl<$Res>
           ? _self.selectedColor
           : selectedColor // ignore: cast_nullable_to_non_nullable
               as String,
+      isThereLimitationsAfterFallOnCourse: null ==
+              isThereLimitationsAfterFallOnCourse
+          ? _self.isThereLimitationsAfterFallOnCourse
+          : isThereLimitationsAfterFallOnCourse // ignore: cast_nullable_to_non_nullable
+              as bool,
       password: freezed == password
           ? _self.password
           : password // ignore: cast_nullable_to_non_nullable

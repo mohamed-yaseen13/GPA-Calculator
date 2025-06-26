@@ -8,6 +8,7 @@ abstract class SettingsState with _$SettingsState {
     required int selectedScaleIndex,
     required bool passwordEnabled,
     required String selectedColor,
+    required bool isThereLimitationsAfterFallOnCourse,
     String? password,
     String? passwordHint,
     String? recoveryEmail,

@@ -12,23 +12,27 @@ import 'package:hive_flutter/hive_flutter.dart';
 class SemesterScreenCubit extends Cubit<SemesterScreenState> {
   final Box box;
   final StudentModel student;
+  List<List<String>> scale;
 
-  SemesterScreenCubit({required this.box, required this.student})
-    : super(
-        SemesterScreenState(
-          selectedIndex: 0,
-          selectionMode: false,
-          selectedItem: 0,
-          semesters: List<SemesterModel>.from(student.semesters),
-          courses:
-              student.semesters.isNotEmpty
-                  ? List<CourseModel>.from(student.semesters[0].courses)
-                  : [],
-          selectedTerm: null,
-          dropdownWidth: null,
-          grades: const [],
-        ),
-      ) {
+  SemesterScreenCubit({
+    required this.box,
+    required this.student,
+    required this.scale,
+  }) : super(
+         SemesterScreenState(
+           selectedIndex: 0,
+           selectionMode: false,
+           selectedItem: 0,
+           semesters: List<SemesterModel>.from(student.semesters),
+           courses:
+               student.semesters.isNotEmpty
+                   ? List<CourseModel>.from(student.semesters[0].courses)
+                   : [],
+           selectedTerm: null,
+           dropdownWidth: null,
+           grades: const [],
+         ),
+       ) {
     loadGrades();
     setNoteColor();
   }
@@ -199,12 +203,23 @@ class SemesterScreenCubit extends Cubit<SemesterScreenState> {
             oldCourse.newGrade = newCourse.grade;
           }
 
+          if (getGradePoint(oldCourse.grade) == 0.0) {
+            newCourse.isFailedBefore = true;
+          }
+
           newCourse.isRepeated = true;
 
           box.put('default', student);
         }
       }
     }
+  }
+
+  double getGradePoint(String grade) {
+    for (var row in scale) {
+      if (row[0] == grade) return double.tryParse(row[2]) ?? 0.0;
+    }
+    return 0.0;
   }
 
   void checkIfCourseIsRepeatedAtDelete(CourseModel courseToDelete) {

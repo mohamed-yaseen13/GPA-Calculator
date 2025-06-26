@@ -9,5 +9,7 @@ abstract class GpaCalculationsState with _$GpaCalculationsState {
     required double cgpa,
     required int totalCredits,
     required List<SemesterModel> semesters,
+    required bool isThereLimitationsAfterFallOnCourse,
+    required String? limitationAfterFallOnCourse,
   }) = _GpaCalculationsState;
 }
