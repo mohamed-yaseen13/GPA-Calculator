@@ -210,7 +210,7 @@ class GpaCalculationsCubit extends Cubit<GpaCalculationsState> {
       }
     }
 
-    if (state.semesters[semesterIndex].courses[courseIndex].isFailedBefore &&
+    if (state.semesters[semesterIndex].courses[courseIndex].isFailedBefore! &&
         state.isThereLimitationsAfterFallOnCourse) {
       maxGrade =
           getGradePoint(state.limitationAfterFallOnCourse!) >
@@ -279,7 +279,7 @@ class GpaCalculationsCubit extends Cubit<GpaCalculationsState> {
     );
   }
 
-    Future<void> enableOrDisableLimitationsAfterFallOnCourse(bool value) async {
+  Future<void> enableOrDisableLimitationsAfterFallOnCourse(bool value) async {
     await PrefsHelper.enableOrDisableLimitationAfterFallOnCourse(value);
     emit(state.copyWith(isThereLimitationsAfterFallOnCourse: value));
   }

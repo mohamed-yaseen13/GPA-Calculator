@@ -25,7 +25,7 @@ class CourseModelAdapter extends TypeAdapter<CourseModel> {
       isChanged: fields[5] as bool,
       newGrade: fields[6] as String,
       sections: (fields[7] as List?)?.cast<SectionModel>(),
-      isFailedBefore: fields[8] as bool,
+      isFailedBefore: fields[8] as bool?,
     );
   }
 

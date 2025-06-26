@@ -30,7 +30,7 @@ class CourseModel extends HiveObject {
   List<SectionModel> sections;
 
   @HiveField(8)
-  bool isFailedBefore;
+  bool? isFailedBefore;
 
   CourseModel({
     required this.credits,

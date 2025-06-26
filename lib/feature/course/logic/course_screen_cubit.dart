@@ -223,7 +223,7 @@ class CourseScreenCubit extends Cubit<CourseScreenState> {
       }
     }
 
-    if (state.courses[state.selectedCourseIndex].isFailedBefore &&
+    if (state.courses[state.selectedCourseIndex].isFailedBefore! &&
         state.isThereLimitationsAfterFallOnCourse) {
       result =
           getGradePoint(state.limitationAfterFallOnCourse!) >
