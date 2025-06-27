@@ -211,7 +211,8 @@ class GpaCalculationsCubit extends Cubit<GpaCalculationsState> {
     }
 
     if (state.semesters[semesterIndex].courses[courseIndex].isFailedBefore! &&
-        state.isThereLimitationsAfterFallOnCourse) {
+        state.isThereLimitationsAfterFallOnCourse &&
+        state.limitationAfterFallOnCourse != null) {
       maxGrade =
           getGradePoint(state.limitationAfterFallOnCourse!) >
                   getGradePoint(maxGrade!)
