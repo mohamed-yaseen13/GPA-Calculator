@@ -59,7 +59,7 @@ Future<void> migrateOldData(Box box) async {
         for (final oldCourse in student.semesters[j].courses) {
           if (oldCourse.name.trim().toLowerCase() ==
               course.name.trim().toLowerCase()) {
-            if (getGradePoint(oldCourse.grade) == 0.0) {
+            if (await getGradePoint(oldCourse.grade) == 0.0) {
               failedBefore = true;
               break;
             }
