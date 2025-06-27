@@ -4,6 +4,7 @@ import 'package:gpa_calculator/feature/scales/ui/widgets/grade_field.dart';
 import 'package:gpa_calculator/feature/scales/ui/widgets/percentage_field.dart';
 import 'package:gpa_calculator/feature/scales/ui/widgets/points_field.dart';
 import 'package:gpa_calculator/feature/scales/ui/widgets/save_scale_button.dart';
+import 'package:gpa_calculator/feature/scales/ui/widgets/scales_button.dart';
 
 class AddCustomScaleScreen extends StatefulWidget {
   const AddCustomScaleScreen({super.key});
@@ -39,6 +40,14 @@ class _AddCustomScaleScreenState extends State<AddCustomScaleScreen> {
     });
   }
 
+  void _deleteLastRow() {
+    if (_rows.isNotEmpty) {
+      setState(() {
+        _rows.removeLast();
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,7 +59,7 @@ class _AddCustomScaleScreenState extends State<AddCustomScaleScreen> {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.all(16.sp),
         child: Column(
           children: [
             TextField(
@@ -82,24 +91,18 @@ class _AddCustomScaleScreenState extends State<AddCustomScaleScreen> {
               ),
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                    side: BorderSide(color: Colors.black),
-                    shape: ContinuousRectangleBorder(
-                      borderRadius: BorderRadius.circular(12.sp),
-                    ),
-                  ),
+                ScalesButton(
+                  color: Colors.black,
+                  label: 'Add Row',
                   onPressed: _addRow,
-                  child: Text(
-                    'Add Row',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
                 ),
-                Spacer(),
+                ScalesButton(
+                  color: Colors.red,
+                  label: 'Delete Row',
+                  onPressed: _deleteLastRow,
+                ),
                 SaveScaleButton(
                   titleController: _titleController,
                   rows: _rows,
