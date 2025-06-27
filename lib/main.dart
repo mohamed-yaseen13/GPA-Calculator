@@ -46,15 +46,16 @@ Future<void> migrateOldData(Box box) async {
 
   bool updated = false;
 
-  for (int i = 1; i < student.semesters.length; i++) {
-    final currentSemester = student.semesters[i];
-
-    for (final course in currentSemester.courses) {
-      if (course.isFailedBefore != null) continue;
-
+  for (int i = student.semesters.length - 1; i >= 0; i--) {
+    for (final course in student.semesters[i].courses) {
+      if (i == 0) {
+        course.isFailedBefore = false;
+        updated = true;
+        continue;
+      }
       bool failedBefore = false;
 
-      for (int j = 0; j < i; j++) {
+      for (int j = i - 1; j >= 0; j--) {
         for (final oldCourse in student.semesters[j].courses) {
           if (oldCourse.name.trim().toLowerCase() ==
               course.name.trim().toLowerCase()) {
@@ -64,6 +65,7 @@ Future<void> migrateOldData(Box box) async {
             }
           }
         }
+
         if (failedBefore) break;
       }
 
