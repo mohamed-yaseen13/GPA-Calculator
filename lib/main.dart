@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:gpa_calculator/core/constants/app_constants.dart';
 import 'package:gpa_calculator/core/dependency_injection/di.dart';
 import 'package:gpa_calculator/core/helpers/prefs_helper.dart';
 import 'package:gpa_calculator/feature/course/data/models/course_model.dart';
 import 'package:gpa_calculator/feature/course/data/models/section_model.dart';
-import 'package:gpa_calculator/feature/scales/data/model/scales.dart';
 import 'package:gpa_calculator/feature/tabs/main_tab/data/models/student_model.dart';
 import 'package:gpa_calculator/feature/semester/data/models/semester_model.dart';
 import 'package:gpa_calculator/gpa_app.dart';
@@ -36,55 +34,5 @@ Future<void> initHive() async {
   Box box = await Hive.openBox('studentData');
   if (!box.containsKey('default')) {
     box.put('default', StudentModel(semesters: []));
-  } else {
-    await migrateOldData(box);
   }
-}
-
-Future<void> migrateOldData(Box box) async {
-  final student = AppConstants.student;
-
-  bool updated = false;
-
-  for (int i = student.semesters.length - 1; i >= 0; i--) {
-    for (final course in student.semesters[i].courses) {
-      if (i == 0) {
-        course.isFailedBefore = false;
-        updated = true;
-        continue;
-      }
-      bool failedBefore = false;
-
-      for (int j = i - 1; j >= 0; j--) {
-        for (final oldCourse in student.semesters[j].courses) {
-          if (oldCourse.name.trim().toLowerCase() ==
-              course.name.trim().toLowerCase()) {
-            if (await getGradePoint(oldCourse.grade) == 0.0) {
-              failedBefore = true;
-              break;
-            }
-          }
-        }
-
-        if (failedBefore) break;
-      }
-
-      course.isFailedBefore = failedBefore;
-      updated = true;
-    }
-  }
-  if (updated) {
-    await box.put('default', student);
-  }
-}
-
-Future<double> getGradePoint(String grade) async {
-  final selectedScaleIndex = await PrefsHelper.getSelectedScaleIndex();
-  final customScales = await PrefsHelper.loadCustomScales();
-  List<List<String>> scale =
-      Scales.getAllScales(customScales)[selectedScaleIndex]['scale'];
-  for (var row in scale) {
-    if (row[0] == grade) return double.tryParse(row[2]) ?? 0.0;
-  }
-  return 0.0;
 }

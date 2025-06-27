@@ -71,6 +71,7 @@ class _FailedOnCourseLogicRowState extends State<FailedOnCourseLogicRow> {
                             _selectedGrade,
                           );
                           context.read<GpaCalculationsCubit>().loadSettings();
+                          context.read<CourseScreenCubit>().loadSettings();
                         },
                       ),
                     ),
@@ -81,17 +82,11 @@ class _FailedOnCourseLogicRowState extends State<FailedOnCourseLogicRow> {
               Switch(
                 value: state.isThereLimitationsAfterFallOnCourse,
                 onChanged: (value) async {
-                  context
+                  await context
                       .read<SettingsCubit>()
                       .enableOrDisableLimitationsAfterFallOnCourse(value);
-                  context
-                      .read<CourseScreenCubit>()
-                      .enableOrDisableLimitationsAfterFallOnCourse(value);
-                  context
-                      .read<GpaCalculationsCubit>()
-                      .enableOrDisableLimitationsAfterFallOnCourse(value);
-
-                  print(state.isThereLimitationsAfterFallOnCourse);
+                  context.read<CourseScreenCubit>().loadSettings();
+                  context.read<GpaCalculationsCubit>().loadSettings();
                 },
               ),
             ],
