@@ -70,6 +70,7 @@ class _FailedOnCourseLogicRowState extends State<FailedOnCourseLogicRow> {
                           await PrefsHelper.setLimitationsAfterFallOnCourse(
                             _selectedGrade,
                           );
+                          context.read<GpaCalculationsCubit>().loadSettings();
                         },
                       ),
                     ),
