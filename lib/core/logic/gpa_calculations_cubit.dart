@@ -237,7 +237,7 @@ class GpaCalculationsCubit extends Cubit<GpaCalculationsState> {
                     ? getGradePoint(
                           getMaxGradePossible(
                             student.semesters.indexOf(semester),
-                            state
+                            student
                                 .semesters[student.semesters.indexOf(semester)]
                                 .courses
                                 .indexOf(course),
@@ -248,9 +248,9 @@ class GpaCalculationsCubit extends Cubit<GpaCalculationsState> {
                 : course.grade == '--'
                 ? getGradePoint(
                       getMaxGradePossible(
-                        state.semesters.indexOf(semester),
-                        state
-                            .semesters[state.semesters.indexOf(semester)]
+                        student.semesters.indexOf(semester),
+                        student
+                            .semesters[student.semesters.indexOf(semester)]
                             .courses
                             .indexOf(course),
                       ),

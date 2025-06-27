@@ -90,6 +90,8 @@ class _FailedOnCourseLogicRowState extends State<FailedOnCourseLogicRow> {
                   context
                       .read<GpaCalculationsCubit>()
                       .enableOrDisableLimitationsAfterFallOnCourse(value);
+
+                  print(state.isThereLimitationsAfterFallOnCourse);
                 },
               ),
             ],
