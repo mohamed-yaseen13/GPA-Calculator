@@ -22,7 +22,12 @@ class SearchResultContainer extends StatelessWidget {
         child: BlocBuilder<ApplicationAppBarCubit, ApplicationAppBarState>(
           builder: (context, state) {
             return SizedBox(
-              height: state.searchResults.isEmpty ? 0.0 : 300.h,
+              height:
+                  state.searchResults.isEmpty
+                      ? 0.0
+                      : state.searchResults.length >= 4
+                      ? 300.h
+                      : state.searchResults.length * 75.h,
               child: ListView.separated(
                 shrinkWrap: true,
                 padding: EdgeInsets.zero,

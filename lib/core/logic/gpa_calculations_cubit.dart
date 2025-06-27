@@ -83,7 +83,9 @@ class GpaCalculationsCubit extends Cubit<GpaCalculationsState> {
         gpaCredits += course.credits;
         earnedCredits +=
             course.isRepeated ||
-                    (course.isChanged && getGradePoint(course.newGrade) == 0) ||
+                    (course.isChanged &&
+                        getGradePoint(course.newGrade) == 0 &&
+                        getGradePoint(course.grade) == 0) ||
                     (!course.isChanged && getGradePoint(course.grade) == 0)
                 ? 0.0
                 : course.credits;
@@ -98,7 +100,7 @@ class GpaCalculationsCubit extends Cubit<GpaCalculationsState> {
         cgpaPointsChanged +=
             course.isRepeated
                 ? 0.0
-                : course.isChanged
+                : course.isChanged && getGradePoint(course.newGrade) != 0
                 ? getGradePoint(course.newGrade) * course.credits
                 : getGradePoint(course.grade) * course.credits;
       }

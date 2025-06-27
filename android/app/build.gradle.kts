@@ -1,6 +1,7 @@
 import java.util.Properties
 import java.io.FileInputStream
 
+import java.io.File
 
 plugins {
     id("com.android.application")
@@ -18,7 +19,20 @@ if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(FileInputStream(keystorePropertiesFile))
 }
 
+fun getPubspecVersion(): Pair<String, Int> {
+    val pubspec = File(rootProject.projectDir.parentFile, "pubspec.yaml")
+    val versionLine = pubspec.readLines().find { it.trim().startsWith("version:") }
+    val versionValue = versionLine?.split(":")?.getOrNull(1)?.trim() ?: "1.0.0+1"
+    val (versionName, versionCodeStr) = versionValue.split("+").let {
+        it[0] to (it.getOrNull(1) ?: "1")
+    }
+    val versionCode = versionCodeStr.toIntOrNull() ?: 1
+    return versionName to versionCode
+}
+
 android {
+    val (pubVersionName, pubVersionCode) = getPubspecVersion()
+
     namespace = "com.engmo.gpacalculator"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = "27.0.12077973"
@@ -39,8 +53,8 @@ android {
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = 23
         targetSdk = flutter.targetSdkVersion
-        versionCode = 5
-        versionName = "1.5.2"
+        versionCode = pubVersionCode
+        versionName = pubVersionName
 
     }
 
