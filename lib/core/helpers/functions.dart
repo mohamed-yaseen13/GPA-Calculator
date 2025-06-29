@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gpa_calculator/core/constants/app_constants.dart';
+import 'package:gpa_calculator/feature/tabs/main_tab/data/models/student_model.dart';
 
-void printStudentData() {
-  for (var semester in AppConstants.student.semesters) {
+void printStudentData({StudentModel? student}) {
+  final currentStudent = student ?? AppConstants.student;
+
+  for (var semester in currentStudent.semesters) {
     print('${semester.name} - ${semester.note}');
     print('');
     print('CGPA Original: ${semester.cgpaOriginal}');
@@ -21,6 +24,13 @@ void printStudentData() {
         );
       }
     }
+  }
+}
+
+void printScenariosData() {
+  for (var scenario in AppConstants.scenarios) {
+    print(scenario.name);
+    printStudentData(student: scenario.student);
   }
 }
 

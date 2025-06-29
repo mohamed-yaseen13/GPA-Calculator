@@ -2,6 +2,7 @@ import 'package:gpa_calculator/core/constants/app_constants.dart';
 import 'package:gpa_calculator/feature/application_app_bar/logic/application_app_bar_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gpa_calculator/feature/course/data/models/course_model.dart';
+import 'package:gpa_calculator/feature/scenarios/data/models/scenario_model.dart';
 import 'package:gpa_calculator/feature/semester/data/models/semester_model.dart';
 import 'package:gpa_calculator/feature/tabs/main_tab/data/models/student_model.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -9,13 +10,34 @@ import 'package:hive_flutter/hive_flutter.dart';
 class ApplicationAppBarCubit extends Cubit<ApplicationAppBarState> {
   final Box box;
   StudentModel student;
-  ApplicationAppBarCubit({required this.box, required this.student})
-    : super(
-        ApplicationAppBarState(
-          student: student,
-          semesters: List<SemesterModel>.from(student.semesters),
-        ),
-      );
+  final int? scenarioIndex;
+
+  ApplicationAppBarCubit({
+    required this.box,
+    required this.student,
+    this.scenarioIndex,
+  }) : super(
+         ApplicationAppBarState(
+           student: student,
+           semesters: List<SemesterModel>.from(student.semesters),
+         ),
+       ) {
+    print(
+      'ApplicationAppBarCubit created! hashCode: $hashCode, scenarioIndex: $scenarioIndex',
+    );
+    print('[ApplicationAppBarCubit] box.runtimeType: ${box.runtimeType}');
+    print(
+      '[ApplicationAppBarCubit] student.runtimeType: ${student.runtimeType}',
+    );
+
+    print('[ApplicationAppBarCubit] student content: ${student.toJson()}');
+
+    try {
+      print('[ApplicationAppBarCubit] box content: ${box.toMap()}');
+    } catch (e) {
+      print('[ApplicationAppBarCubit] box content (fallback): ${box.keys}');
+    }
+  }
 
   void select() => emit(state.copyWith(selectionMode: true));
 
@@ -85,7 +107,6 @@ class ApplicationAppBarCubit extends Cubit<ApplicationAppBarState> {
         name: name,
         selected: oldSemester.selected,
       );
-      box.put('default', student);
     } else {
       SemesterModel newSemester = SemesterModel(
         courses: [],
@@ -97,7 +118,16 @@ class ApplicationAppBarCubit extends Cubit<ApplicationAppBarState> {
       student.semesters.add(newSemester);
     }
 
-    box.put('default', student);
+    if (scenarioIndex != null) {
+      print('Storing The Semester In Scenarios Box');
+      final scenariosBox = box;
+      final oldScenario = scenariosBox.getAt(scenarioIndex!) as ScenarioModel;
+      final updatedScenario = oldScenario.copyWith(student: student);
+      scenariosBox.putAt(scenarioIndex!, updatedScenario);
+    } else {
+      print('Storing The Semester In Main Box');
+      box.put('default', student);
+    }
 
     emit(
       state.copyWith(

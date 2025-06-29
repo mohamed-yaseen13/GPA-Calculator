@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gpa_calculator/core/dependency_injection/di.dart';
+import 'package:gpa_calculator/core/logic/gpa_calculations_cubit.dart';
 import 'package:gpa_calculator/core/routing/app_routes.dart';
 import 'package:gpa_calculator/feature/application_app_bar/logic/application_app_bar_cubit.dart';
 import 'package:gpa_calculator/feature/application_app_bar/ui/application_app_bar.dart';
@@ -11,6 +12,9 @@ import 'package:gpa_calculator/feature/password_screen/widgets/edit_password_scr
 import 'package:gpa_calculator/feature/scales/logic/scales_cubit.dart';
 import 'package:gpa_calculator/feature/scales/ui/scales_screen.dart';
 import 'package:gpa_calculator/feature/scales/ui/widgets/add_custom_scale_screen.dart';
+import 'package:gpa_calculator/feature/scenarios/logic/cubit/scenarios_cubit.dart';
+import 'package:gpa_calculator/feature/scenarios/ui/scenarios_screen.dart';
+import 'package:gpa_calculator/feature/scenarios/ui/widgets/scenario_main_screen.dart';
 import 'package:gpa_calculator/feature/semester/logic/semester_screen_cubit.dart';
 import 'package:gpa_calculator/feature/semester/ui/semester_screen.dart';
 import 'package:gpa_calculator/feature/settings_screen/logic/settings_cubit.dart';
@@ -106,6 +110,28 @@ class AppRouter {
                 child: EditPasswordScreen(),
               ),
           settings: settings,
+        );
+
+      case AppRoutes.scenariosScreen:
+        return MaterialPageRoute(
+          builder:
+              (_) => MultiBlocProvider(
+                providers: [
+                  BlocProvider(create: (_) => getIt<ScenariosCubit>()),
+                  BlocProvider(create: (_) => getIt<GpaCalculationsCubit>()),
+                ],
+                child: ScenariosScreen(),
+              ),
+        );
+
+      case AppRoutes.scenarioMainScreen:
+        final args = settings.arguments as Map;
+        return MaterialPageRoute(
+          builder:
+              (_) => ScenarioMainScreen(
+                scenario: args['scenario'],
+                index: args['index'],
+              ),
         );
 
       default:

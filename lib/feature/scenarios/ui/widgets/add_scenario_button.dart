@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gpa_calculator/core/dependency_injection/di.dart';
 import 'package:gpa_calculator/core/helpers/check_internet_connection.dart';
 import 'package:gpa_calculator/core/helpers/functions.dart';
 import 'package:gpa_calculator/core/helpers/interstitial_ad_manager.dart';
-import 'package:gpa_calculator/core/logic/gpa_calculations_cubit.dart';
-import 'package:gpa_calculator/feature/application_app_bar/logic/application_app_bar_cubit.dart';
-import 'package:gpa_calculator/feature/tabs/main_tab/ui/widgets/add_semester_bottom_sheet.dart';
+import 'package:gpa_calculator/feature/scenarios/logic/cubit/scenarios_cubit.dart';
+import 'package:gpa_calculator/feature/scenarios/ui/widgets/add_scenario_bottom_shett.dart';
 
-class AddSemesterButton extends StatelessWidget {
-  const AddSemesterButton({super.key});
+class AddScenarioButton extends StatelessWidget {
+  const AddScenarioButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -43,34 +43,29 @@ class AddSemesterButton extends StatelessWidget {
             );
             return;
           }
-          final appBarCubit = context.read<ApplicationAppBarCubit>();
           final result = await showModalBottomSheet<Map<String, dynamic>>(
             context: context,
             isScrollControlled: true,
             builder:
                 (bottomSheetContext) => BlocProvider.value(
-                  value: appBarCubit,
+                  value: getIt<ScenariosCubit>(),
                   child: Padding(
                     padding: EdgeInsets.only(
                       bottom:
                           MediaQuery.of(bottomSheetContext).viewInsets.bottom,
                     ),
-                    child: AddSemesterBottomSheet(text: 'Add'),
+                    child: AddScenarioBottomShett(text: 'Add'),
                   ),
                 ),
           );
           if (result != null) {
-            appBarCubit.addSemester(name: result['name']);
-            context.read<GpaCalculationsCubit>().calculateGpaAndCgpa();
+            context.read<ScenariosCubit>().addScenario(name: result['name']);
             InterstitialAdManager.showInterstitialAd();
-            print('Student Data');
-            printStudentData();
-            print('Scenarios Data');
             printScenariosData();
           }
         },
         child: Text(
-          'Add Semester',
+          'Add Scenario',
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
       ),

@@ -11,5 +11,9 @@ class AppRoutes {
 
   static const String settingsScreen = 'settingsScreen';
 
-  static const passwordScreen = 'passwordScreen';
+  static const String passwordScreen = 'passwordScreen';
+
+  static const String scenariosScreen = 'scenariosScreen';
+
+  static const String scenarioMainScreen = 'scenarioMainScreen';
 }

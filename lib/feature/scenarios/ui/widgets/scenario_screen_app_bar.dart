@@ -6,39 +6,12 @@ import 'package:gpa_calculator/core/widgets/app_bar_actions.dart';
 import 'package:gpa_calculator/core/widgets/selection_ui.dart';
 import 'package:gpa_calculator/feature/application_app_bar/logic/application_app_bar_cubit.dart';
 import 'package:gpa_calculator/feature/application_app_bar/logic/application_app_bar_state.dart';
-import 'package:gpa_calculator/core/widgets/app_drawer.dart';
-import 'package:gpa_calculator/feature/tabs/calculator_tab/ui/calculator_screen.dart';
 import 'package:gpa_calculator/feature/tabs/main_tab/ui/main_screen.dart';
-import 'package:gpa_calculator/feature/tabs/mark_conventer_tab/ui/mark_converter_screen.dart';
-import 'package:gpa_calculator/feature/tabs/notes_tab/ui/notes_screen.dart';
 
-class ApplicationAppBar extends StatefulWidget {
-  const ApplicationAppBar({super.key});
+class ScenarioScreenAppBar extends StatelessWidget {
+  final String scenarioName;
 
-  @override
-  State<ApplicationAppBar> createState() => _MainDashboardState();
-}
-
-class _MainDashboardState extends State<ApplicationAppBar>
-    with SingleTickerProviderStateMixin {
-  late TabController tabController;
-
-  int _currentTabIndex = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    tabController = TabController(length: 4, vsync: this);
-
-    tabController.addListener(() {
-      setState(() {
-        _currentTabIndex = tabController.index;
-        if (_currentTabIndex != 0) {
-          context.read<ApplicationAppBarCubit>().cancelSelection();
-        }
-      });
-    });
-  }
+  const ScenarioScreenAppBar({super.key, required this.scenarioName});
 
   @override
   Widget build(BuildContext context) {
@@ -46,12 +19,12 @@ class _MainDashboardState extends State<ApplicationAppBar>
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-            title: !state.selectionMode ? Text('GPA Calculator') : null,
+            title: !state.selectionMode ? Text(scenarioName) : null,
             actions:
                 !state.selectionMode
                     ? buildAppBarActions(
                       context: context,
-                      currentTabIndex: _currentTabIndex,
+                      currentTabIndex: 0,
                       onSelect:
                           () => context.read<ApplicationAppBarCubit>().select(),
                     )
@@ -81,31 +54,8 @@ class _MainDashboardState extends State<ApplicationAppBar>
                       content: 'Semesters',
                     )
                     : null,
-            bottom: TabBar(
-              controller: tabController,
-              isScrollable: true,
-              tabAlignment: TabAlignment.start,
-              indicatorColor: Colors.yellow,
-              labelColor: Colors.white,
-              unselectedLabelColor: Colors.white60,
-              tabs: const [
-                Tab(text: 'MAIN'),
-                Tab(text: 'CALCULATOR'),
-                Tab(text: 'MARK CONVERTER'),
-                Tab(text: 'NOTES'),
-              ],
-            ),
           ),
-          drawer: !state.selectionMode ? AppDrawer() : null,
-          body: TabBarView(
-            controller: tabController,
-            children: [
-              MainScreen(),
-              CalculatorScreen(),
-              MarkConverterScreen(),
-              NotesScreen(),
-            ],
-          ),
+          body: MainScreen(),
         );
       },
     );

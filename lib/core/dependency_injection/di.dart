@@ -7,6 +7,7 @@ import 'package:gpa_calculator/feature/course/logic/course_screen_cubit.dart';
 import 'package:gpa_calculator/feature/password_screen/logic/password_cubit.dart';
 import 'package:gpa_calculator/feature/scales/data/model/scales.dart';
 import 'package:gpa_calculator/feature/scales/logic/scales_cubit.dart';
+import 'package:gpa_calculator/feature/scenarios/logic/cubit/scenarios_cubit.dart';
 import 'package:gpa_calculator/feature/semester/logic/semester_screen_cubit.dart';
 import 'package:gpa_calculator/feature/settings_screen/logic/settings_cubit.dart';
 import 'package:gpa_calculator/feature/tabs/calculator_tab/logic/calculator_cubit.dart';
@@ -52,6 +53,10 @@ void setupGetIt(
   getIt.registerFactory<ConverterCubit>(() => ConverterCubit());
 
   getIt.registerFactory<CalculatorCubit>(() => CalculatorCubit());
+
+  getIt.registerFactory<ScenariosCubit>(
+    () => ScenariosCubit(scenariosBox: AppConstants.scenariosBox),
+  );
 }
 
 void resetSemesterScreenCubit() async {

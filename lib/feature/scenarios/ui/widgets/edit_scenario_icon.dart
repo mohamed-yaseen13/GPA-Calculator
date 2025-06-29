@@ -1,25 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gpa_calculator/core/helpers/interstitial_ad_manager.dart';
-import 'package:gpa_calculator/core/logic/gpa_calculations_cubit.dart';
-import 'package:gpa_calculator/feature/application_app_bar/logic/application_app_bar_cubit.dart';
-import 'package:gpa_calculator/feature/semester/data/models/semester_model.dart';
-import 'package:gpa_calculator/feature/tabs/main_tab/ui/widgets/add_semester_bottom_sheet.dart';
+import 'package:gpa_calculator/feature/scenarios/data/models/scenario_model.dart';
+import 'package:gpa_calculator/feature/scenarios/logic/cubit/scenarios_cubit.dart';
+import 'package:gpa_calculator/feature/scenarios/ui/widgets/add_scenario_bottom_shett.dart';
 
-class EditSemesterIcon extends StatelessWidget {
+class EditScenarioIcon extends StatelessWidget {
   final int index;
-  final SemesterModel semester;
+  final ScenarioModel scenario;
 
-  const EditSemesterIcon({
+  const EditScenarioIcon({
     super.key,
     required this.index,
-    required this.semester,
+    required this.scenario,
   });
 
   @override
   Widget build(BuildContext context) {
-    final appBarCubit = context.read<ApplicationAppBarCubit>();
-
     return PopupMenuButton(
       icon: Icon(Icons.more_vert),
       itemBuilder: (context) => [PopupMenuItem(value: 1, child: Text('Edit'))],
@@ -31,21 +28,23 @@ class EditSemesterIcon extends StatelessWidget {
           isScrollControlled: true,
           builder:
               (bottomSheetContext) => BlocProvider.value(
-                value: appBarCubit,
+                value: context.read<ScenariosCubit>(),
                 child: Padding(
                   padding: EdgeInsets.only(
                     bottom: MediaQuery.of(bottomSheetContext).viewInsets.bottom,
                   ),
-                  child: AddSemesterBottomSheet(
+                  child: AddScenarioBottomShett(
                     text: 'Edit',
-                    initialName: semester.name,
+                    initialName: scenario.name,
                   ),
                 ),
               ),
         );
         if (result != null) {
-          appBarCubit.addSemester(name: result['name'], index: index);
-          context.read<GpaCalculationsCubit>().calculateGpaAndCgpa();
+          context.read<ScenariosCubit>().addScenario(
+            name: result['name'],
+            index: index,
+          );
           InterstitialAdManager.showInterstitialAd();
         }
       },

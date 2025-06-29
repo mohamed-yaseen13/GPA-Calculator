@@ -1,5 +1,6 @@
 import 'package:gpa_calculator/core/helpers/prefs_helper.dart';
 import 'package:gpa_calculator/feature/scales/data/model/scales.dart';
+import 'package:gpa_calculator/feature/scenarios/data/models/scenario_model.dart';
 import 'package:gpa_calculator/feature/tabs/main_tab/data/models/student_model.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -21,4 +22,9 @@ class AppConstants {
         Scales.getAllScales(customScales)[index]['scale'] as List<List<String>>;
     return ['--', ...scale.map((row) => row[0])];
   }
+
+  static final Box scenariosBox = Hive.box('scenarios');
+
+  static List<ScenarioModel> get scenarios =>
+      List<ScenarioModel>.from(scenariosBox.values);
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gpa_calculator/core/dependency_injection/di.dart';
 import 'package:gpa_calculator/feature/application_app_bar/logic/application_app_bar_cubit.dart';
 
 class SearchInputField extends StatelessWidget {
@@ -18,6 +17,8 @@ class SearchInputField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appBarCubit = context.read<ApplicationAppBarCubit>();
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 12.w),
       child: Column(
@@ -30,7 +31,7 @@ class SearchInputField extends StatelessWidget {
               border: Border.all(color: Colors.black),
             ),
             child: BlocProvider.value(
-              value: getIt<ApplicationAppBarCubit>(),
+              value: appBarCubit,
               child: TextField(
                 focusNode: focusNode,
                 controller: controller,
