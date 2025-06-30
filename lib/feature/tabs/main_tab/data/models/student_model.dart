@@ -30,4 +30,19 @@ class StudentModel extends HiveObject {
             .map((s) => SemesterModel.fromJson(s as Map<String, dynamic>))
             .toList(),
   );
+
+  StudentModel copyWith({
+    double? cgpa,
+    int? totalCredits,
+    List<SemesterModel>? semesters,
+  }) {
+    return StudentModel(
+      cgpa: cgpa ?? this.cgpa,
+      totalCredits: totalCredits ?? this.totalCredits,
+      semesters:
+          semesters != null
+              ? List<SemesterModel>.from(semesters)
+              : List<SemesterModel>.from(this.semesters),
+    );
+  }
 }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gpa_calculator/core/helpers/check_internet_connection.dart';
-import 'package:gpa_calculator/core/helpers/functions.dart';
 import 'package:gpa_calculator/core/helpers/interstitial_ad_manager.dart';
 import 'package:gpa_calculator/core/logic/gpa_calculations_cubit.dart';
 import 'package:gpa_calculator/feature/application_app_bar/logic/application_app_bar_cubit.dart';
@@ -63,10 +62,6 @@ class AddSemesterButton extends StatelessWidget {
             appBarCubit.addSemester(name: result['name']);
             context.read<GpaCalculationsCubit>().calculateGpaAndCgpa();
             InterstitialAdManager.showInterstitialAd();
-            print('Student Data');
-            printStudentData();
-            print('Scenarios Data');
-            printScenariosData();
           }
         },
         child: Text(
