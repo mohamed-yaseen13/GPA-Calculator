@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gpa_calculator/core/dependency_injection/di.dart';
 import 'package:gpa_calculator/core/helpers/check_internet_connection.dart';
 import 'package:gpa_calculator/core/helpers/functions.dart';
 import 'package:gpa_calculator/core/helpers/interstitial_ad_manager.dart';
@@ -43,12 +42,13 @@ class AddScenarioButton extends StatelessWidget {
             );
             return;
           }
+          final scenariosCubit = context.read<ScenariosCubit>();
           final result = await showModalBottomSheet<Map<String, dynamic>>(
             context: context,
             isScrollControlled: true,
             builder:
                 (bottomSheetContext) => BlocProvider.value(
-                  value: getIt<ScenariosCubit>(),
+                  value: scenariosCubit,
                   child: Padding(
                     padding: EdgeInsets.only(
                       bottom:

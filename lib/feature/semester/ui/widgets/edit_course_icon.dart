@@ -19,12 +19,13 @@ class EditCourseIcon extends StatelessWidget {
       menuPadding: EdgeInsets.zero,
       padding: EdgeInsets.zero,
       onSelected: (value) async {
+        final semesterScreenCubit = context.read<SemesterScreenCubit>();
         final result = await showModalBottomSheet(
           context: context,
           isScrollControlled: true,
           builder:
               (bottomSheetContext) => BlocProvider.value(
-                value: context.read<SemesterScreenCubit>(),
+                value: semesterScreenCubit,
                 child: Padding(
                   padding: EdgeInsets.only(
                     bottom: MediaQuery.of(bottomSheetContext).viewInsets.bottom,

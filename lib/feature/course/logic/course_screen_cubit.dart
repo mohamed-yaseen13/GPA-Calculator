@@ -150,8 +150,6 @@ class CourseScreenCubit extends Cubit<CourseScreenState> {
         obtainedMark: obtainedMark,
         fullMark: fullMark.toInt(),
       );
-
-      box.put('default', student);
     } else {
       SectionModel newSection = SectionModel(
         name: name,

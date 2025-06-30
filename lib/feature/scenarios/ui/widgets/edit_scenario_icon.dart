@@ -23,12 +23,13 @@ class EditScenarioIcon extends StatelessWidget {
       menuPadding: EdgeInsets.zero,
       padding: EdgeInsets.zero,
       onSelected: (value) async {
+        final scenariosCubit = context.read<ScenariosCubit>();
         final result = await showModalBottomSheet(
           context: context,
           isScrollControlled: true,
           builder:
               (bottomSheetContext) => BlocProvider.value(
-                value: context.read<ScenariosCubit>(),
+                value: scenariosCubit,
                 child: Padding(
                   padding: EdgeInsets.only(
                     bottom: MediaQuery.of(bottomSheetContext).viewInsets.bottom,

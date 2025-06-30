@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gpa_calculator/core/dependency_injection/di.dart';
 import 'package:gpa_calculator/core/helpers/check_internet_connection.dart';
 import 'package:gpa_calculator/core/logic/gpa_calculations_cubit.dart';
 import 'package:gpa_calculator/feature/semester/logic/semester_screen_cubit.dart';
@@ -42,12 +41,13 @@ class AddCourseButton extends StatelessWidget {
             );
             return;
           }
+          final semesterScreenCubit = context.read<SemesterScreenCubit>();
           final result = await showModalBottomSheet<Map<String, dynamic>>(
             context: context,
             isScrollControlled: true,
             builder:
                 (bottomSheetContext) => BlocProvider.value(
-                  value: getIt<SemesterScreenCubit>(),
+                  value: semesterScreenCubit,
                   child: Padding(
                     padding: EdgeInsets.only(
                       bottom:

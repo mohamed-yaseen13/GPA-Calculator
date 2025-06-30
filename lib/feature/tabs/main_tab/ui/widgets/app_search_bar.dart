@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gpa_calculator/feature/application_app_bar/logic/application_app_bar_cubit.dart';
 import 'package:gpa_calculator/feature/tabs/main_tab/ui/widgets/search_input_field.dart';
 import 'package:gpa_calculator/feature/tabs/main_tab/ui/widgets/search_result_container.dart';
 
@@ -46,14 +48,18 @@ class _AppSearchBarState extends State<AppSearchBar> {
     _overlayEntry?.remove();
 
     _overlayEntry = OverlayEntry(
-      builder: (_) {
+      builder: (overlayContext) {
+        final appBarCubit = context.read<ApplicationAppBarCubit>();
         return Positioned(
           width: MediaQuery.of(context).size.width - 24.w,
           child: CompositedTransformFollower(
             link: _layerLink,
             offset: Offset(12.w, 52.h),
             showWhenUnlinked: false,
-            child: SearchResultContainer(),
+            child: BlocProvider.value(
+              value: appBarCubit,
+              child: SearchResultContainer(),
+            ),
           ),
         );
       },

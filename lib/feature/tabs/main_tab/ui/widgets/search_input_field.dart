@@ -17,8 +17,6 @@ class SearchInputField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final appBarCubit = context.read<ApplicationAppBarCubit>();
-
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 12.w),
       child: Column(
@@ -30,20 +28,17 @@ class SearchInputField extends StatelessWidget {
               borderRadius: BorderRadius.circular(8.r),
               border: Border.all(color: Colors.black),
             ),
-            child: BlocProvider.value(
-              value: appBarCubit,
-              child: TextField(
-                focusNode: focusNode,
-                controller: controller,
-                onChanged: (query) {
-                  context.read<ApplicationAppBarCubit>().searchOnCourse(query);
-                  showOverlay();
-                },
-                decoration: InputDecoration(
-                  icon: Icon(Icons.search),
-                  hintText: 'Search',
-                  border: InputBorder.none,
-                ),
+            child: TextField(
+              focusNode: focusNode,
+              controller: controller,
+              onChanged: (query) {
+                context.read<ApplicationAppBarCubit>().searchOnCourse(query);
+                showOverlay();
+              },
+              decoration: InputDecoration(
+                icon: Icon(Icons.search),
+                hintText: 'Search',
+                border: InputBorder.none,
               ),
             ),
           ),
