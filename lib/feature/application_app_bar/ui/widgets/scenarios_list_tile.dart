@@ -12,7 +12,7 @@ class ScenariosListTile extends StatelessWidget {
       tileColor: Colors.grey[400],
       title: Text('Scenarios', style: TextStyle(fontSize: 16.sp)),
       onTap: () {
-        context.pushReplacementNamed(AppRoutes.scenariosScreen);
+        context.pushNamed(AppRoutes.scenariosScreen);
       },
     );
   }

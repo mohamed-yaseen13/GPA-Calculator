@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gpa_calculator/core/dependency_injection/di.dart';
 import 'package:gpa_calculator/core/helpers/extensions.dart';
 import 'package:gpa_calculator/core/routing/app_routes.dart';
 import 'package:gpa_calculator/feature/application_app_bar/logic/application_app_bar_cubit.dart';
@@ -15,8 +15,9 @@ class MainScreenListTile extends StatelessWidget {
       title: Text('Main Dashboard', style: TextStyle(fontSize: 16.sp)),
       onTap: () {
         print('Navigate To Main Screen');
-        getIt.resetLazySingleton<ApplicationAppBarCubit>();
-        context.pushReplacementNamed(AppRoutes.applicationAppBar);
+        context.pushNamed(AppRoutes.applicationAppBar).then((_) {
+          context.read<ApplicationAppBarCubit>().reloadStudent();
+        });
       },
     );
   }
