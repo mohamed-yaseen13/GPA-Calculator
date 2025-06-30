@@ -55,7 +55,10 @@ class ScenarioScreenAppBar extends StatelessWidget {
                     )
                     : null,
           ),
-          body: MainScreen(),
+          body: BlocProvider.value(
+            value: context.read<GpaCalculationsCubit>(),
+            child: MainScreen(),
+          ),
         );
       },
     );

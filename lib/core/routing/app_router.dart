@@ -33,6 +33,7 @@ class AppRouter {
                   BlocProvider(create: (_) => getIt<ApplicationAppBarCubit>()),
                   BlocProvider(create: (_) => getIt<ConverterCubit>()),
                   BlocProvider(create: (_) => getIt<CalculatorCubit>()),
+                  BlocProvider(create: (_) => getIt<GpaCalculationsCubit>()),
                 ],
                 child: ApplicationAppBar(),
               ),
@@ -40,12 +41,14 @@ class AppRouter {
         );
 
       case AppRoutes.semesterScreen:
+        final args = settings.arguments as Map?;
+        final SemesterScreenCubit cubit =
+            args != null && args['cubit'] != null
+                ? args['cubit'] as SemesterScreenCubit
+                : getIt<SemesterScreenCubit>();
         return MaterialPageRoute(
           builder:
-              (_) => BlocProvider.value(
-                value: getIt<SemesterScreenCubit>(),
-                child: SemesterScreen(),
-              ),
+              (_) => BlocProvider.value(value: cubit, child: SemesterScreen()),
           settings: settings,
         );
 

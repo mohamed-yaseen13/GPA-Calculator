@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gpa_calculator/core/dependency_injection/di.dart';
 import 'package:gpa_calculator/core/helpers/extensions.dart';
 import 'package:gpa_calculator/core/routing/app_routes.dart';
 import 'package:gpa_calculator/feature/semester/data/models/semester_model.dart';
+import 'package:gpa_calculator/feature/semester/logic/semester_screen_cubit.dart';
 
 class SemesterButton extends StatelessWidget {
   final int index;
@@ -31,9 +33,10 @@ class SemesterButton extends StatelessWidget {
         ),
         onPressed: () {
           resetSemesterScreenCubit();
+          final semesterScreenCubit = context.read<SemesterScreenCubit>();
           context.pushNamed(
             AppRoutes.semesterScreen,
-            arguments: {'semesterIndex': index},
+            arguments: {'semesterIndex': index, 'cubit': semesterScreenCubit},
           );
         },
         child: Text(
