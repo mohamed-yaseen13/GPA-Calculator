@@ -29,9 +29,6 @@ class ScenarioButton extends StatelessWidget {
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         ),
         onPressed: () {
-          print(
-            'Navigate To scenario ${scenario.name} Screen with index $index',
-          );
           context.pushNamed(
             AppRoutes.scenarioMainScreen,
             arguments: {'scenario': scenario, 'index': index},

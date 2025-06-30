@@ -14,7 +14,6 @@ class MainScreenListTile extends StatelessWidget {
       tileColor: Colors.grey[400],
       title: Text('Main Dashboard', style: TextStyle(fontSize: 16.sp)),
       onTap: () {
-        print('Navigate To Main Screen');
         context.pushNamed(AppRoutes.applicationAppBar).then((_) {
           context.read<ApplicationAppBarCubit>().reloadStudent();
         });

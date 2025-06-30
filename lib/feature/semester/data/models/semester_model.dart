@@ -70,4 +70,28 @@ class SemesterModel extends HiveObject {
     earnedCredits: (json['earnedCredits'] as num).toDouble(),
     note: json['note'] as String? ?? '',
   );
+
+  SemesterModel copyWith({
+    String? name,
+    double? gpa,
+    List<CourseModel>? courses,
+    bool? selected,
+    double? cgpaOriginal,
+    double? cgpaChanged,
+    double? attemptedCredits,
+    double? earnedCredits,
+    String? note,
+  }) {
+    return SemesterModel(
+      name: name ?? this.name,
+      gpa: gpa ?? this.gpa,
+      courses: courses ?? List<CourseModel>.from(this.courses),
+      selected: selected ?? this.selected,
+      cgpaOriginal: cgpaOriginal ?? this.cgpaOriginal,
+      cgpaChanged: cgpaChanged ?? this.cgpaChanged,
+      attemptedCredits: attemptedCredits ?? this.attemptedCredits,
+      earnedCredits: earnedCredits ?? this.earnedCredits,
+      note: note ?? this.note,
+    );
+  }
 }

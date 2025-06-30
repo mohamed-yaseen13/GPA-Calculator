@@ -13,11 +13,13 @@ class SemesterScreenCubit extends Cubit<SemesterScreenState> {
   final Box box;
   final StudentModel student;
   List<List<String>> scale;
+  final int? scenarioIndex;
 
   SemesterScreenCubit({
     required this.box,
     required this.student,
     required this.scale,
+    this.scenarioIndex,
   }) : super(
          SemesterScreenState(
            selectedIndex: 0,
@@ -69,7 +71,11 @@ class SemesterScreenCubit extends Cubit<SemesterScreenState> {
     student.semesters[state.selectedIndex].courses
       ..clear()
       ..addAll(updatedCourses);
-    box.put('default', student);
+    if (scenarioIndex != null) {
+      updateScenariosBox(box, scenarioIndex!, student);
+    } else {
+      box.put('default', student);
+    }
     emit(
       state.copyWith(
         selectedItem: 0,
@@ -119,7 +125,11 @@ class SemesterScreenCubit extends Cubit<SemesterScreenState> {
       ..clear()
       ..addAll(updatedCourses);
 
-    box.put('default', student);
+    if (scenarioIndex != null) {
+      updateScenariosBox(box, scenarioIndex!, student);
+    } else {
+      box.put('default', student);
+    }
     emit(state.copyWith(courses: updatedCourses));
   }
 
@@ -163,7 +173,11 @@ class SemesterScreenCubit extends Cubit<SemesterScreenState> {
         student.semesters[state.selectedIndex].courses[index],
       );
 
-      box.put('default', student);
+      if (scenarioIndex != null) {
+        updateScenariosBox(box, scenarioIndex!, student);
+      } else {
+        box.put('default', student);
+      }
     } else {
       CourseModel newCourse = CourseModel(
         name: name,
@@ -175,7 +189,11 @@ class SemesterScreenCubit extends Cubit<SemesterScreenState> {
       student.semesters[state.selectedIndex].courses.add(newCourse);
       checkAndMarkRepeatedCourse(newCourse);
     }
-    box.put('default', student);
+    if (scenarioIndex != null) {
+      updateScenariosBox(box, scenarioIndex!, student);
+    } else {
+      box.put('default', student);
+    }
 
     emit(
       state.copyWith(
@@ -209,7 +227,11 @@ class SemesterScreenCubit extends Cubit<SemesterScreenState> {
 
           newCourse.isRepeated = true;
 
-          box.put('default', student);
+          if (scenarioIndex != null) {
+            updateScenariosBox(box, scenarioIndex!, student);
+          } else {
+            box.put('default', student);
+          }
         }
       }
     }
@@ -244,7 +266,11 @@ class SemesterScreenCubit extends Cubit<SemesterScreenState> {
               }
             }
           }
-          box.put('default', student);
+          if (scenarioIndex != null) {
+            updateScenariosBox(box, scenarioIndex!, student);
+          } else {
+            box.put('default', student);
+          }
           return;
         }
       }

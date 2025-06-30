@@ -30,7 +30,6 @@ List<Widget> buildAppBarActions({
             padding: EdgeInsets.only(left: 12.w),
             child: GestureDetector(
               onTap: () {
-                print(state.semesters[state.selectedIndex].note);
                 showDialog(
                   context: context,
                   builder: (context) => NoteBodyContainer(),

@@ -3,7 +3,6 @@ import 'package:gpa_calculator/core/helpers/functions.dart';
 import 'package:gpa_calculator/feature/application_app_bar/logic/application_app_bar_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gpa_calculator/feature/course/data/models/course_model.dart';
-import 'package:gpa_calculator/feature/scenarios/data/models/scenario_model.dart';
 import 'package:gpa_calculator/feature/semester/data/models/semester_model.dart';
 import 'package:gpa_calculator/feature/tabs/main_tab/data/models/student_model.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -22,27 +21,7 @@ class ApplicationAppBarCubit extends Cubit<ApplicationAppBarState> {
            student: student,
            semesters: List<SemesterModel>.from(student.semesters),
          ),
-       ) {
-    print(
-      'ApplicationAppBarCubit created! hashCode: $hashCode, scenarioIndex: $scenarioIndex',
-    );
-    print('[ApplicationAppBarCubit] box.runtimeType: ${box.runtimeType}');
-    print(
-      '[ApplicationAppBarCubit] student.runtimeType: ${student.runtimeType}',
-    );
-
-    print('[ApplicationAppBarCubit] student content: ${student.toJson()}');
-
-    try {
-      print('[ApplicationAppBarCubit] box content: ${box.toMap()}');
-    } catch (e) {
-      print('[ApplicationAppBarCubit] box content (fallback): ${box.keys}');
-    }
-
-    debugStudentObjectInfo();
-    debugBoxContents();
-  }
-
+       );
   void select() => emit(state.copyWith(selectionMode: true));
 
   void cancelSelection() {
@@ -82,7 +61,13 @@ class ApplicationAppBarCubit extends Cubit<ApplicationAppBarState> {
     student.semesters
       ..clear()
       ..addAll(updatedSemesters);
-    box.put('default', student);
+
+    if (scenarioIndex != null) {
+      updateScenariosBox(box, scenarioIndex!, student);
+    } else {
+      box.put('default', student);
+    }
+
     emit(
       state.copyWith(
         selectedItem: 0,
@@ -103,59 +88,19 @@ class ApplicationAppBarCubit extends Cubit<ApplicationAppBarState> {
   }
 
   void addSemester({required String name, int index = -1}) {
-    print('\n🔍 === ADD SEMESTER DEBUG START ===');
-    print('Adding semester: $name');
-
-    debugStudentObjectInfo();
-    debugBoxContents();
-
     if (index != -1) {
       final oldSemester = student.semesters[index];
-      student.semesters[index] = SemesterModel(
-        courses: List.from(oldSemester.courses),
-        gpa: oldSemester.gpa,
-        name: name,
-        selected: oldSemester.selected,
-      );
+      student.semesters[index] = oldSemester.copyWith(name: name);
     } else {
-      SemesterModel newSemester = SemesterModel(
-        courses: [],
-        gpa: 0,
-        name: name,
-        selected: false,
-      );
+      SemesterModel newSemester = SemesterModel(courses: [], name: name);
       student.semesters.add(newSemester);
     }
 
-    print('Updated student hashCode: ${student.hashCode}');
-    print(
-      'Updated semesters: ${student.semesters.map((s) => s.name).toList()}',
-    );
-
     if (scenarioIndex != null) {
-      print(
-        'Scenarios Data Before Adding $name Semester To ${box.getAt(scenarioIndex!).name}',
-      );
-      printScenariosData();
-      print('Storing $name Semester In Scenarios Box');
-      final scenariosBox = box;
-      final oldScenario = scenariosBox.getAt(scenarioIndex!) as ScenarioModel;
-      final updatedScenario = oldScenario.copyWith(student: student);
-      scenariosBox.putAt(scenarioIndex!, updatedScenario);
-      print(
-        'Scenarios Data After Adding $name Semester To ${box.getAt(scenarioIndex!).name}',
-      );
-      printScenariosData();
+      updateScenariosBox(box, scenarioIndex!, student);
     } else {
-      print('Student Data Before Adding $name Semester To Student Data');
-      printStudentData();
-      print('Storing The Semester In Main Box');
       box.put('default', student);
-      print('Student Data After Adding $name Semester To Student Data');
-      printStudentData();
     }
-
-    print('🔍 === ADD SEMESTER DEBUG END ===\n');
 
     emit(
       state.copyWith(
@@ -190,7 +135,11 @@ class ApplicationAppBarCubit extends Cubit<ApplicationAppBarState> {
             }
           }
 
-          box.put('default', student);
+          if (scenarioIndex != null) {
+            updateScenariosBox(box, scenarioIndex!, student);
+          } else {
+            box.put('default', student);
+          }
 
           return;
         }
@@ -214,7 +163,11 @@ class ApplicationAppBarCubit extends Cubit<ApplicationAppBarState> {
   void saveSemesterNote(int semesterIndex, String updatedNote) {
     student.semesters[semesterIndex].note = updatedNote;
 
-    box.put('default', student);
+    if (scenarioIndex != null) {
+      updateScenariosBox(box, scenarioIndex!, student);
+    } else {
+      box.put('default', student);
+    }
 
     emit(
       state.copyWith(semesters: List<SemesterModel>.from(student.semesters)),
@@ -246,25 +199,5 @@ class ApplicationAppBarCubit extends Cubit<ApplicationAppBarState> {
         showSearchOverlay: query.isNotEmpty && results.isNotEmpty,
       ),
     );
-  }
-
-  void debugStudentObjectInfo() {
-    print('=== STUDENT OBJECT DEBUG INFO ===');
-    print('Student hashCode: ${student.hashCode}');
-    print('Student semesters hashCode: ${student.semesters.hashCode}');
-    print('Student semesters length: ${student.semesters.length}');
-    print('Semesters: ${student.semesters.map((s) => s.name).toList()}');
-    print('================================');
-  }
-
-  void debugBoxContents() {
-    print('=== BOX CONTENTS DEBUG ===');
-    final storedStudent = box.get('default') as StudentModel?;
-    print('Stored student hashCode: ${storedStudent?.hashCode}');
-    print(
-      'Stored student semesters: ${storedStudent?.semesters.map((s) => s.name).toList()}',
-    );
-    print('Are they the same object? ${identical(student, storedStudent)}');
-    print('========================');
   }
 }

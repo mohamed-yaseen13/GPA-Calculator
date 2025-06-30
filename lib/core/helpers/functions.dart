@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gpa_calculator/core/constants/app_constants.dart';
+import 'package:gpa_calculator/feature/scenarios/data/models/scenario_model.dart';
 import 'package:gpa_calculator/feature/tabs/main_tab/data/models/student_model.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 void printStudentData({StudentModel? student}) {
   final currentStudent = student ?? AppConstants.student;
@@ -61,4 +63,11 @@ double getMaxSemesterNameWidth(List<dynamic> semesters) {
   }
 
   return maxWidth1;
+}
+
+void updateScenariosBox(Box box, int scenarioIndex, StudentModel student) {
+  final scenariosBox = box;
+  final oldScenario = scenariosBox.getAt(scenarioIndex) as ScenarioModel;
+  final updatedScenario = oldScenario.copyWith(student: student);
+  scenariosBox.putAt(scenarioIndex, updatedScenario);
 }

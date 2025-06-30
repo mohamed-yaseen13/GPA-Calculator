@@ -11,11 +11,13 @@ class CourseScreenCubit extends Cubit<CourseScreenState> {
   final Box box;
   final StudentModel student;
   List<List<String>> scale;
+  final int? scenarioIndex;
 
   CourseScreenCubit({
     required this.box,
     required this.student,
     required this.scale,
+    this.scenarioIndex,
   }) : super(
          CourseScreenState(
            selectedCourseName: null,
@@ -69,7 +71,11 @@ class CourseScreenCubit extends Cubit<CourseScreenState> {
         .sections
       ..clear()
       ..addAll(updatedSections);
-    box.put('default', student);
+    if (scenarioIndex != null) {
+      updateScenariosBox(box, scenarioIndex!, student);
+    } else {
+      box.put('default', student);
+    }
     emit(
       state.copyWith(
         selectedSections: 0,
@@ -153,7 +159,6 @@ class CourseScreenCubit extends Cubit<CourseScreenState> {
     } else {
       SectionModel newSection = SectionModel(
         name: name,
-        selected: false,
         obtainedMark: obtainedMark,
         fullMark: fullMark.toInt(),
       );
@@ -164,7 +169,11 @@ class CourseScreenCubit extends Cubit<CourseScreenState> {
           .sections
           .add(newSection);
     }
-    box.put('default', student);
+    if (scenarioIndex != null) {
+      updateScenariosBox(box, scenarioIndex!, student);
+    } else {
+      box.put('default', student);
+    }
 
     emit(
       state.copyWith(
