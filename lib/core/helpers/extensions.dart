@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 extension Navigation on BuildContext {
   Future<dynamic> pushNamed(String routeName, {Object? arguments}) {
@@ -30,4 +31,14 @@ extension StringExtension on String? {
 
 extension ListExtension<T> on List<T>? {
   bool isNullOrEmpty() => this == null || this!.isEmpty;
+}
+
+extension BuildContextExtension on BuildContext {
+  T? maybeRead<T extends Object?>() {
+    try {
+      return read<T>();
+    } catch (e) {
+      return null;
+    }
+  }
 }

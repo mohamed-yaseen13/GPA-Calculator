@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gpa_calculator/core/constants/app_constants.dart';
+import 'package:gpa_calculator/core/helpers/functions.dart';
 import 'package:gpa_calculator/core/helpers/prefs_helper.dart';
 import 'package:gpa_calculator/core/logic/gpa_calculations_state.dart';
 import 'package:gpa_calculator/feature/semester/data/models/semester_model.dart';
@@ -10,11 +11,13 @@ class GpaCalculationsCubit extends Cubit<GpaCalculationsState> {
   final Box box;
   StudentModel student;
   List<List<String>> scale;
+  final int? scenarioIndex;
 
   GpaCalculationsCubit({
     required this.box,
     required this.student,
     required this.scale,
+    this.scenarioIndex,
   }) : super(
          GpaCalculationsState(
            cgpa: 0.0,
@@ -136,7 +139,11 @@ class GpaCalculationsCubit extends Cubit<GpaCalculationsState> {
       semesters: updatedSemesters,
     );
 
-    box.put('default', updatedStudent);
+    if (scenarioIndex != null) {
+      updateScenariosBox(box, scenarioIndex!, updatedStudent);
+    } else {
+      box.put('default', updatedStudent);
+    }
 
     emit(
       state.copyWith(
