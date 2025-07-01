@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gpa_calculator/core/helpers/check_internet_connection.dart';
-import 'package:gpa_calculator/core/helpers/functions.dart';
 import 'package:gpa_calculator/core/helpers/interstitial_ad_manager.dart';
 import 'package:gpa_calculator/feature/scenarios/logic/cubit/scenarios_cubit.dart';
 import 'package:gpa_calculator/feature/scenarios/ui/widgets/add_scenario_bottom_shett.dart';
@@ -61,7 +60,6 @@ class AddScenarioButton extends StatelessWidget {
           if (result != null) {
             context.read<ScenariosCubit>().addScenario(name: result['name']);
             InterstitialAdManager.showInterstitialAd();
-            printScenariosData();
           }
         },
         child: Text(

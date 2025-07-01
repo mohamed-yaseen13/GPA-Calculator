@@ -3,6 +3,7 @@ import 'package:gpa_calculator/core/constants/app_constants.dart';
 import 'package:gpa_calculator/core/helpers/functions.dart';
 import 'package:gpa_calculator/core/helpers/prefs_helper.dart';
 import 'package:gpa_calculator/core/logic/gpa_calculations_state.dart';
+import 'package:gpa_calculator/feature/scenarios/data/models/scenario_model.dart';
 import 'package:gpa_calculator/feature/semester/data/models/semester_model.dart';
 import 'package:gpa_calculator/feature/tabs/main_tab/data/models/student_model.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -278,15 +279,27 @@ class GpaCalculationsCubit extends Cubit<GpaCalculationsState> {
   }
 
   void reloadStudent() {
-    final newStudent = AppConstants.student;
-    student = newStudent;
-    emit(
-      state.copyWith(
-        semesters: List<SemesterModel>.from(student.semesters),
-        cgpa: student.cgpa,
-        totalCredits: student.totalCredits,
-      ),
-    );
+    if (scenarioIndex != null) {
+      final scenario = box.getAt(scenarioIndex!) as ScenarioModel;
+      student = scenario.student;
+      emit(
+        state.copyWith(
+          semesters: List<SemesterModel>.from(student.semesters),
+          cgpa: student.cgpa,
+          totalCredits: student.totalCredits,
+        ),
+      );
+    } else {
+      final newStudent = AppConstants.student;
+      student = newStudent;
+      emit(
+        state.copyWith(
+          semesters: List<SemesterModel>.from(student.semesters),
+          cgpa: student.cgpa,
+          totalCredits: student.totalCredits,
+        ),
+      );
+    }
   }
 
   Future<void> enableOrDisableLimitationsAfterFallOnCourse(bool value) async {

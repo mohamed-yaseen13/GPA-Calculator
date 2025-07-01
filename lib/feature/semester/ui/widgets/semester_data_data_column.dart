@@ -10,7 +10,7 @@ class SemesterDataDataColumn extends StatelessWidget {
   const SemesterDataDataColumn({super.key});
 
   @override
-  Widget build(BuildContext widgetContext) {
+  Widget build(BuildContext context) {
     return BlocBuilder<GpaCalculationsCubit, GpaCalculationsState>(
       builder: (context, state) {
         return Column(

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gpa_calculator/core/dependency_injection/di.dart';
-import 'package:gpa_calculator/core/logic/gpa_calculations_cubit.dart';
 import 'package:gpa_calculator/core/routing/app_routes.dart';
 import 'package:gpa_calculator/feature/application_app_bar/logic/application_app_bar_cubit.dart';
 import 'package:gpa_calculator/feature/application_app_bar/ui/application_app_bar.dart';
@@ -41,14 +40,18 @@ class AppRouter {
 
       case AppRoutes.semesterScreen:
         final args = settings.arguments as Map?;
-        final cubit =
+        final semesterCubit =
             args != null && args['cubit'] != null
                 ? args['cubit'] as SemesterScreenCubit
                 : null;
         return MaterialPageRoute(
           builder:
-              (_) => BlocProvider.value(
-                value: cubit ?? getIt<SemesterScreenCubit>(),
+              (_) => MultiBlocProvider(
+                providers: [
+                  BlocProvider.value(
+                    value: semesterCubit ?? getIt<SemesterScreenCubit>(),
+                  ),
+                ],
                 child: SemesterScreen(),
               ),
           settings: settings,
@@ -71,8 +74,10 @@ class AppRouter {
       case AppRoutes.customScaleScreen:
         return MaterialPageRoute(
           builder:
-              (_) => BlocProvider(
-                create: (context) => getIt<ScalesCubit>(),
+              (_) => MultiBlocProvider(
+                providers: [
+                  BlocProvider(create: (context) => getIt<ScalesCubit>()),
+                ],
                 child: AddCustomScaleScreen(),
               ),
           settings: settings,
@@ -81,8 +86,10 @@ class AppRouter {
       case AppRoutes.courseScreen:
         return MaterialPageRoute(
           builder:
-              (_) => BlocProvider.value(
-                value: getIt<CourseScreenCubit>(),
+              (_) => MultiBlocProvider(
+                providers: [
+                  BlocProvider.value(value: getIt<CourseScreenCubit>()),
+                ],
                 child: CourseScreen(),
               ),
           settings: settings,
@@ -123,7 +130,6 @@ class AppRouter {
               (_) => MultiBlocProvider(
                 providers: [
                   BlocProvider(create: (_) => getIt<ScenariosCubit>()),
-                  BlocProvider(create: (_) => getIt<GpaCalculationsCubit>()),
                 ],
                 child: ScenariosScreen(),
               ),

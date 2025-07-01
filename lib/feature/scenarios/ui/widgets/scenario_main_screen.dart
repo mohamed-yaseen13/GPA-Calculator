@@ -77,17 +77,14 @@ class _ScenarioMainScreenState extends State<ScenarioMainScreen> {
                 scale: scale,
               )..loadSettings(),
         ),
-        BlocProvider<GpaCalculationsCubit>(
+        BlocProvider(
           create:
-              (_) =>
-                  GpaCalculationsCubit(
-                      box: AppConstants.scenariosBox,
-                      student: widget.scenario.student,
-                      scale: scale,
-                      scenarioIndex: widget.index,
-                    )
-                    ..calculateGpaAndCgpa()
-                    ..loadSettings(),
+              (_) => GpaCalculationsCubit(
+                box: AppConstants.scenariosBox,
+                student: widget.scenario.student,
+                scale: scale,
+                scenarioIndex: widget.index,
+              ),
         ),
       ],
       child: Scaffold(
