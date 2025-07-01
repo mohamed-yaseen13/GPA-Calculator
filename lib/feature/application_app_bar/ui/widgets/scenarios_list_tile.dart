@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gpa_calculator/core/constants/app_constants.dart';
+import 'package:gpa_calculator/core/dependency_injection/di.dart';
 import 'package:gpa_calculator/core/helpers/extensions.dart';
 import 'package:gpa_calculator/core/routing/app_routes.dart';
 
@@ -12,6 +14,8 @@ class ScenariosListTile extends StatelessWidget {
       tileColor: Colors.grey[400],
       title: Text('Scenarios', style: TextStyle(fontSize: 16.sp)),
       onTap: () {
+        AppConstants.isScenarioMode = true;
+        resetScenarioCubits();
         context.pushReplacementNamed(AppRoutes.scenariosScreen);
       },
     );

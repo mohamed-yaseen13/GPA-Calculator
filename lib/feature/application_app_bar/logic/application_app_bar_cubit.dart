@@ -21,9 +21,7 @@ class ApplicationAppBarCubit extends Cubit<ApplicationAppBarState> {
            student: student,
            semesters: List<SemesterModel>.from(student.semesters),
          ),
-       ) {
-    reloadStudent();
-  }
+       );
   void select() => emit(state.copyWith(selectionMode: true));
 
   void cancelSelection() {
@@ -90,6 +88,9 @@ class ApplicationAppBarCubit extends Cubit<ApplicationAppBarState> {
   }
 
   void addSemester({required String name, int index = -1}) {
+    print('--- addSemester called ---');
+    printStudentData();
+
     if (index != -1) {
       final oldSemester = student.semesters[index];
       student.semesters[index] = oldSemester.copyWith(name: name);
@@ -99,9 +100,13 @@ class ApplicationAppBarCubit extends Cubit<ApplicationAppBarState> {
     }
 
     if (scenarioIndex != null) {
+      print('Saving to scenario box (index: $scenarioIndex)');
       updateScenariosBox(box, scenarioIndex!, student);
+      printScenariosData();
     } else {
+      print('Saving to main box');
       box.put('default', student);
+      printStudentData();
     }
 
     emit(
@@ -109,6 +114,9 @@ class ApplicationAppBarCubit extends Cubit<ApplicationAppBarState> {
         semesters: List<SemesterModel>.from(student.semesters),
         student: student,
       ),
+    );
+    print(
+      'State emitted with semesters: ${student.semesters.map((s) => s.name).toList()}',
     );
   }
 

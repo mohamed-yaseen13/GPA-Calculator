@@ -23,6 +23,7 @@ void main() async {
   final password = await PrefsHelper.getPassword();
   final isPasswordNull = password == null ? true : false;
   setupGetIt(selectedScaleIndex, customScales);
+  resetMainCubits();
   runApp(GpaApp(isPasswordNull: isPasswordNull));
 }
 

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gpa_calculator/core/dependency_injection/di.dart';
+import 'package:gpa_calculator/core/helpers/functions.dart';
+import 'package:gpa_calculator/core/logic/gpa_calculations_cubit.dart';
 import 'package:gpa_calculator/core/routing/app_routes.dart';
 import 'package:gpa_calculator/feature/application_app_bar/logic/application_app_bar_cubit.dart';
 import 'package:gpa_calculator/feature/application_app_bar/ui/application_app_bar.dart';
@@ -29,9 +31,12 @@ class AppRouter {
           builder:
               (_) => MultiBlocProvider(
                 providers: [
-                  BlocProvider(create: (_) => getIt<ApplicationAppBarCubit>()),
+                  BlocProvider(
+                    create: (_) => getCubit<ApplicationAppBarCubit>(),
+                  ),
                   BlocProvider(create: (_) => getIt<ConverterCubit>()),
                   BlocProvider(create: (_) => getIt<CalculatorCubit>()),
+                  BlocProvider.value(value: getCubit<GpaCalculationsCubit>()),
                 ],
                 child: ApplicationAppBar(),
               ),
@@ -43,7 +48,8 @@ class AppRouter {
           builder:
               (_) => MultiBlocProvider(
                 providers: [
-                  BlocProvider.value(value: getIt<SemesterScreenCubit>()),
+                  BlocProvider.value(value: getCubit<SemesterScreenCubit>()),
+                  BlocProvider.value(value: getCubit<GpaCalculationsCubit>()),
                 ],
                 child: SemesterScreen(),
               ),
@@ -56,8 +62,9 @@ class AppRouter {
               (_) => MultiBlocProvider(
                 providers: [
                   BlocProvider(create: (_) => getIt<ScalesCubit>()),
-                  BlocProvider.value(value: getIt<SemesterScreenCubit>()),
-                  BlocProvider.value(value: getIt<CourseScreenCubit>()),
+                  BlocProvider.value(value: getCubit<SemesterScreenCubit>()),
+                  BlocProvider.value(value: getCubit<CourseScreenCubit>()),
+                  BlocProvider.value(value: getCubit<GpaCalculationsCubit>()),
                 ],
                 child: ScalesScreen(),
               ),
@@ -70,6 +77,7 @@ class AppRouter {
               (_) => MultiBlocProvider(
                 providers: [
                   BlocProvider(create: (context) => getIt<ScalesCubit>()),
+                  BlocProvider.value(value: getCubit<GpaCalculationsCubit>()),
                 ],
                 child: AddCustomScaleScreen(),
               ),
@@ -81,7 +89,8 @@ class AppRouter {
           builder:
               (_) => MultiBlocProvider(
                 providers: [
-                  BlocProvider.value(value: getIt<CourseScreenCubit>()),
+                  BlocProvider.value(value: getCubit<CourseScreenCubit>()),
+                  BlocProvider.value(value: getCubit<GpaCalculationsCubit>()),
                 ],
                 child: CourseScreen(),
               ),
@@ -95,9 +104,10 @@ class AppRouter {
                 providers: [
                   BlocProvider(create: (_) => getIt<ScalesCubit>()),
                   BlocProvider.value(value: getIt<SettingsCubit>()),
-                  BlocProvider.value(value: getIt<ApplicationAppBarCubit>()),
-                  BlocProvider.value(value: getIt<SemesterScreenCubit>()),
-                  BlocProvider.value(value: getIt<CourseScreenCubit>()),
+                  BlocProvider.value(value: getCubit<ApplicationAppBarCubit>()),
+                  BlocProvider.value(value: getCubit<SemesterScreenCubit>()),
+                  BlocProvider.value(value: getCubit<CourseScreenCubit>()),
+                  BlocProvider.value(value: getCubit<GpaCalculationsCubit>()),
                 ],
                 child: SettingsScreen(),
               ),
@@ -129,14 +139,7 @@ class AppRouter {
         );
 
       case AppRoutes.scenarioMainScreen:
-        final args = settings.arguments as Map;
-        return MaterialPageRoute(
-          builder:
-              (_) => ScenarioMainScreen(
-                scenario: args['scenario'],
-                index: args['index'],
-              ),
-        );
+        return MaterialPageRoute(builder: (_) => ScenarioMainScreen());
 
       default:
         return null;

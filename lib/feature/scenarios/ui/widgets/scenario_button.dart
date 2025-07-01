@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gpa_calculator/core/constants/app_constants.dart';
+import 'package:gpa_calculator/core/dependency_injection/di.dart';
 import 'package:gpa_calculator/core/helpers/extensions.dart';
 import 'package:gpa_calculator/core/routing/app_routes.dart';
 import 'package:gpa_calculator/feature/scenarios/data/models/scenario_model.dart';
@@ -29,10 +31,10 @@ class ScenarioButton extends StatelessWidget {
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         ),
         onPressed: () {
-          context.pushNamed(
-            AppRoutes.scenarioMainScreen,
-            arguments: {'scenario': scenario, 'index': index},
-          );
+          AppConstants.selectedScenario = scenario;
+          AppConstants.selectedScenarioIndex = index;
+          resetScenarioCubits();
+          context.pushNamed(AppRoutes.scenarioMainScreen);
         },
         child: Text(
           scenario.name,

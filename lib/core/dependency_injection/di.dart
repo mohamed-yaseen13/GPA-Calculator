@@ -25,7 +25,7 @@ void setupGetIt(
 
   getIt.registerFactory<ScalesCubit>(() => ScalesCubit());
 
-  getIt.registerFactory<GpaCalculationsCubit>(
+  getIt.registerLazySingleton<GpaCalculationsCubit>(
     () =>
         GpaCalculationsCubit(
             box: AppConstants.box,
@@ -37,11 +37,34 @@ void setupGetIt(
           ..loadSettings(),
   );
 
+  getIt.registerLazySingleton<GpaCalculationsCubit>(
+    () =>
+        GpaCalculationsCubit(
+            box: AppConstants.scenariosBox,
+            student: AppConstants.selectedScenario!.student,
+            scale:
+                Scales.getAllScales(customScales)[selectedScaleIndex]['scale'],
+            scenarioIndex: AppConstants.selectedScenarioIndex,
+          )
+          ..calculateGpaAndCgpa()
+          ..loadSettings(),
+    instanceName: 'scenario',
+  );
+
   getIt.registerLazySingleton<ApplicationAppBarCubit>(
     () => ApplicationAppBarCubit(
       box: AppConstants.box,
       student: AppConstants.student,
     ),
+  );
+
+  getIt.registerLazySingleton<ApplicationAppBarCubit>(
+    () => ApplicationAppBarCubit(
+      box: AppConstants.scenariosBox,
+      student: AppConstants.selectedScenario!.student,
+      scenarioIndex: AppConstants.selectedScenarioIndex,
+    ),
+    instanceName: 'scenario',
   );
 
   getIt.registerLazySingleton<SettingsCubit>(
@@ -64,6 +87,10 @@ void resetSemesterScreenCubit() async {
     getIt.unregister<SemesterScreenCubit>();
   }
 
+  if (getIt.isRegistered<SemesterScreenCubit>(instanceName: 'scenario')) {
+    getIt.unregister<SemesterScreenCubit>(instanceName: 'scenario');
+  }
+
   final selectedScaleIndex = await PrefsHelper.getSelectedScaleIndex();
   final customScales = await PrefsHelper.loadCustomScales();
 
@@ -74,11 +101,25 @@ void resetSemesterScreenCubit() async {
       scale: Scales.getAllScales(customScales)[selectedScaleIndex]['scale'],
     ),
   );
+
+  getIt.registerLazySingleton<SemesterScreenCubit>(
+    () => SemesterScreenCubit(
+      box: AppConstants.scenariosBox,
+      student: AppConstants.selectedScenario!.student,
+      scale: Scales.getAllScales(customScales)[selectedScaleIndex]['scale'],
+      scenarioIndex: AppConstants.selectedScenarioIndex,
+    ),
+    instanceName: 'scenario',
+  );
 }
 
 void resetCourseScreenCubit() async {
   if (getIt.isRegistered<CourseScreenCubit>()) {
     getIt.unregister<CourseScreenCubit>();
+  }
+
+  if (getIt.isRegistered<CourseScreenCubit>(instanceName: 'scenario')) {
+    getIt.unregister<CourseScreenCubit>(instanceName: 'scenario');
   }
 
   final selectedScaleIndex = await PrefsHelper.getSelectedScaleIndex();
@@ -90,5 +131,123 @@ void resetCourseScreenCubit() async {
       student: AppConstants.student,
       scale: Scales.getAllScales(customScales)[selectedScaleIndex]['scale'],
     )..loadSettings(),
+  );
+
+  getIt.registerLazySingleton<CourseScreenCubit>(
+    () => CourseScreenCubit(
+      box: AppConstants.scenariosBox,
+      student: AppConstants.selectedScenario!.student,
+      scale: Scales.getAllScales(customScales)[selectedScaleIndex]['scale'],
+      scenarioIndex: AppConstants.selectedScenarioIndex,
+    )..loadSettings(),
+    instanceName: 'scenario',
+  );
+}
+
+void resetMainCubits() async {
+  if (getIt.isRegistered<ApplicationAppBarCubit>()) {
+    getIt.unregister<ApplicationAppBarCubit>();
+  }
+  if (getIt.isRegistered<GpaCalculationsCubit>()) {
+    getIt.unregister<GpaCalculationsCubit>();
+  }
+
+  if (getIt.isRegistered<CourseScreenCubit>()) {
+    getIt.unregister<CourseScreenCubit>();
+  }
+
+  if (getIt.isRegistered<SemesterScreenCubit>()) {
+    getIt.unregister<SemesterScreenCubit>();
+  }
+
+  final selectedScaleIndex = await PrefsHelper.getSelectedScaleIndex();
+  final customScales = await PrefsHelper.loadCustomScales();
+
+  getIt.registerLazySingleton<ApplicationAppBarCubit>(
+    () => ApplicationAppBarCubit(
+      box: AppConstants.box,
+      student: AppConstants.student,
+    ),
+  );
+  getIt.registerLazySingleton<GpaCalculationsCubit>(
+    () => GpaCalculationsCubit(
+      box: AppConstants.box,
+      student: AppConstants.student,
+      scale: Scales.getAllScales(customScales)[selectedScaleIndex]['scale'],
+    ),
+  );
+
+  getIt.registerLazySingleton<CourseScreenCubit>(
+    () => CourseScreenCubit(
+      box: AppConstants.box,
+      student: AppConstants.student,
+      scale: Scales.getAllScales(customScales)[selectedScaleIndex]['scale'],
+    )..loadSettings(),
+  );
+
+  getIt.registerLazySingleton<SemesterScreenCubit>(
+    () => SemesterScreenCubit(
+      box: AppConstants.box,
+      student: AppConstants.student,
+      scale: Scales.getAllScales(customScales)[selectedScaleIndex]['scale'],
+    ),
+  );
+}
+
+void resetScenarioCubits() async {
+  if (getIt.isRegistered<ApplicationAppBarCubit>(instanceName: 'scenario')) {
+    getIt.unregister<ApplicationAppBarCubit>(instanceName: 'scenario');
+  }
+  if (getIt.isRegistered<GpaCalculationsCubit>(instanceName: 'scenario')) {
+    getIt.unregister<GpaCalculationsCubit>(instanceName: 'scenario');
+  }
+
+  if (getIt.isRegistered<CourseScreenCubit>(instanceName: 'scenario')) {
+    getIt.unregister<CourseScreenCubit>(instanceName: 'scenario');
+  }
+
+  if (getIt.isRegistered<SemesterScreenCubit>(instanceName: 'scenario')) {
+    getIt.unregister<SemesterScreenCubit>(instanceName: 'scenario');
+  }
+
+  final selectedScaleIndex = await PrefsHelper.getSelectedScaleIndex();
+  final customScales = await PrefsHelper.loadCustomScales();
+
+  getIt.registerLazySingleton<ApplicationAppBarCubit>(
+    () => ApplicationAppBarCubit(
+      box: AppConstants.scenariosBox,
+      student: AppConstants.selectedScenario!.student,
+      scenarioIndex: AppConstants.selectedScenarioIndex,
+    ),
+    instanceName: 'scenario',
+  );
+  getIt.registerLazySingleton<GpaCalculationsCubit>(
+    () => GpaCalculationsCubit(
+      box: AppConstants.scenariosBox,
+      student: AppConstants.selectedScenario!.student,
+      scale: Scales.getAllScales(customScales)[selectedScaleIndex]['scale'],
+      scenarioIndex: AppConstants.selectedScenarioIndex,
+    ),
+    instanceName: 'scenario',
+  );
+
+  getIt.registerLazySingleton<CourseScreenCubit>(
+    () => CourseScreenCubit(
+      box: AppConstants.scenariosBox,
+      student: AppConstants.selectedScenario!.student,
+      scale: Scales.getAllScales(customScales)[selectedScaleIndex]['scale'],
+      scenarioIndex: AppConstants.selectedScenarioIndex,
+    )..loadSettings(),
+    instanceName: 'scenario',
+  );
+
+  getIt.registerLazySingleton<SemesterScreenCubit>(
+    () => SemesterScreenCubit(
+      box: AppConstants.scenariosBox,
+      student: AppConstants.selectedScenario!.student,
+      scale: Scales.getAllScales(customScales)[selectedScaleIndex]['scale'],
+      scenarioIndex: AppConstants.selectedScenarioIndex,
+    ),
+    instanceName: 'scenario',
   );
 }

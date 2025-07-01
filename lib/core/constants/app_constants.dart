@@ -27,4 +27,10 @@ class AppConstants {
 
   static List<ScenarioModel> get scenarios =>
       List<ScenarioModel>.from(scenariosBox.values);
+
+  static bool isScenarioMode = false;
+
+  static ScenarioModel? selectedScenario;
+
+  static int selectedScenarioIndex = 0;
 }
