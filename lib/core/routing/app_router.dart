@@ -39,18 +39,11 @@ class AppRouter {
         );
 
       case AppRoutes.semesterScreen:
-        final args = settings.arguments as Map?;
-        final semesterCubit =
-            args != null && args['cubit'] != null
-                ? args['cubit'] as SemesterScreenCubit
-                : null;
         return MaterialPageRoute(
           builder:
               (_) => MultiBlocProvider(
                 providers: [
-                  BlocProvider.value(
-                    value: semesterCubit ?? getIt<SemesterScreenCubit>(),
-                  ),
+                  BlocProvider.value(value: getIt<SemesterScreenCubit>()),
                 ],
                 child: SemesterScreen(),
               ),

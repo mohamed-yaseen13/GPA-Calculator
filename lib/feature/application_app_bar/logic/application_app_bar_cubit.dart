@@ -21,7 +21,9 @@ class ApplicationAppBarCubit extends Cubit<ApplicationAppBarState> {
            student: student,
            semesters: List<SemesterModel>.from(student.semesters),
          ),
-       );
+       ) {
+    reloadStudent();
+  }
   void select() => emit(state.copyWith(selectionMode: true));
 
   void cancelSelection() {
