@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gpa_calculator/core/helpers/check_internet_connection.dart';
+//import 'package:gpa_calculator/core/helpers/check_internet_connection.dart';
 import 'package:gpa_calculator/core/helpers/interstitial_ad_manager.dart';
 import 'package:gpa_calculator/core/logic/gpa_calculations_cubit.dart';
 import 'package:gpa_calculator/feature/application_app_bar/logic/application_app_bar_cubit.dart';
@@ -23,25 +23,25 @@ class AddSemesterButton extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 8.w),
         ),
         onPressed: () async {
-          final hasInternet =
-              await CheckInternetConnection.isInternetAvailable();
-          if (!hasInternet) {
-            showDialog(
-              context: context,
-              builder:
-                  (_) => AlertDialog(
-                    title: Text('No Internet'),
-                    content: Text('Please turn on the internet'),
-                    actions: [
-                      TextButton(
-                        onPressed: () => Navigator.pop(context),
-                        child: Text('OK'),
-                      ),
-                    ],
-                  ),
-            );
-            return;
-          }
+          //final hasInternet =
+          //    await CheckInternetConnection.isInternetAvailable();
+          //if (!hasInternet) {
+          //  showDialog(
+          //    context: context,
+          //    builder:
+          //        (_) => AlertDialog(
+          //          title: Text('No Internet'),
+          //          content: Text('Please turn on the internet'),
+          //          actions: [
+          //            TextButton(
+          //              onPressed: () => Navigator.pop(context),
+          //              child: Text('OK'),
+          //            ),
+          //          ],
+          //        ),
+          //  );
+          //  return;
+          //}
           final appBarCubit = context.read<ApplicationAppBarCubit>();
           final result = await showModalBottomSheet<Map<String, dynamic>>(
             context: context,

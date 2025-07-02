@@ -210,12 +210,14 @@ class GpaCalculationsCubit extends Cubit<GpaCalculationsState> {
         double max = double.tryParse(parts[1]) ?? 100;
         if (maxPercent >= min && maxPercent <= max) {
           maxGrade = row[0];
+          break;
         }
       } else if (range.toLowerCase().contains('below')) {
         double below =
             double.tryParse(range.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
         if (maxPercent < below) {
           maxGrade = row[0];
+          break;
         }
       }
     }

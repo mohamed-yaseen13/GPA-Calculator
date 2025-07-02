@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gpa_calculator/core/helpers/spacing.dart';
 import 'package:gpa_calculator/feature/scales/ui/widgets/grade_field.dart';
 import 'package:gpa_calculator/feature/scales/ui/widgets/percentage_field.dart';
 import 'package:gpa_calculator/feature/scales/ui/widgets/points_field.dart';
@@ -16,6 +17,7 @@ class AddCustomScaleScreen extends StatefulWidget {
 class _AddCustomScaleScreenState extends State<AddCustomScaleScreen> {
   final TextEditingController _titleController = TextEditingController();
   final List<List<String>> _rows = [];
+  final ScrollController _scrollController = ScrollController();
   int? _editIndex;
   bool _initialized = false;
 
@@ -37,6 +39,15 @@ class _AddCustomScaleScreenState extends State<AddCustomScaleScreen> {
   void _addRow() {
     setState(() {
       _rows.add(['', '', '']);
+    });
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_scrollController.hasClients) {
+        _scrollController.animateTo(
+          _scrollController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+        );
+      }
     });
   }
 
@@ -68,6 +79,7 @@ class _AddCustomScaleScreenState extends State<AddCustomScaleScreen> {
             ),
             Expanded(
               child: ListView.builder(
+                controller: _scrollController,
                 itemCount: _rows.length,
                 itemBuilder:
                     (context, i) => Row(
@@ -90,6 +102,7 @@ class _AddCustomScaleScreenState extends State<AddCustomScaleScreen> {
                     ),
               ),
             ),
+            verticalSpace(24),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [

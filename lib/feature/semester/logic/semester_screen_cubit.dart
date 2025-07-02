@@ -161,13 +161,10 @@ class SemesterScreenCubit extends Cubit<SemesterScreenState> {
         student.semesters[state.selectedIndex].courses[index],
       );
 
-      student.semesters[state.selectedIndex].courses[index] = CourseModel(
-        credits: credits,
-        grade: grade,
-        name: name,
-        sections:
-            student.semesters[state.selectedIndex].courses[index].sections,
-      );
+      final oldCourse = student.semesters[state.selectedIndex].courses[index];
+
+      student.semesters[state.selectedIndex].courses[index] = oldCourse
+          .copyWith(name: name, credits: credits, grade: grade);
 
       checkAndMarkRepeatedCourse(
         student.semesters[state.selectedIndex].courses[index],
@@ -217,6 +214,7 @@ class SemesterScreenCubit extends Cubit<SemesterScreenState> {
           oldCourse.isChanged = true;
 
           if (newCourse.grade == '--') {
+            oldCourse.newGrade = oldCourse.grade;
           } else {
             oldCourse.newGrade = newCourse.grade;
           }

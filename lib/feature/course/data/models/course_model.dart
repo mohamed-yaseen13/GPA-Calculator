@@ -70,4 +70,28 @@ class CourseModel extends HiveObject {
             .toList(),
     isFailedBefore: json['isFailedBefore'] as bool,
   );
+
+  CourseModel copyWith({
+    String? name,
+    String? grade,
+    double? credits,
+    bool? selected,
+    bool? isRepeated,
+    bool? isChanged,
+    String? newGrade,
+    List<SectionModel>? sections,
+    bool? isFailedBefore,
+  }) {
+    return CourseModel(
+      name: name ?? this.name,
+      grade: grade ?? this.grade,
+      credits: credits ?? this.credits,
+      selected: selected ?? this.selected,
+      isRepeated: isRepeated ?? this.isRepeated,
+      isChanged: isChanged ?? this.isChanged,
+      newGrade: newGrade ?? this.newGrade,
+      sections: sections ?? List<SectionModel>.from(this.sections),
+      isFailedBefore: isFailedBefore ?? this.isFailedBefore,
+    );
+  }
 }

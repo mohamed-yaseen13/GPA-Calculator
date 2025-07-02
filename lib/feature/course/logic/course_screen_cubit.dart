@@ -220,12 +220,14 @@ class CourseScreenCubit extends Cubit<CourseScreenState> {
         double max = double.tryParse(parts[1]) ?? 100;
         if (maxPercent >= min && maxPercent <= max) {
           result = row[0];
+          break;
         }
       } else if (range.toLowerCase().contains('below')) {
         double below =
             double.tryParse(range.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
         if (maxPercent < below) {
           result = row[0];
+          break;
         }
       }
     }
