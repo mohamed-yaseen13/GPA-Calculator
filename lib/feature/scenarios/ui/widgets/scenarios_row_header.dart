@@ -17,6 +17,7 @@ class ScenariosRowHeader extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
         ),
+        Expanded(flex: 6, child: SizedBox()),
         Expanded(flex: 1, child: SizedBox()),
       ],
     );

@@ -20,7 +20,10 @@ class ScenariosScreen extends StatelessWidget {
         builder: (context, state) {
           return Scaffold(
             appBar: ScenariosScreenAppBar(),
-            drawer: !state.selectionMode ? AppDrawer() : null,
+            drawer:
+                !state.selectionMode
+                    ? AppDrawer(selectedRoute: DrawerRoute.scenarios)
+                    : null,
             body: ScenariosScreenBody(),
           );
         },

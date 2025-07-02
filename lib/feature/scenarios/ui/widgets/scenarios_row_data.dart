@@ -26,6 +26,7 @@ class ScenariosRowData extends StatelessWidget {
           flex: 7,
           child: ScenarioButton(index: index, scenario: scenario),
         ),
+        Expanded(flex: 6, child: SizedBox()),
         Expanded(
           flex: 1,
           child: EditScenarioIcon(index: index, scenario: scenario),

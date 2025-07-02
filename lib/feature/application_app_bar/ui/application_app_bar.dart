@@ -96,7 +96,10 @@ class _MainDashboardState extends State<ApplicationAppBar>
               ],
             ),
           ),
-          drawer: !state.selectionMode ? AppDrawer() : null,
+          drawer:
+              !state.selectionMode
+                  ? AppDrawer(selectedRoute: DrawerRoute.main)
+                  : null,
           body: TabBarView(
             controller: tabController,
             children: [
