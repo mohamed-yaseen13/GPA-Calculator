@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:gpa_calculator/core/constants/app_constants.dart';
 import 'package:gpa_calculator/core/helpers/functions.dart';
 import 'package:gpa_calculator/feature/application_app_bar/logic/application_app_bar_state.dart';
@@ -8,7 +9,7 @@ import 'package:gpa_calculator/feature/tabs/main_tab/data/models/student_model.d
 import 'package:hive_flutter/hive_flutter.dart';
 
 class ApplicationAppBarCubit extends Cubit<ApplicationAppBarState> {
-  final Box box;
+  Box box;
   StudentModel student;
   final int? scenarioIndex;
 
@@ -88,9 +89,6 @@ class ApplicationAppBarCubit extends Cubit<ApplicationAppBarState> {
   }
 
   void addSemester({required String name, int index = -1}) {
-    print('--- addSemester called ---');
-    printStudentData();
-
     if (index != -1) {
       final oldSemester = student.semesters[index];
       student.semesters[index] = oldSemester.copyWith(name: name);
@@ -100,13 +98,9 @@ class ApplicationAppBarCubit extends Cubit<ApplicationAppBarState> {
     }
 
     if (scenarioIndex != null) {
-      print('Saving to scenario box (index: $scenarioIndex)');
       updateScenariosBox(box, scenarioIndex!, student);
-      printScenariosData();
     } else {
-      print('Saving to main box');
       box.put('default', student);
-      printStudentData();
     }
 
     emit(
@@ -114,9 +108,6 @@ class ApplicationAppBarCubit extends Cubit<ApplicationAppBarState> {
         semesters: List<SemesterModel>.from(student.semesters),
         student: student,
       ),
-    );
-    print(
-      'State emitted with semesters: ${student.semesters.map((s) => s.name).toList()}',
     );
   }
 
@@ -209,5 +200,19 @@ class ApplicationAppBarCubit extends Cubit<ApplicationAppBarState> {
         showSearchOverlay: query.isNotEmpty && results.isNotEmpty,
       ),
     );
+  }
+
+  void importStudentData(int scenarioIndex, BuildContext context) {
+    List<SemesterModel> selectedSemesters =
+        state.semesters.where((s) => s.selected).toList();
+
+    for (int i = 0; i < selectedSemesters.length; i++) {
+      SemesterModel newSemester = selectedSemesters[i];
+      student = AppConstants.selectedScenario!.student;
+      box = AppConstants.scenariosBox;
+      student.semesters.add(newSemester);
+      updateScenariosBox(box, scenarioIndex, student);
+    }
+    cancelSelection();
   }
 }

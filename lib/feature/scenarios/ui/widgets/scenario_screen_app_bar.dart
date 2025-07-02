@@ -54,6 +54,7 @@ class ScenarioScreenAppBar extends StatelessWidget
                     content: 'Semesters',
                   )
                   : null,
+          automaticallyImplyLeading: !state.selectionMode,
         );
       },
     );

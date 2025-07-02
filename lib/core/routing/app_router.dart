@@ -15,6 +15,7 @@ import 'package:gpa_calculator/feature/scales/ui/scales_screen.dart';
 import 'package:gpa_calculator/feature/scales/ui/widgets/add_custom_scale_screen.dart';
 import 'package:gpa_calculator/feature/scenarios/logic/cubit/scenarios_cubit.dart';
 import 'package:gpa_calculator/feature/scenarios/ui/scenarios_screen.dart';
+import 'package:gpa_calculator/feature/scenarios/ui/widgets/import_screen.dart';
 import 'package:gpa_calculator/feature/scenarios/ui/widgets/scenario_main_screen.dart';
 import 'package:gpa_calculator/feature/semester/logic/semester_screen_cubit.dart';
 import 'package:gpa_calculator/feature/semester/ui/semester_screen.dart';
@@ -136,10 +137,20 @@ class AppRouter {
                 ],
                 child: ScenariosScreen(),
               ),
+          settings: settings,
         );
 
       case AppRoutes.scenarioMainScreen:
-        return MaterialPageRoute(builder: (_) => ScenarioMainScreen());
+        return MaterialPageRoute(
+          builder: (_) => ScenarioMainScreen(),
+          settings: settings,
+        );
+
+      case AppRoutes.importScreen:
+        return MaterialPageRoute(
+          builder: (_) => ImportScreen(),
+          settings: settings,
+        );
 
       default:
         return null;

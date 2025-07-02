@@ -16,4 +16,6 @@ class AppRoutes {
   static const String scenariosScreen = 'scenariosScreen';
 
   static const String scenarioMainScreen = 'scenarioMainScreen';
+
+  static const String importScreen = 'importScreen';
 }
