@@ -17,7 +17,13 @@ class ScenarioMainScreen extends StatelessWidget {
         BlocProvider<ApplicationAppBarCubit>(
           create: (_) => getCubit<ApplicationAppBarCubit>(),
         ),
-        BlocProvider(create: (_) => getCubit<GpaCalculationsCubit>()),
+        BlocProvider(
+          create:
+              (_) =>
+                  getCubit<GpaCalculationsCubit>()
+                    ..calculateGpaAndCgpa()
+                    ..loadSettings(),
+        ),
       ],
       child: Scaffold(
         appBar: ScenarioScreenAppBar(

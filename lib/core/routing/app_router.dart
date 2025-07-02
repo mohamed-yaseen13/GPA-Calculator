@@ -39,7 +39,9 @@ class AppRouter {
                   BlocProvider(create: (_) => getIt<CalculatorCubit>()),
                   BlocProvider.value(
                     value:
-                        getCubit<GpaCalculationsCubit>()..calculateGpaAndCgpa(),
+                        getCubit<GpaCalculationsCubit>()
+                          ..calculateGpaAndCgpa()
+                          ..loadSettings(),
                   ),
                 ],
                 child: ApplicationAppBar(),
