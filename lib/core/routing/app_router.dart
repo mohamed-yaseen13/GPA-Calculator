@@ -35,7 +35,9 @@ class AppRouter {
               (_) => MultiBlocProvider(
                 providers: [
                   BlocProvider(
-                    create: (_) => getCubit<ApplicationAppBarCubit>(),
+                    create:
+                        (_) =>
+                            getCubit<ApplicationAppBarCubit>()..reloadStudent(),
                   ),
                   BlocProvider(create: (_) => getIt<ConverterCubit>()),
                   BlocProvider(create: (_) => getIt<CalculatorCubit>()),
@@ -43,6 +45,7 @@ class AppRouter {
                     value:
                         getCubit<GpaCalculationsCubit>()
                           ..calculateGpaAndCgpa()
+                          ..reloadStudent()
                           ..loadSettings(),
                   ),
                 ],

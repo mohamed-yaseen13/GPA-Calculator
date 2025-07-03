@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gpa_calculator/core/helpers/spacing.dart';
 import 'package:gpa_calculator/feature/application_app_bar/logic/application_app_bar_cubit.dart';
 
 class HeaderRow extends StatelessWidget {
@@ -18,7 +19,7 @@ class HeaderRow extends StatelessWidget {
             fontSize: 18.sp,
           ),
         ),
-        Spacer(),
+        horizontalSpace(130.w),
         SizedBox(
           height: 24.h,
           width: 16.w,

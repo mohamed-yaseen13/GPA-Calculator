@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gpa_calculator/core/helpers/spacing.dart';
 import 'package:gpa_calculator/feature/application_app_bar/logic/application_app_bar_cubit.dart';
 import 'package:gpa_calculator/feature/semester/data/models/semester_model.dart';
 
@@ -14,6 +15,7 @@ class SemesterRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
+        horizontalSpace(12.w),
         Text(
           semester.name,
           style: TextStyle(
@@ -40,6 +42,7 @@ class SemesterRow extends StatelessWidget {
             },
           ),
         ),
+        horizontalSpace(12.w),
       ],
     );
   }
