@@ -18,4 +18,6 @@ class AppRoutes {
   static const String scenarioMainScreen = 'scenarioMainScreen';
 
   static const String importScreen = 'importScreen';
+
+  static const String calendarScreen = '/calendar';
 }

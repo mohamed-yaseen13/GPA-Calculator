@@ -33,4 +33,6 @@ class AppConstants {
   static ScenarioModel? selectedScenario;
 
   static int selectedScenarioIndex = 0;
+
+  static final Box eventsBox = Hive.box('events');
 }

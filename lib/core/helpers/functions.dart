@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gpa_calculator/core/constants/app_constants.dart';
 import 'package:gpa_calculator/core/dependency_injection/di.dart';
+import 'package:gpa_calculator/core/helpers/extensions.dart';
+import 'package:gpa_calculator/core/routing/app_routes.dart';
+import 'package:gpa_calculator/core/widgets/app_drawer.dart';
 import 'package:gpa_calculator/feature/scenarios/data/models/scenario_model.dart';
 import 'package:gpa_calculator/feature/tabs/main_tab/data/models/student_model.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -78,5 +81,19 @@ T getCubit<T extends Object>() {
     return getIt<T>(instanceName: 'scenario');
   } else {
     return getIt<T>();
+  }
+}
+
+void handleRouteSelected(BuildContext context, DrawerRoute route) {
+  if (route == DrawerRoute.main) {
+    AppConstants.isScenarioMode = false;
+    resetMainCubits();
+    context.pushReplacementNamed(AppRoutes.applicationAppBar);
+  } else if (route == DrawerRoute.scenarios) {
+    AppConstants.isScenarioMode = true;
+    resetScenarioCubits();
+    context.pushReplacementNamed(AppRoutes.scenariosScreen);
+  } else if (route == DrawerRoute.calendar) {
+    context.pushReplacementNamed(AppRoutes.calendarScreen);
   }
 }

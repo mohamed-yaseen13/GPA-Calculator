@@ -3,6 +3,7 @@ import 'package:gpa_calculator/core/constants/app_constants.dart';
 import 'package:gpa_calculator/core/helpers/prefs_helper.dart';
 import 'package:gpa_calculator/core/logic/gpa_calculations_cubit.dart';
 import 'package:gpa_calculator/feature/application_app_bar/logic/application_app_bar_cubit.dart';
+import 'package:gpa_calculator/feature/calendar/logic/cubit/calendar_cubit.dart';
 import 'package:gpa_calculator/feature/course/logic/course_screen_cubit.dart';
 import 'package:gpa_calculator/feature/password_screen/logic/password_cubit.dart';
 import 'package:gpa_calculator/feature/scales/data/model/scales.dart';
@@ -79,6 +80,10 @@ void setupGetIt(
 
   getIt.registerFactory<ScenariosCubit>(
     () => ScenariosCubit(scenariosBox: AppConstants.scenariosBox),
+  );
+
+  getIt.registerFactory<CalendarCubit>(
+    () => CalendarCubit(AppConstants.eventsBox),
   );
 }
 

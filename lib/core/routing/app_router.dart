@@ -6,6 +6,8 @@ import 'package:gpa_calculator/core/logic/gpa_calculations_cubit.dart';
 import 'package:gpa_calculator/core/routing/app_routes.dart';
 import 'package:gpa_calculator/feature/application_app_bar/logic/application_app_bar_cubit.dart';
 import 'package:gpa_calculator/feature/application_app_bar/ui/application_app_bar.dart';
+import 'package:gpa_calculator/feature/calendar/logic/cubit/calendar_cubit.dart';
+import 'package:gpa_calculator/feature/calendar/ui/calendar_screen.dart';
 import 'package:gpa_calculator/feature/course/logic/course_screen_cubit.dart';
 import 'package:gpa_calculator/feature/course/ui/course_screen.dart';
 import 'package:gpa_calculator/feature/password_screen/logic/password_cubit.dart';
@@ -154,6 +156,16 @@ class AppRouter {
       case AppRoutes.importScreen:
         return MaterialPageRoute(
           builder: (_) => ImportScreen(),
+          settings: settings,
+        );
+
+      case AppRoutes.calendarScreen:
+        return MaterialPageRoute(
+          builder:
+              (_) => BlocProvider(
+                create: (context) => getIt<CalendarCubit>(),
+                child: CalendarScreen(),
+              ),
           settings: settings,
         );
 
