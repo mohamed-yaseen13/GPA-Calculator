@@ -15,7 +15,7 @@ class AllSemestersTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 16.w),
+      padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 24.w),
       child: BlocProvider(
         create:
             (context) => ApplicationAppBarCubit(

@@ -7,6 +7,7 @@ import 'package:flutter/widgets.dart';
 import 'package:gpa_calculator/table_calendar/lib/src/widgets/calendar_header.dart';
 import 'package:gpa_calculator/table_calendar/lib/src/widgets/cell_content.dart';
 import 'package:gpa_calculator/table_calendar/lib/table_calendar.dart';
+import 'package:intl/intl.dart';
 import 'package:simple_gesture_detector/simple_gesture_detector.dart';
 
 /// Signature for `onDaySelected` callback. Contains the selected day and focused day.
@@ -537,6 +538,32 @@ class _TableCalendarState<T> extends State<TableCalendar<T>> {
                 context,
                 day,
               );
+
+              if (dowCell == null) {
+                final weekdayString =
+                    widget.daysOfWeekStyle.dowTextFormatter?.call(
+                      day,
+                      widget.locale,
+                    ) ??
+                    DateFormat.E(widget.locale).format(day);
+
+                final isWeekend = _isWeekend(
+                  day,
+                  weekendDays: widget.weekendDays,
+                );
+
+                dowCell = Center(
+                  child: ExcludeSemantics(
+                    child: Text(
+                      weekdayString,
+                      style:
+                          isWeekend
+                              ? widget.daysOfWeekStyle.weekendStyle
+                              : widget.daysOfWeekStyle.weekdayStyle,
+                    ),
+                  ),
+                );
+              }
 
               return dowCell;
             },

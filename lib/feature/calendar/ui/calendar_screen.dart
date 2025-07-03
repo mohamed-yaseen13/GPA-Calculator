@@ -23,6 +23,7 @@ class CalendarScreen extends StatelessWidget {
             final cubit = context.read<CalendarCubit>();
             return SingleChildScrollView(
               child: TableCalendar(
+                startingDayOfWeek: StartingDayOfWeek.saturday,
                 firstDay: DateTime.utc(2000, 1, 1),
                 lastDay: DateTime.utc(2100, 12, 31),
                 focusedDay: state.focusedDay,
