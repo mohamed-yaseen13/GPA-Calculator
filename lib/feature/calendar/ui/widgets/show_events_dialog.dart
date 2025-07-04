@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:gpa_calculator/feature/calendar/data/models/event_model.dart';
+import 'package:gpa_calculator/feature/calendar/ui/widgets/show_menu_on_long_press.dart';
 
 class ShowEventsDialog extends StatelessWidget {
   final DateTime date;
   final List<EventModel> events;
-  final VoidCallback onAdd;
+  final void Function([int index]) onAdd;
   final Function(EventModel) onDelete;
+  final void Function(EventModel, BuildContext) onCopy;
 
   const ShowEventsDialog({
     super.key,
@@ -13,6 +15,7 @@ class ShowEventsDialog extends StatelessWidget {
     required this.events,
     required this.onAdd,
     required this.onDelete,
+    required this.onCopy,
   });
 
   @override
@@ -26,15 +29,28 @@ class ShowEventsDialog extends StatelessWidget {
           itemCount: events.length,
           itemBuilder: (context, i) {
             final event = events[i];
-            return ListTile(
-              title: Text(event.title),
-              subtitle: Text(event.description ?? ''),
-              trailing: IconButton(
-                icon: Icon(Icons.delete, color: Colors.red),
-                onPressed: () {
-                  onDelete(event);
-                  Navigator.pop(context);
-                },
+            return GestureDetector(
+              onLongPressStart: (details) {
+                showContextMenu(
+                  context: context,
+                  position: details.globalPosition,
+                  event: event,
+                  onDelete: onDelete,
+                  index: i,
+                  onEdit: onAdd,
+                  onCopy: onCopy,
+                );
+              },
+              child: ListTile(
+                title: Text(event.title),
+                subtitle: Text(event.description ?? ''),
+                trailing: IconButton(
+                  icon: Icon(Icons.delete, color: Colors.red),
+                  onPressed: () {
+                    onDelete(event);
+                    Navigator.pop(context);
+                  },
+                ),
               ),
             );
           },
@@ -42,7 +58,7 @@ class ShowEventsDialog extends StatelessWidget {
       ),
       actions: [
         TextButton(
-          onPressed: onAdd,
+          onPressed: () => onAdd(),
           child: Text(events.isEmpty ? 'Add Event' : 'Add Another'),
         ),
         TextButton(

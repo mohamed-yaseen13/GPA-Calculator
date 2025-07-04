@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gpa_calculator/core/constants/app_constants.dart';
 import 'package:gpa_calculator/feature/calendar/data/models/event_model.dart';
 import 'package:gpa_calculator/feature/calendar/logic/cubit/calendar_state.dart';
 import 'package:gpa_calculator/feature/calendar/ui/widgets/add_event_dialog.dart';
@@ -74,25 +75,69 @@ class CalendarCubit extends Cubit<CalendarState> {
           (context) => ShowEventsDialog(
             date: day,
             events: events,
-            onAdd: () async {
+            onAdd: ([int index = -1]) async {
               Navigator.pop(context);
-              await addEventForDay(context, day);
+              await addEventForDay(context, day, index: index);
             },
             onDelete: (event) {
               deleteEvent(event);
+            },
+            onCopy: (copiedEvent, ctx) {
+              copyEventToDate(copiedEvent, copiedEvent.date, ctx);
             },
           ),
     );
   }
 
-  Future<void> addEventForDay(BuildContext context, DateTime day) async {
+  Future<void> addEventForDay(
+    BuildContext context,
+    DateTime day, {
+    int index = -1,
+  }) async {
+    final box = AppConstants.eventsBox;
+    final allEvents = box.values.cast<EventModel>().toList();
+
+    EventModel? existingEvent;
+
+    if (index != -1) {
+      final eventsForSelectedDay =
+          allEvents.where((e) => isSameDay(e.date, day)).toList();
+      existingEvent = eventsForSelectedDay[index];
+    }
+
     final result = await showDialog<EventModel>(
       context: context,
-      builder: (context) => AddEventDialog(date: day),
+      builder:
+          (context) => AddEventDialog(date: day, existingEvent: existingEvent),
     );
+
     if (result != null) {
-      addEvent(result);
+      if (index != -1 && existingEvent != null) {
+        final key = box.keyAt(allEvents.indexOf(existingEvent));
+        await box.put(key, result);
+        loadEvents();
+      } else {
+        addEvent(result);
+      }
     }
+  }
+
+  void copyEventToDate(
+    EventModel event,
+    DateTime newDate,
+    BuildContext context,
+  ) {
+    final copiedEvent = event.copyWith(date: newDate);
+
+    addEvent(copiedEvent);
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          'Event copied to ${newDate.toLocal().toString().split(" ")[0]}',
+        ),
+      ),
+    );
   }
 
   Future<void> addEventForRange(

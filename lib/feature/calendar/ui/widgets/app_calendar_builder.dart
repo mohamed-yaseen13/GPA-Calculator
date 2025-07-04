@@ -18,7 +18,7 @@ class AppCalendarBuilder {
                     padding: EdgeInsets.only(top: 4.h),
                     child: Container(
                       decoration: BoxDecoration(
-                        color: Colors.blue[100],
+                        color: event.color,
                         borderRadius: BorderRadius.circular(6.sp),
                       ),
                       padding: EdgeInsets.symmetric(
@@ -28,8 +28,8 @@ class AppCalendarBuilder {
                       child: Text(
                         (event as EventModel).title,
                         style: TextStyle(
-                          fontSize: 9.sp,
-                          color: Colors.blue[900],
+                          fontSize: eventList.length > 2 ? 9.sp : 12.sp,
+                          color: Colors.black,
                         ),
                         overflow: TextOverflow.ellipsis,
                       ),
