@@ -5,9 +5,13 @@ import 'package:gpa_calculator/core/dependency_injection/di.dart';
 import 'package:gpa_calculator/core/helpers/extensions.dart';
 import 'package:gpa_calculator/core/routing/app_routes.dart';
 import 'package:gpa_calculator/core/widgets/app_drawer.dart';
+import 'package:gpa_calculator/feature/calendar/data/models/event_model.dart';
 import 'package:gpa_calculator/feature/scenarios/data/models/scenario_model.dart';
 import 'package:gpa_calculator/feature/tabs/main_tab/data/models/student_model.dart';
+import 'package:gpa_calculator/table_calendar/lib/table_calendar.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:home_widget/home_widget.dart';
+import 'package:intl/intl.dart' show DateFormat;
 
 void printStudentData({StudentModel? student}) {
   final currentStudent = student ?? AppConstants.student;
@@ -96,4 +100,59 @@ void handleRouteSelected(BuildContext context, DrawerRoute route) {
   } else if (route == DrawerRoute.calendar) {
     context.pushReplacementNamed(AppRoutes.calendarScreen);
   }
+}
+
+Future<void> updateCalendarWidgetFromHive() async {
+  final box = Hive.box('events');
+  final now = DateTime.now();
+  final currentMonth = DateTime(now.year, now.month);
+
+  final String monthName = DateFormat('MMMM yyyy').format(currentMonth);
+  await HomeWidget.saveWidgetData('month_title', monthName);
+
+  final firstDayOfMonth = DateTime(currentMonth.year, currentMonth.month, 1);
+
+  const int saturdayIndex = DateTime.saturday;
+  final int firstWeekday = firstDayOfMonth.weekday;
+  final int offset = (firstWeekday - saturdayIndex + 7) % 7;
+
+  final startDate = firstDayOfMonth.subtract(Duration(days: offset));
+
+  for (int i = 0; i < 35; i++) {
+    final dayDate = startDate.add(Duration(days: i));
+    final keyBase = 'day_${i + 1}';
+
+    await HomeWidget.saveWidgetData(
+      '${keyBase}_number',
+      dayDate.day.toString(),
+    );
+
+    await HomeWidget.saveWidgetData(
+      '${keyBase}_isDim',
+      (dayDate.month == currentMonth.month) ? 'false' : 'true',
+    );
+
+    final events =
+        box.values
+            .cast<EventModel>()
+            .where((e) => isSameDay(e.date, dayDate))
+            .toList();
+
+    if (events.isNotEmpty) {
+      final firstTitle = events.first.title;
+      final extraCount = events.length - 1;
+
+      // First line: actual event title
+      await HomeWidget.saveWidgetData('${keyBase}_event_line1', firstTitle);
+
+      // Second line: extra event count (or blank)
+      final secondLine = extraCount > 0 ? '+$extraCount' : '';
+      await HomeWidget.saveWidgetData('${keyBase}_event_line2', secondLine);
+    } else {
+      await HomeWidget.saveWidgetData('${keyBase}_event_line1', '');
+      await HomeWidget.saveWidgetData('${keyBase}_event_line2', '');
+    }
+  }
+
+  await HomeWidget.updateWidget(name: 'CalendarWidgetProvider');
 }

@@ -3,6 +3,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:gpa_calculator/core/dependency_injection/di.dart';
+import 'package:gpa_calculator/core/helpers/functions.dart';
 import 'package:gpa_calculator/core/helpers/prefs_helper.dart';
 import 'package:gpa_calculator/feature/calendar/data/models/event_model.dart';
 import 'package:gpa_calculator/feature/course/data/models/course_model.dart';
@@ -27,6 +28,7 @@ void main() async {
   final isPasswordNull = password == null ? true : false;
   setupGetIt(selectedScaleIndex, customScales);
   resetMainCubits();
+  await updateCalendarWidgetFromHive();
   runApp(GpaApp(isPasswordNull: isPasswordNull));
 }
 

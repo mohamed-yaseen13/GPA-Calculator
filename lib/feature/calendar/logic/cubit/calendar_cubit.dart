@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gpa_calculator/core/constants/app_constants.dart';
+import 'package:gpa_calculator/core/helpers/functions.dart';
 import 'package:gpa_calculator/feature/calendar/data/models/event_model.dart';
 import 'package:gpa_calculator/feature/calendar/logic/cubit/calendar_state.dart';
 import 'package:gpa_calculator/feature/calendar/ui/widgets/add_event_dialog.dart';
@@ -17,7 +18,8 @@ class CalendarCubit extends Cubit<CalendarState> {
     loadEvents();
   }
 
-  void loadEvents() {
+  void loadEvents() async {
+    await updateCalendarWidgetFromHive();
     emit(state.copyWith(events: List<EventModel>.from(eventBox.values)));
   }
 
