@@ -30,10 +30,10 @@ class ScenarioButton extends StatelessWidget {
           minimumSize: const Size(0, 0),
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         ),
-        onPressed: () {
+        onPressed: () async {
           AppConstants.selectedScenario = scenario;
           AppConstants.selectedScenarioIndex = index;
-          resetScenarioCubits();
+          await resetScenarioCubits();
           context.pushNamed(AppRoutes.scenarioMainScreen);
         },
         child: Text(

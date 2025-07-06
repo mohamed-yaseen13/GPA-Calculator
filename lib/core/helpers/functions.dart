@@ -88,17 +88,19 @@ T getCubit<T extends Object>() {
   }
 }
 
-void handleRouteSelected(BuildContext context, DrawerRoute route) {
+void handleRouteSelected(BuildContext context, DrawerRoute route) async {
   if (route == DrawerRoute.main) {
     AppConstants.isScenarioMode = false;
-    resetMainCubits();
+    await resetMainCubits();
     context.pushReplacementNamed(AppRoutes.applicationAppBar);
   } else if (route == DrawerRoute.scenarios) {
     AppConstants.isScenarioMode = true;
-    resetScenarioCubits();
+    await resetScenarioCubits();
     context.pushReplacementNamed(AppRoutes.scenariosScreen);
   } else if (route == DrawerRoute.calendar) {
     context.pushReplacementNamed(AppRoutes.calendarScreen);
+  } else if (route == DrawerRoute.timeTable) {
+    context.pushReplacementNamed(AppRoutes.timeTable);
   }
 }
 
@@ -155,4 +157,9 @@ Future<void> updateCalendarWidgetFromHive() async {
   }
 
   await HomeWidget.updateWidget(name: 'CalendarWidgetProvider');
+}
+
+void logExecutionTime(String label, Stopwatch stopwatch) {
+  stopwatch.stop();
+  debugPrint('$label took: ${stopwatch.elapsedMilliseconds} ms');
 }

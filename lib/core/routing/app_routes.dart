@@ -19,5 +19,7 @@ class AppRoutes {
 
   static const String importScreen = 'importScreen';
 
-  static const String calendarScreen = '/calendar';
+  static const String calendarScreen = 'calendar';
+
+  static const String timeTable = 'time';
 }

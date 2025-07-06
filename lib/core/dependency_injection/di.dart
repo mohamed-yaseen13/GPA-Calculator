@@ -13,17 +13,14 @@ import 'package:gpa_calculator/feature/semester/logic/semester_screen_cubit.dart
 import 'package:gpa_calculator/feature/settings_screen/logic/settings_cubit.dart';
 import 'package:gpa_calculator/feature/tabs/calculator_tab/logic/calculator_cubit.dart';
 import 'package:gpa_calculator/feature/tabs/mark_conventer_tab/logic/converter_cubit.dart';
+import 'package:gpa_calculator/feature/timetable/logic/cubit/time_table_cubit.dart';
 
 final getIt = GetIt.instance;
 
-void setupGetIt(
+Future<void> setupGetIt(
   int selectedScaleIndex,
   List<Map<String, dynamic>> customScales,
-) {
-  resetSemesterScreenCubit();
-
-  resetCourseScreenCubit();
-
+) async {
   getIt.registerFactory<ScalesCubit>(() => ScalesCubit());
 
   getIt.registerLazySingleton<GpaCalculationsCubit>(
@@ -85,9 +82,13 @@ void setupGetIt(
   getIt.registerFactory<CalendarCubit>(
     () => CalendarCubit(AppConstants.eventsBox),
   );
+
+  getIt.registerFactory<TimeTableCubit>(
+    () => TimeTableCubit(box: AppConstants.timeBox),
+  );
 }
 
-void resetSemesterScreenCubit() async {
+Future<void> resetSemesterScreenCubit() async {
   if (getIt.isRegistered<SemesterScreenCubit>()) {
     getIt.unregister<SemesterScreenCubit>();
   }
@@ -118,7 +119,7 @@ void resetSemesterScreenCubit() async {
   );
 }
 
-void resetCourseScreenCubit() async {
+Future<void> resetCourseScreenCubit() async {
   if (getIt.isRegistered<CourseScreenCubit>()) {
     getIt.unregister<CourseScreenCubit>();
   }
@@ -149,7 +150,7 @@ void resetCourseScreenCubit() async {
   );
 }
 
-void resetMainCubits() async {
+Future<void> resetMainCubits() async {
   if (getIt.isRegistered<ApplicationAppBarCubit>()) {
     getIt.unregister<ApplicationAppBarCubit>();
   }
@@ -199,7 +200,7 @@ void resetMainCubits() async {
   );
 }
 
-void resetScenarioCubits() async {
+Future<void> resetScenarioCubits() async {
   if (getIt.isRegistered<ApplicationAppBarCubit>(instanceName: 'scenario')) {
     getIt.unregister<ApplicationAppBarCubit>(instanceName: 'scenario');
   }

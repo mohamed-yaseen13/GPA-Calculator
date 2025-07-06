@@ -25,6 +25,8 @@ import 'package:gpa_calculator/feature/settings_screen/logic/settings_cubit.dart
 import 'package:gpa_calculator/feature/settings_screen/ui/settings_screen.dart';
 import 'package:gpa_calculator/feature/tabs/calculator_tab/logic/calculator_cubit.dart';
 import 'package:gpa_calculator/feature/tabs/mark_conventer_tab/logic/converter_cubit.dart';
+import 'package:gpa_calculator/feature/timetable/logic/cubit/time_table_cubit.dart';
+import 'package:gpa_calculator/feature/timetable/ui/time_table_screen.dart';
 
 class AppRouter {
   static Route<dynamic>? generateRoute(RouteSettings settings) {
@@ -168,6 +170,18 @@ class AppRouter {
               (_) => BlocProvider(
                 create: (context) => getIt<CalendarCubit>(),
                 child: CalendarScreen(),
+              ),
+          settings: settings,
+        );
+
+      case AppRoutes.timeTable:
+        return MaterialPageRoute(
+          builder:
+              (_) => MultiBlocProvider(
+                providers: [
+                  BlocProvider(create: (_) => getIt<TimeTableCubit>()),
+                ],
+                child: TimeTableScreen(),
               ),
           settings: settings,
         );

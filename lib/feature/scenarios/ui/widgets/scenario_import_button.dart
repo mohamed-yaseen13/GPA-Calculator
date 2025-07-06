@@ -22,12 +22,12 @@ class ScenarioImportButton extends StatelessWidget {
           ),
           padding: EdgeInsets.symmetric(horizontal: 8.w),
         ),
-        onPressed: () {
+        onPressed: () async {
           context.read<ApplicationAppBarCubit>().importStudentData(
             index,
             context,
           );
-          resetScenarioCubits();
+          await resetScenarioCubits();
           int removed = 0;
           context.pushNamedAndRemoveUntil(
             AppRoutes.scenarioMainScreen,

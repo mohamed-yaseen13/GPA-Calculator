@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gpa_calculator/core/helpers/functions.dart';
+import 'package:gpa_calculator/core/helpers/spacing.dart';
 import 'package:gpa_calculator/core/widgets/drawer_tile.dart';
 
-enum DrawerRoute { main, scenarios, calendar }
+enum DrawerRoute { main, scenarios, calendar, timeTable }
 
 class AppDrawer extends StatelessWidget {
   final DrawerRoute selectedRoute;
@@ -20,14 +21,14 @@ class AppDrawer extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 24.h),
+              verticalSpace(24),
               DrawerTile(
                 icon: Icons.dashboard_rounded,
                 label: 'Main Dashboard',
                 selected: selectedRoute == DrawerRoute.main,
                 onTap: () => handleRouteSelected(context, DrawerRoute.main),
               ),
-              SizedBox(height: 12.h),
+              verticalSpace(12),
               DrawerTile(
                 icon: Icons.auto_awesome_motion_rounded,
                 label: 'Scenarios',
@@ -35,11 +36,20 @@ class AppDrawer extends StatelessWidget {
                 onTap:
                     () => handleRouteSelected(context, DrawerRoute.scenarios),
               ),
+              verticalSpace(12),
               DrawerTile(
                 icon: Icons.calendar_today,
                 label: 'Calendar',
                 selected: selectedRoute == DrawerRoute.calendar,
                 onTap: () => handleRouteSelected(context, DrawerRoute.calendar),
+              ),
+              verticalSpace(12),
+              DrawerTile(
+                icon: Icons.more_time,
+                label: 'TimeTable',
+                selected: selectedRoute == DrawerRoute.timeTable,
+                onTap:
+                    () => handleRouteSelected(context, DrawerRoute.timeTable),
               ),
             ],
           ),

@@ -35,4 +35,32 @@ class AppConstants {
   static int selectedScenarioIndex = 0;
 
   static final Box eventsBox = Hive.box('events');
+
+  static final List<String> days = [
+    'Saturday',
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+  ];
+
+  static final List<String> intervals = [
+    '1st Interval',
+    '2nd Interval',
+    '3rd Interval',
+    '4th Interval',
+    '5th Interval',
+    '6th Interval',
+  ];
+
+  static final Box timeBox = Hive.box('time');
+
+  static final List<String> appointmentTypes = [
+    '--',
+    'Lecture',
+    'Section',
+    'Event',
+  ];
 }

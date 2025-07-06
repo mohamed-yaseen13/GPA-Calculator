@@ -33,8 +33,8 @@ class SearchResultContainer extends StatelessWidget {
               separatorBuilder: (_, __) => Divider(height: 1.h),
               itemBuilder:
                   (_, i) => ListTile(
-                    onTap: () {
-                      resetSemesterScreenCubit();
+                    onTap: () async {
+                      await resetSemesterScreenCubit();
                       context.pushNamed(
                         AppRoutes.semesterScreen,
                         arguments: {

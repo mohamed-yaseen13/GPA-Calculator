@@ -29,8 +29,8 @@ class SemesterButton extends StatelessWidget {
           minimumSize: const Size(0, 0),
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         ),
-        onPressed: () {
-          resetSemesterScreenCubit();
+        onPressed: () async {
+          await resetSemesterScreenCubit();
           context.pushNamed(
             AppRoutes.semesterScreen,
             arguments: {'semesterIndex': index},

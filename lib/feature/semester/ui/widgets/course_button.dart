@@ -31,8 +31,8 @@ class CourseButton extends StatelessWidget {
           minimumSize: const Size(0, 0),
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         ),
-        onPressed: () {
-          resetCourseScreenCubit();
+        onPressed: () async {
+          await resetCourseScreenCubit();
           context.pushNamed(
             AppRoutes.courseScreen,
             arguments: {
