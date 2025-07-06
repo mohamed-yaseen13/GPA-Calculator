@@ -146,6 +146,8 @@ class AppRouter {
               (_) => MultiBlocProvider(
                 providers: [
                   BlocProvider(create: (_) => getIt<ScenariosCubit>()),
+                  BlocProvider.value(value: getIt<SettingsCubit>()),
+                  BlocProvider(create: (_) => getIt<ScalesCubit>()),
                 ],
                 child: ScenariosScreen(),
               ),
