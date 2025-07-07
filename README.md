@@ -27,10 +27,10 @@ GPA Calculator is a smart and easy-to-use app designed to help students accurate
         Clean, responsive design built for ease of use and productivity.
 
     📂 Scenarios Mode
-        Create and manage multiple academic scenarios (e.g., different what-if grade situations) independently — perfect for GPA forecasting or planning.
+        Create and manage multiple academic scenarios (e.g., different what-if grade         situations) independently — perfect for GPA forecasting or planning.
 
     📅 Timetable & Calendar Integration
-        Plan and manage your weekly schedule, track upcoming classes or events, and visualize everything in a calendar view.
+        Plan and manage your weekly schedule, track upcoming classes or events, and         visualize everything in a calendar view.
 
     🏠 Calendar Home Widget
-        Add a calendar widget to your home screen for quick access to today’s classes, events, or tasks without opening the app.
+        Add a calendar widget to your home screen for quick access to today’s                 classes, events, or tasks without opening the app.
