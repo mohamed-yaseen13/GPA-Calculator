@@ -16,7 +16,7 @@ List<Widget> buildAppBarActions({
 }) {
   return [
     Padding(
-      padding: EdgeInsets.only(right: isNotScenariosScreen ? 0 : 12.w),
+      padding: EdgeInsets.only(right: isNotScenariosScreen ? 0 : 24.w),
       child: GestureDetector(
         onTap: currentTabIndex == 0 ? onSelect : null,
         child: Text(

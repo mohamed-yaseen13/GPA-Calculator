@@ -16,32 +16,40 @@ class NoteBodyContainer extends StatelessWidget {
         BlocProvider.value(value: getIt<SemesterScreenCubit>()),
         BlocProvider.value(value: getIt<ApplicationAppBarCubit>()),
       ],
-      child: BlocBuilder<SemesterScreenCubit, SemesterScreenState>(
-        builder: (context, state) {
-          return Dialog(
-            backgroundColor: Colors.transparent,
-            child: Container(
-              width: 320.w,
-              height: 194.h,
-              decoration: BoxDecoration(color: state.bodyColor),
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
-                child: Text(
-                  context
-                      .read<ApplicationAppBarCubit>()
-                      .state
-                      .semesters[state.selectedIndex]
-                      .note,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 16.sp,
+      child: BlocListener<SemesterScreenCubit, SemesterScreenState>(
+        listenWhen:
+            (previous, current) => previous.bodyColor != current.bodyColor,
+        listener: (context, state) {},
+        child: BlocBuilder<SemesterScreenCubit, SemesterScreenState>(
+          builder: (context, state) {
+            return Dialog(
+              backgroundColor: Colors.transparent,
+              child: Container(
+                width: 320.w,
+                height: 194.h,
+                decoration: BoxDecoration(color: state.bodyColor),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 12.w,
+                    vertical: 8.h,
+                  ),
+                  child: Text(
+                    context
+                        .read<ApplicationAppBarCubit>()
+                        .state
+                        .semesters[state.selectedIndex]
+                        .note,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16.sp,
+                    ),
                   ),
                 ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }
