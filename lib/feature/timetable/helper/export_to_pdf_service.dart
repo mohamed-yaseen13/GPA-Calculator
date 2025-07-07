@@ -10,21 +10,20 @@ import 'package:open_filex/open_filex.dart';
 import 'package:external_path/external_path.dart';
 
 Future<bool> requestStoragePermission() async {
+  print('🔐 Requesting storage permission...');
   if (!Platform.isAndroid) return true;
 
   final androidInfo = await DeviceInfoPlugin().androidInfo;
   final sdk = androidInfo.version.sdkInt;
+  print('📱 Android SDK: $sdk');
 
   if (sdk >= 33) {
-    // Android 13+ → request granular media permission (if needed)
     final result = await Permission.photos.request();
     return result.isGranted;
   } else if (sdk >= 30) {
-    // Android 11–12 → request all-files access
     final result = await Permission.manageExternalStorage.request();
     return result.isGranted;
   } else {
-    // Android ≤ 10 → request legacy storage permission
     final result = await Permission.storage.request();
     return result.isGranted;
   }
@@ -33,20 +32,22 @@ Future<bool> requestStoragePermission() async {
 Future<void> exportTimetableToDownloads({
   required BuildContext context,
   required List<TimeSlotModel> slots,
-  bool autoOpen = true, // Option to control auto-opening
+  required String fileName,
+  bool autoOpen = false, // Option to control auto-opening
 }) async {
   try {
-    // Ask user for filename
-    final fileName = await _askForFileName(context);
-    if (fileName == null || fileName.trim().isEmpty) return;
+    print('🚀 Starting export process');
 
     // Ask for storage permission
     final granted = await requestStoragePermission();
+    print('📛 Storage permission granted: $granted');
     if (!granted) {
+      if (!context.mounted) return;
       _showSnackBar(context, 'Storage permission is required');
       return;
     }
 
+    print('📄 Generating PDF...');
     // Generate PDF
     final pdf = await _generatePDF(slots);
 
@@ -54,9 +55,11 @@ Future<void> exportTimetableToDownloads({
     final downloadPath = await ExternalPath.getExternalStoragePublicDirectory(
       ExternalPath.DIRECTORY_DOWNLOAD,
     );
+    print('📁 Download folder: $downloadPath');
 
     final sanitizedFileName = _sanitizeFileName(fileName.trim());
     final filePath = '$downloadPath/$sanitizedFileName.pdf';
+    print('📄 Full file path: $filePath');
 
     // Save file with unique timestamp to avoid conflicts
     final savedFilePath = await _saveFileWithRetry(filePath, pdf);
@@ -64,24 +67,32 @@ Future<void> exportTimetableToDownloads({
     // Get just the filename for display
     final savedFileName = savedFilePath.split('/').last;
 
+    if (!context.mounted) return;
+    print('✅ File saved at: $savedFilePath');
     _showSnackBar(context, '✅ Saved to Downloads as $savedFileName');
 
     // Open the file if auto-open is enabled
     if (autoOpen) {
       try {
+        print('📂 Opening saved file...');
         await OpenFilex.open(savedFilePath);
       } catch (e) {
-        print('Error opening file: $e');
-        _showSnackBar(context, 'File saved but could not open automatically');
+        print('❌ Error opening file: $e');
+        if (context.mounted) {
+          _showSnackBar(context, 'File saved but could not open automatically');
+        }
       }
     }
   } catch (e) {
     print('Error exporting PDF: $e');
-    _showSnackBar(context, 'Error exporting PDF: ${e.toString()}');
+    if (context.mounted) {
+      _showSnackBar(context, 'Error exporting PDF: ${e.toString()}');
+    }
   }
 }
 
 Future<pw.Document> _generatePDF(List<TimeSlotModel> slots) async {
+  print('🧾 Building PDF content...');
   final pdf = pw.Document();
 
   // Load a font that supports Unicode (optional - adds better text support)
@@ -96,6 +107,7 @@ Future<pw.Document> _generatePDF(List<TimeSlotModel> slots) async {
     grouped[slot.day]![slot.interval] ??= [];
     grouped[slot.day]![slot.interval]!.add(slot);
   }
+  print('📊 Grouped ${slots.length} time slots by day/interval');
 
   pdf.addPage(
     pw.Page(
@@ -199,6 +211,7 @@ Future<pw.Document> _generatePDF(List<TimeSlotModel> slots) async {
     ),
   );
 
+  print('✅ PDF page created');
   return pdf;
 }
 
@@ -210,10 +223,12 @@ Future<String> _saveFileWithRetry(String filePath, pw.Document pdf) async {
   final uniqueFilePath = '${directory.path}/${fileName}_$timestamp.pdf';
 
   try {
+    print('💾 Saving PDF to: $uniqueFilePath');
     final file = File(uniqueFilePath);
 
     // Create parent directory if it doesn't exist
     if (!await directory.exists()) {
+      print('📂 Directory does not exist, creating...');
       await directory.create(recursive: true);
     }
 
@@ -242,8 +257,9 @@ Future<String?> _askForFileName(BuildContext context) async {
 
   return await showDialog<String>(
     context: context,
+    barrierDismissible: false,
     builder:
-        (_) => AlertDialog(
+        (dialogContext) => AlertDialog(
           title: const Text('Enter PDF file name'),
           content: TextField(
             controller: controller,
@@ -254,14 +270,15 @@ Future<String?> _askForFileName(BuildContext context) async {
           ),
           actions: [
             TextButton(
-              onPressed: () => Navigator.pop(context),
+              onPressed: () => Navigator.pop(dialogContext),
               child: const Text('Cancel'),
             ),
             ElevatedButton(
               onPressed: () {
                 final name = controller.text.trim();
+                print('✅ User pressed Save with name: $name');
                 if (name.isNotEmpty) {
-                  Navigator.pop(context, name);
+                  Navigator.pop(dialogContext, name);
                 }
               },
               child: const Text('Save'),
@@ -284,4 +301,20 @@ PdfColor _getCellColor(String type) {
     default:
       return PdfColor.fromInt(0xFFFFFFFF); // white for unknown types
   }
+}
+
+Future<void> handleExport(
+  BuildContext context,
+  List<TimeSlotModel> slots,
+) async {
+  final fileName = await _askForFileName(context);
+  if (fileName == null || fileName.trim().isEmpty) return;
+
+  await Future.delayed(Duration(milliseconds: 100));
+  await exportTimetableToDownloads(
+    context: context,
+    slots: slots,
+    fileName: fileName,
+    autoOpen: true,
+  );
 }

@@ -21,10 +21,7 @@ class ExportButton extends StatelessWidget {
         ),
         onPressed: () async {
           final cubit = context.read<TimeTableCubit>();
-          await exportTimetableToDownloads(
-            context: context,
-            slots: cubit.state.slots,
-          );
+          await handleExport(context, cubit.state.slots);
         },
         child: Text(
           'Export as PDF',
