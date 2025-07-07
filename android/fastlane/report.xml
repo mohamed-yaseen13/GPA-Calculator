@@ -5,17 +5,17 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.0012441">
+      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.0014787">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: flutter build apk --no-tree-shake-icons" time="220.1952463">
+      <testcase classname="fastlane.lanes" name="1: flutter build apk --no-tree-shake-icons" time="237.3209192">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2: firebase_app_distribution" time="801.8989953">
+      <testcase classname="fastlane.lanes" name="2: firebase_app_distribution" time="833.8722101">
         
       </testcase>
     

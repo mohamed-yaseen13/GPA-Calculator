@@ -12,14 +12,18 @@ List<Widget> buildAppBarActions({
   required int currentTabIndex,
   required VoidCallback onSelect,
   bool isSemesterScreen = false,
+  bool isNotScenariosScreen = true,
 }) {
   return [
-    GestureDetector(
-      onTap: currentTabIndex == 0 ? onSelect : null,
-      child: Text(
-        'SELECT',
-        style: TextStyle(
-          color: currentTabIndex == 0 ? Colors.white : Colors.white60,
+    Padding(
+      padding: EdgeInsets.only(right: isNotScenariosScreen ? 0 : 12.w),
+      child: GestureDetector(
+        onTap: currentTabIndex == 0 ? onSelect : null,
+        child: Text(
+          'SELECT',
+          style: TextStyle(
+            color: currentTabIndex == 0 ? Colors.white : Colors.white60,
+          ),
         ),
       ),
     ),
@@ -40,21 +44,22 @@ List<Widget> buildAppBarActions({
           );
         },
       ),
-    PopupMenuButton(
-      icon: Icon(Icons.more_vert),
-      itemBuilder:
-          (context) => [
-            PopupMenuItem(value: 1, child: Text('Settings')),
-            PopupMenuItem(value: 2, child: Text('Scales')),
-          ],
-      onSelected: (value) async {
-        if (value == 1) {
-          context.pushNamed(AppRoutes.settingsScreen);
-        }
-        if (value == 2) {
-          context.pushNamed(AppRoutes.scalesScreen);
-        }
-      },
-    ),
+    if (isNotScenariosScreen)
+      PopupMenuButton(
+        icon: Icon(Icons.more_vert),
+        itemBuilder:
+            (context) => [
+              PopupMenuItem(value: 1, child: Text('Settings')),
+              PopupMenuItem(value: 2, child: Text('Scales')),
+            ],
+        onSelected: (value) async {
+          if (value == 1) {
+            context.pushNamed(AppRoutes.settingsScreen);
+          }
+          if (value == 2) {
+            context.pushNamed(AppRoutes.scalesScreen);
+          }
+        },
+      ),
   ];
 }

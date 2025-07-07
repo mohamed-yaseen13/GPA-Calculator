@@ -25,6 +25,7 @@ class ScenariosScreenAppBar extends StatelessWidget
                     context: context,
                     currentTabIndex: 0,
                     onSelect: () => context.read<ScenariosCubit>().select(),
+                    isNotScenariosScreen: false,
                   )
                   : [],
           flexibleSpace:
