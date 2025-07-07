@@ -36,4 +36,18 @@ class SectionModel extends HiveObject {
     obtainedMark: json['obtainedMark'] as double,
     fullMark: json['fullMark'] as int,
   );
+
+  SectionModel copyWith({
+    String? name,
+    bool? selected,
+    double? obtainedMark,
+    int? fullMark,
+  }) {
+    return SectionModel(
+      name: name ?? this.name,
+      selected: selected ?? this.selected,
+      obtainedMark: obtainedMark ?? this.obtainedMark,
+      fullMark: fullMark ?? this.fullMark,
+    );
+  }
 }

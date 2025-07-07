@@ -206,13 +206,14 @@ class ApplicationAppBarCubit extends Cubit<ApplicationAppBarState> {
     List<SemesterModel> selectedSemesters =
         state.semesters.where((s) => s.selected).toList();
 
-    for (int i = 0; i < selectedSemesters.length; i++) {
-      SemesterModel newSemester = selectedSemesters[i];
-      student = AppConstants.selectedScenario!.student;
-      box = AppConstants.scenariosBox;
+    student = AppConstants.selectedScenario!.student;
+    box = AppConstants.scenariosBox;
+
+    for (SemesterModel semester in selectedSemesters) {
+      SemesterModel newSemester = semester.copyWith();
       student.semesters.add(newSemester);
-      updateScenariosBox(box, scenarioIndex, student);
     }
+    updateScenariosBox(box, scenarioIndex, student);
     cancelSelection();
   }
 }
