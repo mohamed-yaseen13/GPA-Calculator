@@ -1,6 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gpa_calculator/core/helpers/extensions.dart';
-import 'package:gpa_calculator/core/helpers/functions.dart';
 import 'package:gpa_calculator/feature/scenarios/data/models/scenario_model.dart';
 import 'package:gpa_calculator/feature/scenarios/logic/cubit/scenarios_state.dart';
 import 'package:gpa_calculator/feature/tabs/main_tab/data/models/student_model.dart';
@@ -61,7 +60,6 @@ class ScenariosCubit extends Cubit<ScenariosState> {
     );
 
     emit(state.copyWith(scenarios: updatedScenarios));
-    printScenariosData();
   }
 
   void addScenario({required String name, int index = -1}) {
@@ -84,7 +82,5 @@ class ScenariosCubit extends Cubit<ScenariosState> {
     }
 
     emit(state.copyWith(scenarios: updatedScenarios));
-
-    printScenariosData();
   }
 }
