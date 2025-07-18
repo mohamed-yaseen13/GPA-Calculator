@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:gpa_calculator/core/constants/app_constants.dart';
 import 'package:gpa_calculator/feature/timetable/data/models/time_slot_model.dart';
 import 'package:pdf/pdf.dart';
@@ -74,7 +75,7 @@ Future<void> exportTimetableToDownloads({
     }
   } catch (e) {
     if (context.mounted) {
-      _showSnackBar(context, 'Error exporting PDF: ${e.toString()}');
+      print('Error exporting PDF: ${e.toString()}');
     }
   }
 }
@@ -82,10 +83,25 @@ Future<void> exportTimetableToDownloads({
 Future<pw.Document> _generatePDF(List<TimeSlotModel> slots) async {
   final pdf = pw.Document();
 
-  // Load a font that supports Unicode (optional - adds better text support)
-  // You can add this dependency to pubspec.yaml: google_fonts: ^6.1.0
-  // final font = await PdfGoogleFonts.notoSansRegular();
-  // final boldFont = await PdfGoogleFonts.notoSansBold();
+  pw.Font arabicFont = pw.Font.courier();
+  pw.Font englishFont = pw.Font.courier();
+
+  try {
+    // Load Arabic font (you need to add this to your assets)
+    final arabicFontData = await rootBundle.load(
+      'assets/fonts/notoSansArabic.ttf',
+    );
+    arabicFont = pw.Font.ttf(arabicFontData);
+
+    // Load English font
+    final englishFontData = await rootBundle.load(
+      'assets/fonts/LibertinusMono-Regular.ttf',
+    );
+    englishFont = pw.Font.ttf(englishFontData);
+  } catch (e) {
+    print('Error loading fonts: $e');
+    // Fallback to default fonts if custom fonts fail to load
+  }
 
   // Group by day/interval
   final grouped = <String, Map<String, List<TimeSlotModel>>>{};
@@ -177,9 +193,14 @@ Future<pw.Document> _generatePDF(List<TimeSlotModel> slots) async {
                                                 const pw.EdgeInsets.symmetric(
                                                   vertical: 2,
                                                 ),
-                                            child: pw.Text(
-                                              '$safeType: $safeContent',
-                                              textAlign: pw.TextAlign.center,
+                                            child: pw.Column(
+                                              crossAxisAlignment:
+                                                  pw.CrossAxisAlignment.center,
+                                              children: _buildTextWithDirection(
+                                                '$safeType: $safeContent',
+                                                arabicFont: arabicFont,
+                                                englishFont: englishFont,
+                                              ),
                                             ),
                                           );
                                         }).toList(),
@@ -298,4 +319,66 @@ Future<void> handleExport(
     fileName: fileName,
     autoOpen: true,
   );
+}
+
+bool _isArabic(String text) {
+  final arabicRegex = RegExp(
+    r'[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]',
+    unicode: true,
+  );
+  return arabicRegex.hasMatch(text);
+}
+
+List<pw.Widget> _buildTextWithDirection(
+  String text, {
+  required pw.Font arabicFont,
+  required pw.Font englishFont,
+}) {
+  final segments = _splitTextByLanguage(text);
+  final widgets = <pw.Widget>[];
+
+  for (final segment in segments) {
+    if (segment.isArabic) {
+      widgets.add(
+        pw.Directionality(
+          textDirection: pw.TextDirection.rtl,
+          child: pw.Text(segment.text, style: pw.TextStyle(font: arabicFont)),
+        ),
+      );
+    } else {
+      widgets.add(
+        pw.Text(segment.text, style: pw.TextStyle(font: englishFont)),
+      );
+    }
+  }
+
+  return widgets;
+}
+
+List<({String text, bool isArabic})> _splitTextByLanguage(String text) {
+  final segments = <({String text, bool isArabic})>[];
+  final words = text.split(' ');
+  var currentIsArabic = false;
+  var buffer = StringBuffer();
+
+  for (final word in words) {
+    final wordIsArabic = _isArabic(word);
+
+    if (buffer.isEmpty) {
+      currentIsArabic = wordIsArabic;
+      buffer.write(word);
+    } else if (wordIsArabic == currentIsArabic) {
+      buffer.write(' $word');
+    } else {
+      segments.add((text: buffer.toString(), isArabic: currentIsArabic));
+      buffer = StringBuffer(word);
+      currentIsArabic = wordIsArabic;
+    }
+  }
+
+  if (buffer.isNotEmpty) {
+    segments.add((text: buffer.toString(), isArabic: currentIsArabic));
+  }
+
+  return segments;
 }
