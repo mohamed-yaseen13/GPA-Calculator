@@ -140,4 +140,16 @@ class PrefsHelper {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString(limitationAfterFallOnCourseKey);
   }
+
+  static const String adsRemovedKey = 'ads';
+
+  static Future<void> setAdsRemoved() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(adsRemovedKey, true);
+  }
+
+  static Future<bool> getAdsRemoved() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(adsRemovedKey) ?? false;
+  }
 }

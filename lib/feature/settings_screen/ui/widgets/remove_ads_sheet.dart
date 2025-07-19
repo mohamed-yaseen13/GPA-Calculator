@@ -1,9 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gpa_calculator/core/helpers/prefs_helper.dart';
 import 'package:gpa_calculator/core/helpers/spacing.dart';
 import 'package:gpa_calculator/core/theming/app_colors.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class RemoveAdsSheet extends StatefulWidget {
   const RemoveAdsSheet({super.key});
@@ -18,12 +20,13 @@ class _RemoveAdsSheetState extends State<RemoveAdsSheet> {
   bool _available = true;
   bool _adsRemoved = false;
   ProductDetails? _product;
+  late final StreamSubscription<List<PurchaseDetails>> _subscription;
 
   @override
   void initState() {
     super.initState();
     _init();
-    _inAppPurchase.purchaseStream.listen(_onPurchaseUpdate);
+    _subscription = _inAppPurchase.purchaseStream.listen(_onPurchaseUpdate);
   }
 
   Future<void> _init() async {
@@ -32,8 +35,7 @@ class _RemoveAdsSheetState extends State<RemoveAdsSheet> {
     if (response.productDetails.isNotEmpty) {
       _product = response.productDetails.first;
     }
-    final prefs = await SharedPreferences.getInstance();
-    _adsRemoved = prefs.getBool('ads_removed') ?? false;
+    _adsRemoved = await PrefsHelper.getAdsRemoved();
     setState(() {});
   }
 
@@ -47,8 +49,7 @@ class _RemoveAdsSheetState extends State<RemoveAdsSheet> {
     for (var purchase in purchases) {
       if (purchase.productID == _productId &&
           purchase.status == PurchaseStatus.purchased) {
-        final prefs = await SharedPreferences.getInstance();
-        await prefs.setBool('ads_removed', true);
+        await PrefsHelper.setAdsRemoved();
         setState(() => _adsRemoved = true);
         _inAppPurchase.completePurchase(purchase);
       }
@@ -90,5 +91,11 @@ class _RemoveAdsSheetState extends State<RemoveAdsSheet> {
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _subscription.cancel();
+    super.dispose();
   }
 }
