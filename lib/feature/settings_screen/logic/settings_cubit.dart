@@ -20,7 +20,9 @@ class SettingsCubit extends Cubit<SettingsState> {
           selectedColor: 'Yellow',
           isThereLimitationsAfterFallOnCourse: false,
         ),
-      );
+      ) {
+    loadSettings();
+  }
 
   Future<void> loadSettings() async {
     final selectedScaleIndex = await PrefsHelper.getSelectedScaleIndex();

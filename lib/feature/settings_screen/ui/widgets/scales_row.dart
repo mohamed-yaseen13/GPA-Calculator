@@ -39,13 +39,19 @@ class ScalesRow extends StatelessWidget {
                 ),
                 BlocBuilder<ScalesCubit, ScalesState>(
                   builder: (context, scalesState) {
+                    final allScales = Scales.getAllScales(
+                      scalesState.customScales,
+                    );
+
                     return BlocBuilder<SettingsCubit, SettingsState>(
                       builder: (context, settingsState) {
-                        return Text(
-                          Scales.getAllScales(
-                            scalesState.customScales,
-                          )[settingsState.selectedScaleIndex]['title'],
-                        );
+                        final index = settingsState.selectedScaleIndex;
+
+                        if (index < 0 || index >= allScales.length) {
+                          return const Text('Loading or Invalid Scale');
+                        }
+
+                        return Text(allScales[index]['title']);
                       },
                     );
                   },
