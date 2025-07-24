@@ -38,7 +38,7 @@ class PasswordKey extends StatelessWidget {
                     ),
                     Text(
                       state.password ?? 'Set Password',
-                      style: TextStyle(color: Colors.grey, fontSize: 14),
+                      style: const TextStyle(color: Colors.grey, fontSize: 14),
                     ),
                   ],
                 ),

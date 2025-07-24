@@ -22,7 +22,7 @@ class _AddRangeEventDialogState extends State<AddRangeEventDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text('Add Event for Range'),
+      title: const Text('Add Event for Range'),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -32,18 +32,18 @@ class _AddRangeEventDialogState extends State<AddRangeEventDialog> {
           ),
           TextField(
             controller: _titleController,
-            decoration: InputDecoration(labelText: 'Title'),
+            decoration: const InputDecoration(labelText: 'Title'),
           ),
           TextField(
             controller: _descController,
-            decoration: InputDecoration(labelText: 'Description'),
+            decoration: const InputDecoration(labelText: 'Description'),
           ),
         ],
       ),
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: Text('Cancel'),
+          child: const Text('Cancel'),
         ),
         ElevatedButton(
           onPressed: () {
@@ -51,14 +51,14 @@ class _AddRangeEventDialogState extends State<AddRangeEventDialog> {
               Navigator.pop(
                 context,
                 EventModel(
-                  date: widget.start, // You can use this as a template
+                  date: widget.start,
                   title: _titleController.text,
                   description: _descController.text,
                 ),
               );
             }
           },
-          child: Text('Add'),
+          child: const Text('Add'),
         ),
       ],
     );

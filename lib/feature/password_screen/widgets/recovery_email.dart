@@ -38,7 +38,7 @@ class RecoveryEmail extends StatelessWidget {
                     ),
                     Text(
                       state.recoveryEmail ?? 'Set Email',
-                      style: TextStyle(color: Colors.grey, fontSize: 14),
+                      style: TextStyle(color: Colors.grey, fontSize: 14.sp),
                     ),
                   ],
                 ),

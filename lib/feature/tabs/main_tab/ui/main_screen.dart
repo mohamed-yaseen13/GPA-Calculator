@@ -26,11 +26,11 @@ class _MainScreenState extends State<MainScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           verticalSpace(4),
-          AppSearchBar(),
+          const AppSearchBar(),
           verticalSpace(12),
-          MainStudentData(),
+          const MainStudentData(),
           verticalSpace(12),
-          Expanded(child: SemestersTable()),
+          const Expanded(child: SemestersTable()),
         ],
       ),
     );

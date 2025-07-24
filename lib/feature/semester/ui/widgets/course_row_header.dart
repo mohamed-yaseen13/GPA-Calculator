@@ -33,7 +33,7 @@ class CourseRowHeader extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
         ),
-        Expanded(flex: 1, child: SizedBox()),
+        const Expanded(flex: 1, child: SizedBox()),
       ],
     );
   }

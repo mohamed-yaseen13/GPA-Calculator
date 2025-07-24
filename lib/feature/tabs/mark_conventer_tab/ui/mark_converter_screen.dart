@@ -39,7 +39,7 @@ class _MarkConverterScreenState extends State<MarkConverterScreen> {
                         ObtainedMarkColumn(controller: _obtainedMardController),
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 12.w),
-                          child: Text('/'),
+                          child: const Text('/'),
                         ),
                         TotalMarkColumn(
                           controller: _totalMardController,
@@ -53,7 +53,7 @@ class _MarkConverterScreenState extends State<MarkConverterScreen> {
                         ResualtMarkColumn(controller: _resualtMarkController),
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 12.w),
-                          child: Text('/'),
+                          child: const Text('/'),
                         ),
                         TotalMarkColumn(
                           controller: _converterMarkController,
@@ -63,7 +63,7 @@ class _MarkConverterScreenState extends State<MarkConverterScreen> {
                       ],
                     ),
                     verticalSpace(12),
-                    ShowExampleContainer(),
+                    const ShowExampleContainer(),
                   ],
                 ),
               ),

@@ -17,7 +17,7 @@ class ScenarioNameTextField extends StatelessWidget {
         return TextFormField(
           controller: controller,
           inputFormatters: [LengthLimitingTextInputFormatter(20)],
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             labelText: 'Scenario Name',
             border: OutlineInputBorder(),
             focusedBorder: OutlineInputBorder(

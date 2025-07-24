@@ -15,11 +15,11 @@ class SemesterScreenBody extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           verticalSpace(4),
-          DataContainer(
+          const DataContainer(
             leftColumn: SemesterDataTextColumn(),
             rightColumn: SemesterDataDataColumn(),
           ),
-          Expanded(child: CoursesTable()),
+          const Expanded(child: CoursesTable()),
         ],
       ),
     );

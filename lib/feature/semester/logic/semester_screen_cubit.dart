@@ -282,8 +282,8 @@ class SemesterScreenCubit extends Cubit<SemesterScreenState> {
       case 'Yellow':
         emit(
           state.copyWith(
-            headerColor: Color(0xFFF8F7B6),
-            bodyColor: Color(0xFFFFFEC6),
+            headerColor: const Color(0xFFF8F7B6),
+            bodyColor: const Color(0xFFFFFEC6),
           ),
         );
         break;
@@ -291,8 +291,8 @@ class SemesterScreenCubit extends Cubit<SemesterScreenState> {
       case 'Blue':
         emit(
           state.copyWith(
-            headerColor: Color(0xFFCAECF8),
-            bodyColor: Color(0xFFD4EEFB),
+            headerColor: const Color(0xFFCAECF8),
+            bodyColor: const Color(0xFFD4EEFB),
           ),
         );
         break;
@@ -300,8 +300,8 @@ class SemesterScreenCubit extends Cubit<SemesterScreenState> {
       case 'Green':
         emit(
           state.copyWith(
-            headerColor: Color(0xFFC5F8C0),
-            bodyColor: Color(0xFFCEFDC9),
+            headerColor: const Color(0xFFC5F8C0),
+            bodyColor: const Color(0xFFCEFDC9),
           ),
         );
         break;
@@ -309,8 +309,8 @@ class SemesterScreenCubit extends Cubit<SemesterScreenState> {
       case 'Pink':
         emit(
           state.copyWith(
-            headerColor: Color(0xFFF1C3F1),
-            bodyColor: Color(0xFFF5CFF6),
+            headerColor: const Color(0xFFF1C3F1),
+            bodyColor: const Color(0xFFF5CFF6),
           ),
         );
         break;
@@ -318,8 +318,8 @@ class SemesterScreenCubit extends Cubit<SemesterScreenState> {
       case 'Purple':
         emit(
           state.copyWith(
-            headerColor: Color(0xFFD3CDF3),
-            bodyColor: Color(0xFFDCD7FF),
+            headerColor: const Color(0xFFD3CDF3),
+            bodyColor: const Color(0xFFDCD7FF),
           ),
         );
         break;
@@ -327,8 +327,8 @@ class SemesterScreenCubit extends Cubit<SemesterScreenState> {
       case 'White':
         emit(
           state.copyWith(
-            headerColor: Color(0xFFF5F5F5),
-            bodyColor: Color(0xFFFDFDFD),
+            headerColor: const Color(0xFFF5F5F5),
+            bodyColor: const Color(0xFFFDFDFD),
           ),
         );
         break;

@@ -29,14 +29,17 @@ class PasswordGate extends StatelessWidget {
                   Text(
                     'Enter Password',
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   verticalSpace(48),
-                  PasswordDot(),
+                  const PasswordDot(),
                   if (state.wrong)
                     Padding(
                       padding: EdgeInsets.only(top: 8.h),
-                      child: Text(
+                      child: const Text(
                         'Incorrect password',
                         style: TextStyle(color: Colors.red),
                       ),
@@ -53,14 +56,14 @@ class PasswordGate extends StatelessWidget {
                         state.passwordHint.isNullOrEmpty()
                             ? ''
                             : 'Hint: ${state.passwordHint}',
-                        style: TextStyle(color: Colors.grey),
+                        style: const TextStyle(color: Colors.grey),
                       );
                     },
                   ),
                   verticalSpace(16),
                   OutlinedButton(
                     style: OutlinedButton.styleFrom(
-                      side: BorderSide(color: Colors.black),
+                      side: const BorderSide(color: Colors.black),
                       shape: ContinuousRectangleBorder(
                         borderRadius: BorderRadius.circular(12.sp),
                       ),
@@ -71,7 +74,7 @@ class PasswordGate extends StatelessWidget {
                         context,
                       );
                     },
-                    child: Text(
+                    child: const Text(
                       'FORGOT PASSWORD?',
                       style: TextStyle(color: Colors.black),
                     ),

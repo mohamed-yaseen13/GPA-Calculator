@@ -66,12 +66,12 @@ Future showSubmitDialog({required BuildContext context}) async {
     context: context,
     builder:
         (context) => AlertDialog(
-          content: Text(
+          content: const Text(
             'This Course already exists are you sure to reassign it',
           ),
           actions: [
-            TextButton(onPressed: () => context.pop(false), child: Text('No')),
-            TextButton(onPressed: () => context.pop(true), child: Text('Yes')),
+            TextButton(onPressed: () => context.pop(false), child: const Text('No')),
+            TextButton(onPressed: () => context.pop(true), child: const Text('Yes')),
           ],
         ),
   );

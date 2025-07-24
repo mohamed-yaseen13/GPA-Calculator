@@ -15,7 +15,7 @@ class AddCourseButton extends StatelessWidget {
       padding: EdgeInsets.only(top: 16.h),
       child: OutlinedButton(
         style: OutlinedButton.styleFrom(
-          side: BorderSide(color: Colors.black),
+          side: const BorderSide(color: Colors.black),
           shape: ContinuousRectangleBorder(
             borderRadius: BorderRadius.circular(12.sp),
           ),
@@ -29,12 +29,12 @@ class AddCourseButton extends StatelessWidget {
               context: context,
               builder:
                   (_) => AlertDialog(
-                    title: Text('No Internet'),
-                    content: Text('Please turn on the internet'),
+                    title: const Text('No Internet'),
+                    content: const Text('Please turn on the internet'),
                     actions: [
                       TextButton(
                         onPressed: () => Navigator.pop(context),
-                        child: Text('OK'),
+                        child: const Text('OK'),
                       ),
                     ],
                   ),
@@ -53,7 +53,7 @@ class AddCourseButton extends StatelessWidget {
                       bottom:
                           MediaQuery.of(bottomSheetContext).viewInsets.bottom,
                     ),
-                    child: AddCourseBottomSheet(text: 'Add'),
+                    child: const AddCourseBottomSheet(text: 'Add'),
                   ),
                 ),
           );
@@ -66,7 +66,7 @@ class AddCourseButton extends StatelessWidget {
             context.read<GpaCalculationsCubit>().calculateGpaAndCgpa();
           }
         },
-        child: Text(
+        child: const Text(
           'Add Course',
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),

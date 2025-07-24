@@ -23,7 +23,7 @@ class CoursesTable extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      CourseRowHeader(),
+                      const CourseRowHeader(),
                       verticalSpace(8),
                       ...state.courses.asMap().entries.map((entry) {
                         final index = entry.key;
@@ -42,7 +42,7 @@ class CoursesTable extends StatelessWidget {
                   ),
                 ),
               ),
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [AddCourseButton()],
               ),

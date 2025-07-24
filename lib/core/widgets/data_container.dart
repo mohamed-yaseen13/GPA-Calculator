@@ -25,7 +25,7 @@ class DataContainer extends StatelessWidget {
           padding: EdgeInsets.all(8.sp),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
-            children: [leftColumn, Spacer(), rightColumn],
+            children: [leftColumn, const Spacer(), rightColumn],
           ),
         ),
       ),

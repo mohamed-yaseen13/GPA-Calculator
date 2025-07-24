@@ -29,7 +29,7 @@ class ScenarioMainScreen extends StatelessWidget {
         appBar: ScenarioScreenAppBar(
           scenarioName: AppConstants.selectedScenario!.name,
         ),
-        body: MainScreen(),
+        body: const MainScreen(),
       ),
     );
   }

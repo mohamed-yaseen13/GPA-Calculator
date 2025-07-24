@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gpa_calculator/core/helpers/extensions.dart';
 import 'package:gpa_calculator/core/helpers/spacing.dart';
 import 'package:gpa_calculator/core/theming/app_colors.dart';
@@ -33,7 +34,7 @@ class _AddScenarioBottomShettState extends State<AddScenarioBottomShett> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: EdgeInsets.all(16.sp),
       child: Form(
         key: _formKey,
         child: Column(
@@ -41,7 +42,7 @@ class _AddScenarioBottomShettState extends State<AddScenarioBottomShett> {
           children: [
             Text(
               '${widget.text} Scenario',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
             ),
             verticalSpace(16),
             ScenarioNameTextField(controller: _nameController),

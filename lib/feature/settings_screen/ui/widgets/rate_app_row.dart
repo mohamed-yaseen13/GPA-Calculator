@@ -29,7 +29,7 @@ class RateAppRow extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                Text(
+                const Text(
                   'If you enjoy using GPA Calculator, Please\ntake a moment to rate it',
                   maxLines: 2,
                 ),

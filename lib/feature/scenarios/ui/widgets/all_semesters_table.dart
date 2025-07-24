@@ -31,7 +31,7 @@ class AllSemestersTable extends StatelessWidget {
                       builder: (context, state) {
                         return Column(
                           children: [
-                            HeaderRow(),
+                            const HeaderRow(),
                             verticalSpace(16),
                             ...state.semesters.asMap().entries.map((entry) {
                               final index = entry.key;

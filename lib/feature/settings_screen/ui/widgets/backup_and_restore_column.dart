@@ -20,9 +20,9 @@ class BackupAndRestoreColumn extends StatelessWidget {
             style: TextStyle(fontSize: 16.sp, color: AppColors.mainOrange),
           ),
           verticalSpace(12),
-          BackupRow(),
-          Divider(color: Colors.grey, thickness: 1, height: 0),
-          RestoreRow(),
+          const BackupRow(),
+          const Divider(color: Colors.grey, thickness: 1, height: 0),
+          const RestoreRow(),
         ],
       ),
     );

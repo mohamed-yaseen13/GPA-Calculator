@@ -2,7 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gpa_calculator/feature/tabs/calculator_tab/logic/calculator_state.dart';
 
 class CalculatorCubit extends Cubit<CalculatorState> {
-  CalculatorCubit() : super(CalculatorState());
+  CalculatorCubit() : super(const CalculatorState());
 
   void inputNumber(String number) {
     if (state.isError) {
@@ -230,7 +230,7 @@ class CalculatorCubit extends Cubit<CalculatorState> {
       final start = expression.lastIndexOf('(');
       final end = expression.indexOf(')', start);
 
-      if (end == -1) throw FormatException("Mismatched parentheses");
+      if (end == -1) throw const FormatException("Mismatched parentheses");
 
       final subExpression = expression.substring(start + 1, end);
       final subResult = _evaluateSimpleExpression(subExpression);
@@ -257,13 +257,13 @@ class CalculatorCubit extends Cubit<CalculatorState> {
           case '×':
             return (left * right).toString();
           case '÷':
-            if (right == 0) throw FormatException("Division by zero");
+            if (right == 0) throw const FormatException("Division by zero");
             return (left / right).toString();
           case '%':
-            if (right == 0) throw FormatException("Modulus by zero");
+            if (right == 0) throw const FormatException("Modulus by zero");
             return (left % right).toString();
           default:
-            throw FormatException("Unknown operator");
+            throw const FormatException("Unknown operator");
         }
       });
     }

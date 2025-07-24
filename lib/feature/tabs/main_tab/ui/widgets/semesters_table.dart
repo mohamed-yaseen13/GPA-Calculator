@@ -25,7 +25,7 @@ class SemestersTable extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      SemesterRowHeader(),
+                      const SemesterRowHeader(),
                       verticalSpace(8),
                       ...state.semesters.asMap().entries.map((entry) {
                         final index = entry.key;
@@ -44,7 +44,7 @@ class SemestersTable extends StatelessWidget {
                 ),
               ),
               if (!AppConstants.isScenarioMode)
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [AddSemesterButton()],
                 ),
@@ -53,7 +53,7 @@ class SemestersTable extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    AddSemesterButton(),
+                    const AddSemesterButton(),
                     MainImportButton(
                       scenarioIndex: AppConstants.selectedScenarioIndex,
                     ),

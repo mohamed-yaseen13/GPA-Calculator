@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'package:gpa_calculator/feature/settings_screen/logic/settings_cubit.dart';
 
@@ -35,7 +36,7 @@ class PasswordDialogs {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: List.generate(4, (index) {
                       return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                        padding: EdgeInsets.symmetric(horizontal: 4.w),
                         child: NumberPicker(
                           value: digits[index],
                           minValue: 0,
@@ -55,7 +56,7 @@ class PasswordDialogs {
                   ),
                   if (wrong)
                     Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
+                      padding: EdgeInsets.only(top: 8.h),
                       child: Text(
                         dialogType == DialogType.setNewPassword
                             ? 'Password cannot be empty'

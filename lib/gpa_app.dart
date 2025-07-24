@@ -26,10 +26,10 @@ class GpaApp extends StatelessWidget {
               BlocProvider(create: (_) => getIt<PasswordCubit>()),
               BlocProvider.value(value: getIt<SettingsCubit>()),
             ],
-            child: PasswordGate(),
+            child: const PasswordGate(),
           ),
           theme: ThemeData(
-            scaffoldBackgroundColor: Color(0xFFFFF6E7),
+            scaffoldBackgroundColor: const Color(0xFFFFF6E7),
             appBarTheme: AppBarTheme(
               color: AppColors.mainOrange,
               titleTextStyle: TextStyle(fontSize: 18.sp, color: Colors.white),

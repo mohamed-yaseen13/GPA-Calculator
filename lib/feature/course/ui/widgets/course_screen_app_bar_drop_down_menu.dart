@@ -19,8 +19,8 @@ class CourseScreenAppBarDropDownMenu extends StatelessWidget {
                   state.courses[state.selectedCourseIndex].name.isEmpty
                       ? null
                       : state.selectedCourseIndex,
-              hint: Text('Term Name', style: TextStyle(color: Colors.white60)),
-              dropdownColor: Color(0xFF303030),
+              hint: const Text('Term Name', style: TextStyle(color: Colors.white60)),
+              dropdownColor: const Color(0xFF303030),
               style: TextStyle(color: Colors.white, fontSize: 16.sp),
               items:
                   List.generate(state.courses.length, (index) {
@@ -42,7 +42,7 @@ class CourseScreenAppBarDropDownMenu extends StatelessWidget {
               menuWidth: state.dropdownWidth,
               icon: Padding(
                 padding: EdgeInsets.only(left: 24.w),
-                child: Icon(Icons.arrow_drop_down, color: Colors.white),
+                child: const Icon(Icons.arrow_drop_down, color: Colors.white),
               ),
             ),
           ),

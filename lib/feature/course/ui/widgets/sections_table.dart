@@ -24,7 +24,7 @@ class SectionsTable extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      SectionRowHeader(),
+                      const SectionRowHeader(),
                       verticalSpace(8),
                       ...state.sections.asMap().entries.map((entry) {
                         final index = entry.key;
@@ -39,9 +39,9 @@ class SectionsTable extends StatelessWidget {
                   ),
                 ),
               ),
-              CourseWork(),
+              const CourseWork(),
               verticalSpace(12),
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [AddSectionButton()],
               ),

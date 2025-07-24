@@ -19,7 +19,7 @@ class OthersColumn extends StatelessWidget {
             style: TextStyle(fontSize: 16.sp, color: AppColors.mainOrange),
           ),
           verticalSpace(12),
-          RateAppRow(),
+          const RateAppRow(),
         ],
       ),
     );

@@ -36,21 +36,21 @@ List<Widget> buildAppBarActions({
               onTap: () {
                 showDialog(
                   context: context,
-                  builder: (context) => NoteBodyContainer(),
+                  builder: (context) => const NoteBodyContainer(),
                 );
               },
-              child: Icon(Icons.note),
+              child: const Icon(Icons.note),
             ),
           );
         },
       ),
     if (isNotScenariosScreen)
       PopupMenuButton(
-        icon: Icon(Icons.more_vert),
+        icon: const Icon(Icons.more_vert),
         itemBuilder:
             (context) => [
-              PopupMenuItem(value: 1, child: Text('Settings')),
-              PopupMenuItem(value: 2, child: Text('Scales')),
+              const PopupMenuItem(value: 1, child: Text('Settings')),
+              const PopupMenuItem(value: 2, child: Text('Scales')),
             ],
         onSelected: (value) async {
           if (value == 1) {

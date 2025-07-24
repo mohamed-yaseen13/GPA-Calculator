@@ -13,9 +13,9 @@ class CalculatorScreen extends StatelessWidget {
         padding: EdgeInsets.all(6.sp),
         child: Column(
           children: [
-            CalculatorDisplayContainer(),
+            const CalculatorDisplayContainer(),
             verticalSpace(6),
-            CalculatorButtonsContainer(),
+            const CalculatorButtonsContainer(),
           ],
         ),
       ),

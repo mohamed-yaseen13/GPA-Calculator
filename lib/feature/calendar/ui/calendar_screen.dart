@@ -14,8 +14,8 @@ class CalendarScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: AppDrawer(selectedRoute: DrawerRoute.calendar),
-      appBar: AppBar(title: Text('Calendar')),
+      drawer: const AppDrawer(selectedRoute: DrawerRoute.calendar),
+      appBar: AppBar(title: const Text('Calendar')),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         child: BlocBuilder<CalendarCubit, CalendarState>(

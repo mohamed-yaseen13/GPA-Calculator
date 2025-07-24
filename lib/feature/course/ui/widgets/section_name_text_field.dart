@@ -20,7 +20,7 @@ class SectionNameTextField extends StatelessWidget {
             LengthLimitingTextInputFormatter(20),
             FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]')),
           ],
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             labelText: 'Section Name',
             border: OutlineInputBorder(),
             focusedBorder: OutlineInputBorder(

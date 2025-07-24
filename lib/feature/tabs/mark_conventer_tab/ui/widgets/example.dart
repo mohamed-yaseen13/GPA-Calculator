@@ -20,12 +20,12 @@ class Example extends StatelessWidget {
           verticalSpace(16),
           Row(
             children: [
-              Expanded(child: ExampleTextField(text: 'You got :', value: '23')),
+              const Expanded(child: ExampleTextField(text: 'You got :', value: '23')),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8.w),
-                child: Text('/'),
+                child: const Text('/'),
               ),
-              Expanded(
+              const Expanded(
                 child: ExampleTextField(text: 'From a total of :', value: '25'),
               ),
             ],
@@ -33,7 +33,7 @@ class Example extends StatelessWidget {
           verticalSpace(24),
           Row(
             children: [
-              Expanded(
+              const Expanded(
                 child: ExampleTextField(
                   text: 'Converted Result :',
                   value: '92',
@@ -41,9 +41,9 @@ class Example extends StatelessWidget {
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8.w),
-                child: Text('/'),
+                child: const Text('/'),
               ),
-              Expanded(
+              const Expanded(
                 child: ExampleTextField(text: 'From a total of:', value: '100'),
               ),
             ],

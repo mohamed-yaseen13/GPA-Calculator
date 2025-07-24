@@ -11,18 +11,18 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Settings')),
+      appBar: AppBar(title: const Text('Settings')),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Column(
             children: [
-              CalculationsColumn(),
+              const CalculationsColumn(),
               verticalSpace(18),
-              PreferencesColumn(),
+              const PreferencesColumn(),
               verticalSpace(18),
-              BackupAndRestoreColumn(),
+              const BackupAndRestoreColumn(),
               verticalSpace(18),
-              OthersColumn(),
+              const OthersColumn(),
             ],
           ),
         ),

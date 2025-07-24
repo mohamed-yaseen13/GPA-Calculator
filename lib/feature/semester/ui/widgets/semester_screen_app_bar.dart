@@ -21,7 +21,7 @@ class SemesterScreenAppBar extends StatelessWidget
       builder: (context, state) {
         return AppBar(
           title:
-              !state.selectionMode ? SemesterScreenAppBarDropDownMenu() : null,
+              !state.selectionMode ? const SemesterScreenAppBarDropDownMenu() : null,
           centerTitle: false,
           automaticallyImplyLeading: false,
           actions:

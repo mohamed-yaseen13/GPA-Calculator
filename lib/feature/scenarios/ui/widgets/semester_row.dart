@@ -24,7 +24,7 @@ class SemesterRow extends StatelessWidget {
             fontSize: 16.sp,
           ),
         ),
-        Spacer(),
+        const Spacer(),
         SizedBox(
           height: 24.h,
           width: 16.w,

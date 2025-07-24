@@ -48,7 +48,7 @@ class NoteRow extends StatelessWidget {
                     ),
                     Text(
                       state.selectedColor,
-                      style: TextStyle(color: Colors.grey, fontSize: 14),
+                      style: TextStyle(color: Colors.grey, fontSize: 14.sp),
                     ),
                   ],
                 ),

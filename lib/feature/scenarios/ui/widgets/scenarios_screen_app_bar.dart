@@ -18,7 +18,7 @@ class ScenariosScreenAppBar extends StatelessWidget
     return BlocBuilder<ScenariosCubit, ScenariosState>(
       builder: (context, state) {
         return AppBar(
-          title: !state.selectionMode ? Text('Scenarios') : null,
+          title: !state.selectionMode ? const Text('Scenarios') : null,
           actions:
               !state.selectionMode
                   ? buildAppBarActions(

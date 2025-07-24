@@ -21,8 +21,8 @@ class EditSemesterIcon extends StatelessWidget {
     final appBarCubit = context.read<ApplicationAppBarCubit>();
 
     return PopupMenuButton(
-      icon: Icon(Icons.more_vert),
-      itemBuilder: (context) => [PopupMenuItem(value: 1, child: Text('Edit'))],
+      icon: const Icon(Icons.more_vert),
+      itemBuilder: (context) => [const PopupMenuItem(value: 1, child: Text('Edit'))],
       menuPadding: EdgeInsets.zero,
       padding: EdgeInsets.zero,
       onSelected: (value) async {

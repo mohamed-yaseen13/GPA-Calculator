@@ -30,7 +30,7 @@ class TimeTableBody extends StatelessWidget {
               ),
             ),
           ),
-          Row(
+          const Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [ExportButton()],
           ),

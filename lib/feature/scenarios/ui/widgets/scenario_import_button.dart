@@ -16,7 +16,7 @@ class ScenarioImportButton extends StatelessWidget {
       padding: EdgeInsetsGeometry.only(top: 16.h),
       child: OutlinedButton(
         style: OutlinedButton.styleFrom(
-          side: BorderSide(color: Colors.black),
+          side: const BorderSide(color: Colors.black),
           shape: ContinuousRectangleBorder(
             borderRadius: BorderRadius.circular(12.sp),
           ),
@@ -40,7 +40,7 @@ class ScenarioImportButton extends StatelessWidget {
             },
           );
         },
-        child: Text(
+        child: const Text(
           'Import',
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),

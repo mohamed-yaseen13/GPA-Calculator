@@ -16,7 +16,7 @@ class AddSemesterButton extends StatelessWidget {
       padding: EdgeInsets.only(top: 16.h),
       child: OutlinedButton(
         style: OutlinedButton.styleFrom(
-          side: BorderSide(color: Colors.black),
+          side: const BorderSide(color: Colors.black),
           shape: ContinuousRectangleBorder(
             borderRadius: BorderRadius.circular(12.sp),
           ),
@@ -30,12 +30,12 @@ class AddSemesterButton extends StatelessWidget {
               context: context,
               builder:
                   (_) => AlertDialog(
-                    title: Text('No Internet'),
-                    content: Text('Please turn on the internet'),
+                    title: const Text('No Internet'),
+                    content: const Text('Please turn on the internet'),
                     actions: [
                       TextButton(
                         onPressed: () => Navigator.pop(context),
-                        child: Text('OK'),
+                        child: const Text('OK'),
                       ),
                     ],
                   ),
@@ -54,7 +54,7 @@ class AddSemesterButton extends StatelessWidget {
                       bottom:
                           MediaQuery.of(bottomSheetContext).viewInsets.bottom,
                     ),
-                    child: AddSemesterBottomSheet(text: 'Add'),
+                    child: const AddSemesterBottomSheet(text: 'Add'),
                   ),
                 ),
           );
@@ -64,7 +64,7 @@ class AddSemesterButton extends StatelessWidget {
             InterstitialAdManager.showInterstitialAd();
           }
         },
-        child: Text(
+        child: const Text(
           'Add Semester',
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),

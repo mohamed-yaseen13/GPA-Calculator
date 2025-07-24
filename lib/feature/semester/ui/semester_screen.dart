@@ -43,7 +43,7 @@ class _SemesterScreenState extends State<SemesterScreen> {
       child: BlocBuilder<SemesterScreenCubit, SemesterScreenState>(
         builder: (context, state) {
           return Scaffold(
-            appBar: SemesterScreenAppBar(),
+            appBar: const SemesterScreenAppBar(),
             body: SemesterScreenBody(key: ValueKey(state.selectedIndex)),
           );
         },

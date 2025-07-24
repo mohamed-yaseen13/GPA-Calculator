@@ -15,7 +15,7 @@ class ScalesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Scales')),
+      appBar: AppBar(title: const Text('Scales')),
       body: SingleChildScrollView(
         child: SafeArea(
           child: BlocBuilder<ScalesCubit, ScalesState>(
@@ -33,7 +33,7 @@ class ScalesScreen extends StatelessWidget {
                   verticalSpace(32),
                   OutlinedButton(
                     style: OutlinedButton.styleFrom(
-                      side: BorderSide(color: Colors.black),
+                      side: const BorderSide(color: Colors.black),
                       shape: ContinuousRectangleBorder(
                         borderRadius: BorderRadius.circular(12.sp),
                       ),
@@ -47,7 +47,7 @@ class ScalesScreen extends StatelessWidget {
                         context.read<ScalesCubit>().addCustomScale(result);
                       }
                     },
-                    child: Text(
+                    child: const Text(
                       'Add Custom Scale',
                       style: TextStyle(
                         color: Colors.black,

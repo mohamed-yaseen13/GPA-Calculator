@@ -14,7 +14,7 @@ import 'package:path_provider/path_provider.dart';
 class SettingsCubit extends Cubit<SettingsState> {
   SettingsCubit()
     : super(
-        SettingsState(
+        const SettingsState(
           selectedScaleIndex: 0,
           passwordEnabled: false,
           selectedColor: 'Yellow',
@@ -110,7 +110,7 @@ class SettingsCubit extends Cubit<SettingsState> {
       if (!await backupFile.exists()) {
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(SnackBar(content: Text('No backup file found!')));
+        ).showSnackBar(const SnackBar(content: Text('No backup file found!')));
         return;
       }
 
@@ -131,7 +131,7 @@ class SettingsCubit extends Cubit<SettingsState> {
 
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(SnackBar(content: Text('Restore successful!')));
+      ).showSnackBar(const SnackBar(content: Text('Restore successful!')));
     } catch (e) {
       ScaffoldMessenger.of(
         context,

@@ -46,7 +46,7 @@ class ScaleContainer extends StatelessWidget {
                   DotContainer(isExpanded: isExpanded),
                   horizontalSpace(12),
                   ScaleTitle(title: title),
-                  Spacer(),
+                  const Spacer(),
                   ScaleCheckbox(index: index, scale: scale),
                 ],
               ),

@@ -7,7 +7,7 @@ class AppCalendarBuilder {
   static CalendarBuilders build() {
     return CalendarBuilders(
       markerBuilder: (context, date, eventList) {
-        if (eventList.isEmpty) return SizedBox.shrink();
+        if (eventList.isEmpty) return const SizedBox.shrink();
         return Column(
           children: [
             SizedBox(height: 72.h),

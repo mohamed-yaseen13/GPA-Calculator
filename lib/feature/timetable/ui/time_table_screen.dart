@@ -15,8 +15,8 @@ class TimeTableScreen extends StatelessWidget {
           style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
         ),
       ),
-      drawer: AppDrawer(selectedRoute: DrawerRoute.timeTable),
-      body: TimeTableBody(),
+      drawer: const AppDrawer(selectedRoute: DrawerRoute.timeTable),
+      body: const TimeTableBody(),
     );
   }
 }

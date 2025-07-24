@@ -58,7 +58,7 @@ class _AppSearchBarState extends State<AppSearchBar> {
             showWhenUnlinked: false,
             child: BlocProvider.value(
               value: appBarCubit,
-              child: SearchResultContainer(),
+              child: const SearchResultContainer(),
             ),
           ),
         );

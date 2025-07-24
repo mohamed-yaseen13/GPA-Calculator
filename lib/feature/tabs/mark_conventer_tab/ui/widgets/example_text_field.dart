@@ -16,7 +16,7 @@ class ExampleTextField extends StatelessWidget {
         Container(
           width: MediaQuery.of(context).size.width / 2 - 28.w,
           padding: EdgeInsets.symmetric(vertical: 10.h),
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             border: Border(bottom: BorderSide(color: Colors.black26, width: 1)),
           ),
           child: Text(

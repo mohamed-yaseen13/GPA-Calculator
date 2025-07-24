@@ -14,7 +14,7 @@ class SearchResultContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       shadowColor: Colors.black,
-      color: Color(0xFFFFF6E7),
+      color: const Color(0xFFFFF6E7),
       elevation: 4,
       borderRadius: BorderRadius.circular(8.r),
       child: BlocBuilder<ApplicationAppBarCubit, ApplicationAppBarState>(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gpa_calculator/core/helpers/extensions.dart';
 import 'package:gpa_calculator/core/helpers/spacing.dart';
 import 'package:gpa_calculator/core/theming/app_colors.dart';
@@ -32,7 +33,7 @@ class _AddSemesterBottomSheetState extends State<AddSemesterBottomSheet> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: EdgeInsets.all(16.sp),
       child: Form(
         key: _formKey,
         child: Column(
@@ -40,7 +41,7 @@ class _AddSemesterBottomSheetState extends State<AddSemesterBottomSheet> {
           children: [
             Text(
               '${widget.text} Semester',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
             ),
             verticalSpace(16),
             SemesterNameTextField(controller: _nameController),

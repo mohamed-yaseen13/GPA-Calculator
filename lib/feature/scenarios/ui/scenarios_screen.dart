@@ -19,12 +19,12 @@ class ScenariosScreen extends StatelessWidget {
       child: BlocBuilder<ScenariosCubit, ScenariosState>(
         builder: (context, state) {
           return Scaffold(
-            appBar: ScenariosScreenAppBar(),
+            appBar: const ScenariosScreenAppBar(),
             drawer:
                 !state.selectionMode
-                    ? AppDrawer(selectedRoute: DrawerRoute.scenarios)
+                    ? const AppDrawer(selectedRoute: DrawerRoute.scenarios)
                     : null,
-            body: ScenariosScreenBody(),
+            body: const ScenariosScreenBody(),
           );
         },
       ),

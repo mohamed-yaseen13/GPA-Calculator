@@ -78,7 +78,7 @@ class _FailedOnCourseLogicRowState extends State<FailedOnCourseLogicRow> {
                   ),
                 ],
               ),
-              Spacer(),
+              const Spacer(),
               Switch(
                 value: state.isThereLimitationsAfterFallOnCourse,
                 onChanged: (value) async {

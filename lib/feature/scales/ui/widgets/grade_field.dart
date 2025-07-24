@@ -20,7 +20,7 @@ class GradeField extends StatelessWidget {
             FilteringTextInputFormatter.allow(RegExp(r'[A-Za-z\+\-]')),
             LengthLimitingTextInputFormatter(2),
           ],
-          decoration: InputDecoration(hintText: 'Grade', counterText: ''),
+          decoration: const InputDecoration(hintText: 'Grade', counterText: ''),
           onChanged: onChanged,
         ),
       ),

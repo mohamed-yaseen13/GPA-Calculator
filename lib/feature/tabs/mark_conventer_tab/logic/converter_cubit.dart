@@ -2,7 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gpa_calculator/feature/tabs/mark_conventer_tab/logic/converter_state.dart';
 
 class ConverterCubit extends Cubit<ConverterState> {
-  ConverterCubit() : super(ConverterState());
+  ConverterCubit() : super(const ConverterState());
 
   void updateObtained(String value) =>
       emit(state.copyWith(obtainedMark: value));

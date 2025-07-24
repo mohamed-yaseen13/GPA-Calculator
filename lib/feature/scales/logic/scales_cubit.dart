@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class ScalesCubit extends Cubit<ScalesState> {
   static const String _selectedIndexKey = 'selected_scale_index';
 
-  ScalesCubit() : super(ScalesState(selectedIndex: null)) {
+  ScalesCubit() : super(const ScalesState(selectedIndex: null)) {
     _loadSelectedIndex();
     loadCustomScales();
   }

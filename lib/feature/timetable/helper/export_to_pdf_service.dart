@@ -122,7 +122,7 @@ Future<pw.Document> _generatePDF(List<TimeSlotModel> slots) async {
               border: pw.TableBorder.all(),
               defaultVerticalAlignment: pw.TableCellVerticalAlignment.middle,
               columnWidths: {
-                for (int i = 0; i <= 7; i++) i: pw.FixedColumnWidth(160),
+                for (int i = 0; i <= 7; i++) i: const pw.FixedColumnWidth(160),
               },
               children: [
                 // Header row
@@ -293,15 +293,15 @@ Future<String?> _askForFileName(BuildContext context) async {
 PdfColor _getCellColor(String type) {
   switch (type.toLowerCase()) {
     case 'lecture':
-      return PdfColor.fromInt(0xFFADD8E6); // light blue
+      return const PdfColor.fromInt(0xFFADD8E6); // light blue
     case 'section':
-      return PdfColor.fromInt(0xFF90EE90); // light green
+      return const PdfColor.fromInt(0xFF90EE90); // light green
     case 'event':
-      return PdfColor.fromInt(
+      return const PdfColor.fromInt(
         0xFFFFA07A,
       ); // light red (using light salmon as example)
     default:
-      return PdfColor.fromInt(0xFFFFFFFF); // white for unknown types
+      return const PdfColor.fromInt(0xFFFFFFFF); // white for unknown types
   }
 }
 
@@ -312,7 +312,7 @@ Future<void> handleExport(
   final fileName = await _askForFileName(context);
   if (fileName == null || fileName.trim().isEmpty) return;
 
-  await Future.delayed(Duration(milliseconds: 100));
+  await Future.delayed(const Duration(milliseconds: 100));
   await exportTimetableToDownloads(
     context: context,
     slots: slots,

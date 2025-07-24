@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gpa_calculator/core/helpers/spacing.dart';
 import 'package:gpa_calculator/feature/calendar/data/models/event_model.dart';
 
@@ -48,11 +49,11 @@ class _AddEventDialogState extends State<AddEventDialog> {
         children: [
           TextField(
             controller: _titleController,
-            decoration: InputDecoration(labelText: 'Title'),
+            decoration: const InputDecoration(labelText: 'Title'),
           ),
           TextField(
             controller: _descController,
-            decoration: InputDecoration(labelText: 'Description'),
+            decoration: const InputDecoration(labelText: 'Description'),
           ),
           verticalSpace(18),
           Row(
@@ -63,7 +64,7 @@ class _AddEventDialogState extends State<AddEventDialog> {
                   return GestureDetector(
                     onTap: () => setState(() => selectedColor = color),
                     child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 4),
+                      margin: EdgeInsets.symmetric(horizontal: 4.w),
                       width: 24,
                       height: 24,
                       decoration: BoxDecoration(
@@ -83,7 +84,7 @@ class _AddEventDialogState extends State<AddEventDialog> {
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: Text('Cancel'),
+          child: const Text('Cancel'),
         ),
         ElevatedButton(
           onPressed: () {

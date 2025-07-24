@@ -10,7 +10,7 @@ class ScenariosScreenBody extends StatelessWidget {
     return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [verticalSpace(4), Expanded(child: ScenariosTable())],
+        children: [verticalSpace(4), const Expanded(child: ScenariosTable())],
       ),
     );
   }

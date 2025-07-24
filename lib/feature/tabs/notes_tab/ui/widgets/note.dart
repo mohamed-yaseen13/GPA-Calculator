@@ -49,15 +49,15 @@ class _NoteState extends State<Note> {
                                 context: context,
                                 builder:
                                     (_) => AlertDialog(
-                                      title: Text('No Internet'),
-                                      content: Text(
+                                      title: const Text('No Internet'),
+                                      content: const Text(
                                         'Please turn on the internet',
                                       ),
                                       actions: [
                                         TextButton(
                                           onPressed:
                                               () => Navigator.pop(context),
-                                          child: Text('OK'),
+                                          child: const Text('OK'),
                                         ),
                                       ],
                                     ),
@@ -70,10 +70,10 @@ class _NoteState extends State<Note> {
                           },
                           child: Row(
                             children: [
-                              Spacer(),
-                              Text('EDIT'),
+                              const Spacer(),
+                              const Text('EDIT'),
                               horizontalSpace(4),
-                              Icon(Icons.edit, color: Colors.grey),
+                              const Icon(Icons.edit, color: Colors.grey),
                             ],
                           ),
                         )
@@ -87,13 +87,13 @@ class _NoteState extends State<Note> {
                               },
                               child: Row(
                                 children: [
-                                  Text('CANCEL'),
+                                  const Text('CANCEL'),
                                   horizontalSpace(4),
-                                  Icon(Icons.cancel, color: Colors.grey),
+                                  const Icon(Icons.cancel, color: Colors.grey),
                                 ],
                               ),
                             ),
-                            Spacer(),
+                            const Spacer(),
                             GestureDetector(
                               onTap: () {
                                 setState(() {
@@ -110,9 +110,9 @@ class _NoteState extends State<Note> {
                               },
                               child: Row(
                                 children: [
-                                  Text('SAVE'),
+                                  const Text('SAVE'),
                                   horizontalSpace(4),
-                                  Icon(Icons.save, color: Colors.grey),
+                                  const Icon(Icons.save, color: Colors.grey),
                                 ],
                               ),
                             ),

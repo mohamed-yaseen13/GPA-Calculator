@@ -12,12 +12,12 @@ class DeleteScaleButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return OutlinedButton(
       style: OutlinedButton.styleFrom(
-        side: BorderSide(color: Colors.black),
+        side: const BorderSide(color: Colors.black),
         shape: ContinuousRectangleBorder(
           borderRadius: BorderRadius.circular(12.sp),
         ),
       ),
-      child: Text(
+      child: const Text(
         'Delete Scale',
         style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
       ),

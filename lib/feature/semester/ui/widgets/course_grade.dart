@@ -31,7 +31,7 @@ class CourseGrade extends StatelessWidget {
                 decoration: TextDecoration.lineThrough,
               ),
             ),
-            TextSpan(text: '    '),
+            const TextSpan(text: '    '),
             TextSpan(
               text: course.newGrade,
               style: TextStyle(fontSize: 16.sp, color: changedColor),

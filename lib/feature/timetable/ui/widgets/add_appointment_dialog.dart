@@ -52,7 +52,7 @@ class _AddAppointmentDialogState extends State<AddAppointmentDialog> {
           children: [
             DropdownButtonFormField<String>(
               value: _selectedType == '--' ? null : _selectedType,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Type',
                 border: OutlineInputBorder(),
               ),
@@ -79,7 +79,7 @@ class _AddAppointmentDialogState extends State<AddAppointmentDialog> {
             verticalSpace(12),
             TextFormField(
               controller: _contentController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Content',
                 border: OutlineInputBorder(),
               ),
@@ -95,7 +95,7 @@ class _AddAppointmentDialogState extends State<AddAppointmentDialog> {
         ),
       ),
       actions: [
-        TextButton(onPressed: () => context.pop(), child: Text('Cancel')),
+        TextButton(onPressed: () => context.pop(), child: const Text('Cancel')),
         ElevatedButton(
           onPressed: () {
             if (_formKey.currentState!.validate()) {
@@ -109,7 +109,7 @@ class _AddAppointmentDialogState extends State<AddAppointmentDialog> {
               );
             }
           },
-          child: Text('Save'),
+          child: const Text('Save'),
         ),
       ],
     );

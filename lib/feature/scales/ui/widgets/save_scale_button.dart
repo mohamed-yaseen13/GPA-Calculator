@@ -20,7 +20,7 @@ class SaveScaleButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return OutlinedButton(
       style: OutlinedButton.styleFrom(
-        side: BorderSide(color: Colors.green),
+        side: const BorderSide(color: Colors.green),
         shape: ContinuousRectangleBorder(
           borderRadius: BorderRadius.circular(12.sp),
         ),
@@ -45,7 +45,7 @@ class SaveScaleButton extends StatelessWidget {
       },
       child: Text(
         editIndex != null ? 'Save Changes' : 'Save Scale',
-        style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
+        style: const TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
       ),
     );
   }

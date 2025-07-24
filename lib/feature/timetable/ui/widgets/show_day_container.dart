@@ -42,7 +42,7 @@ class _ShowDayContainerState extends State<ShowDayContainer> {
                 horizontalSpace(12),
                 Text(
                   'Show ${widget.day} Appointments',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
               ],
             ),

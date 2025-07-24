@@ -24,12 +24,12 @@ class PasswordNumbers extends StatelessWidget {
           if (index == 9) {
             return TextButton(
               onPressed: () => context.pop(),
-              child: Text('EXIT', style: TextStyle(color: Colors.black)),
+              child: const Text('EXIT', style: TextStyle(color: Colors.black)),
             );
           } else if (index == 11) {
             return TextButton(
               onPressed: context.read<PasswordCubit>().deleteLastDigit,
-              child: Text('DEL', style: TextStyle(color: Colors.black)),
+              child: const Text('DEL', style: TextStyle(color: Colors.black)),
             );
           } else {
             final number = index == 10 ? 0 : index + 1;

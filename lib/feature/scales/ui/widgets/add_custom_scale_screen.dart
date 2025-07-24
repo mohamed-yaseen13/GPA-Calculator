@@ -75,7 +75,7 @@ class _AddCustomScaleScreenState extends State<AddCustomScaleScreen> {
           children: [
             TextField(
               controller: _titleController,
-              decoration: InputDecoration(labelText: 'Scale Title'),
+              decoration: const InputDecoration(labelText: 'Scale Title'),
             ),
             Expanded(
               child: ListView.builder(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gpa_calculator/table_calendar/lib/table_calendar.dart';
 
 class AppCalendarTheme {
@@ -39,7 +40,7 @@ class AppCalendarTheme {
       titleCentered: true,
       titleTextStyle: TextStyle(
         color: theme.colorScheme.primary,
-        fontSize: 20,
+        fontSize: 20.sp,
         fontWeight: FontWeight.bold,
       ),
       leftChevronIcon: Icon(

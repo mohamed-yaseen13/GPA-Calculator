@@ -47,7 +47,7 @@ class PasswordRow extends StatelessWidget {
                     ),
                     Text(
                       state.passwordEnabled ? 'Enabled - Edit' : 'Disabled',
-                      style: TextStyle(color: Colors.grey, fontSize: 14),
+                      style: TextStyle(color: Colors.grey, fontSize: 14.sp),
                     ),
                   ],
                 ),

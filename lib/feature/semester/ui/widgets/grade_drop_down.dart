@@ -19,7 +19,7 @@ class GradeDropDown extends StatelessWidget {
       builder: (context, state) {
         return DropdownButtonFormField<String>(
           value: selectedGrade,
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             labelText: 'Grade',
             border: OutlineInputBorder(),
           ),

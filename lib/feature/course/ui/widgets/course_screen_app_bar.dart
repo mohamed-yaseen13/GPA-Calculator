@@ -20,7 +20,7 @@ class CourseScreenAppBar extends StatelessWidget
     return BlocBuilder<CourseScreenCubit, CourseScreenState>(
       builder: (context, state) {
         return AppBar(
-          title: !state.selectionMode ? CourseScreenAppBarDropDownMenu() : null,
+          title: !state.selectionMode ? const CourseScreenAppBarDropDownMenu() : null,
           centerTitle: false,
           automaticallyImplyLeading: false,
           actions:

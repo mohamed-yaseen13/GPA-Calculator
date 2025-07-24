@@ -23,7 +23,7 @@ class ScenariosTable extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      ScenariosRowHeader(),
+                      const ScenariosRowHeader(),
                       verticalSpace(8),
                       ...state.scenarios.asMap().entries.map((entry) {
                         final index = entry.key;
@@ -41,7 +41,7 @@ class ScenariosTable extends StatelessWidget {
                   ),
                 ),
               ),
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [AddScenarioButton()],
               ),

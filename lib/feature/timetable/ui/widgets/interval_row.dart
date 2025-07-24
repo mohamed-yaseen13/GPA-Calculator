@@ -24,7 +24,7 @@ class IntervalRow extends StatelessWidget {
           padding: EdgeInsets.only(left: 8.w),
           child: Text(interval, style: TextStyle(fontSize: 16.sp)),
         ),
-        Spacer(),
+        const Spacer(),
         TextButton(
           onPressed: () async {
             final slot = await showDialog<TimeSlotModel>(

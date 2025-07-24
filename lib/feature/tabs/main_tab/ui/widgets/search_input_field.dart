@@ -24,7 +24,7 @@ class SearchInputField extends StatelessWidget {
           Container(
             padding: EdgeInsets.symmetric(horizontal: 12.w),
             decoration: BoxDecoration(
-              color: Color(0xFFFFF6E7),
+              color: const Color(0xFFFFF6E7),
               borderRadius: BorderRadius.circular(8.r),
               border: Border.all(color: Colors.black),
             ),
@@ -35,7 +35,7 @@ class SearchInputField extends StatelessWidget {
                 context.read<ApplicationAppBarCubit>().searchOnCourse(query);
                 showOverlay();
               },
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 icon: Icon(Icons.search),
                 hintText: 'Search',
                 border: InputBorder.none,

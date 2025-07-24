@@ -14,7 +14,7 @@ class MainImportButton extends StatelessWidget {
       padding: EdgeInsets.only(top: 16.h),
       child: OutlinedButton(
         style: OutlinedButton.styleFrom(
-          side: BorderSide(color: Colors.black),
+          side: const BorderSide(color: Colors.black),
           shape: ContinuousRectangleBorder(
             borderRadius: BorderRadius.circular(12.sp),
           ),
@@ -26,7 +26,7 @@ class MainImportButton extends StatelessWidget {
             arguments: {'scenarioIndex': scenarioIndex},
           );
         },
-        child: Text(
+        child: const Text(
           'Import Semesters',
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),

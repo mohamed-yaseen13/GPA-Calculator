@@ -34,7 +34,7 @@ class _ImportScreenState extends State<ImportScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Import To ${scenario.name} Scenario')),
-      body: AllSemestersTable(),
+      body: const AllSemestersTable(),
     );
   }
 }

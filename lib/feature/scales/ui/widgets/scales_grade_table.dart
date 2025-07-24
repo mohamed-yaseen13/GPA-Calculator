@@ -12,7 +12,7 @@ class ScalesGradeTable extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 24.w),
       child: Table(
         border: TableBorder.all(),
-        columnWidths: {
+        columnWidths: const {
           0: FractionColumnWidth(0.32),
           1: FractionColumnWidth(0.34),
           2: FractionColumnWidth(0.32),

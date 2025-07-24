@@ -51,7 +51,7 @@ class AppRouter {
                           ..loadSettings(),
                   ),
                 ],
-                child: ApplicationAppBar(),
+                child: const ApplicationAppBar(),
               ),
           settings: settings,
         );
@@ -64,7 +64,7 @@ class AppRouter {
                   BlocProvider.value(value: getCubit<SemesterScreenCubit>()),
                   BlocProvider.value(value: getCubit<GpaCalculationsCubit>()),
                 ],
-                child: SemesterScreen(),
+                child: const SemesterScreen(),
               ),
           settings: settings,
         );
@@ -79,7 +79,7 @@ class AppRouter {
                   BlocProvider.value(value: getCubit<CourseScreenCubit>()),
                   BlocProvider.value(value: getCubit<GpaCalculationsCubit>()),
                 ],
-                child: ScalesScreen(),
+                child: const ScalesScreen(),
               ),
           settings: settings,
         );
@@ -92,7 +92,7 @@ class AppRouter {
                   BlocProvider(create: (context) => getIt<ScalesCubit>()),
                   BlocProvider.value(value: getCubit<GpaCalculationsCubit>()),
                 ],
-                child: AddCustomScaleScreen(),
+                child: const AddCustomScaleScreen(),
               ),
           settings: settings,
         );
@@ -105,7 +105,7 @@ class AppRouter {
                   BlocProvider.value(value: getCubit<CourseScreenCubit>()),
                   BlocProvider.value(value: getCubit<GpaCalculationsCubit>()),
                 ],
-                child: CourseScreen(),
+                child: const CourseScreen(),
               ),
           settings: settings,
         );
@@ -122,7 +122,7 @@ class AppRouter {
                   BlocProvider.value(value: getCubit<CourseScreenCubit>()),
                   BlocProvider.value(value: getCubit<GpaCalculationsCubit>()),
                 ],
-                child: SettingsScreen(),
+                child: const SettingsScreen(),
               ),
           settings: settings,
         );
@@ -135,7 +135,7 @@ class AppRouter {
                   BlocProvider.value(value: getIt<SettingsCubit>()),
                   BlocProvider.value(value: getIt<PasswordCubit>()),
                 ],
-                child: EditPasswordScreen(),
+                child: const EditPasswordScreen(),
               ),
           settings: settings,
         );
@@ -149,20 +149,20 @@ class AppRouter {
                   BlocProvider.value(value: getIt<SettingsCubit>()),
                   BlocProvider(create: (_) => getIt<ScalesCubit>()),
                 ],
-                child: ScenariosScreen(),
+                child: const ScenariosScreen(),
               ),
           settings: settings,
         );
 
       case AppRoutes.scenarioMainScreen:
         return MaterialPageRoute(
-          builder: (_) => ScenarioMainScreen(),
+          builder: (_) => const ScenarioMainScreen(),
           settings: settings,
         );
 
       case AppRoutes.importScreen:
         return MaterialPageRoute(
-          builder: (_) => ImportScreen(),
+          builder: (_) => const ImportScreen(),
           settings: settings,
         );
 
@@ -171,7 +171,7 @@ class AppRouter {
           builder:
               (_) => BlocProvider(
                 create: (context) => getIt<CalendarCubit>(),
-                child: CalendarScreen(),
+                child: const CalendarScreen(),
               ),
           settings: settings,
         );
@@ -183,7 +183,7 @@ class AppRouter {
                 providers: [
                   BlocProvider(create: (_) => getIt<TimeTableCubit>()),
                 ],
-                child: TimeTableScreen(),
+                child: const TimeTableScreen(),
               ),
           settings: settings,
         );

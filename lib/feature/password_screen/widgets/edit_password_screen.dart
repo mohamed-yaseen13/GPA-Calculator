@@ -42,10 +42,10 @@ class EditPasswordScreen extends StatelessWidget {
           ),
           body: IgnorePointer(
             ignoring: !state.passwordEnabled,
-            child: SingleChildScrollView(
+            child: const SingleChildScrollView(
               child: SafeArea(
                 child: Column(
-                  children: const [
+                  children: [
                     PasswordKey(),
                     Divider(color: Colors.grey, thickness: 1, height: 0),
                     PasswordHint(),

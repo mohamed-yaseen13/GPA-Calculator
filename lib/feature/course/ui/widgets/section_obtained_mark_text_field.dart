@@ -10,11 +10,11 @@ class SectionObtainedMarkTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
-      keyboardType: TextInputType.numberWithOptions(decimal: true),
+      keyboardType: const TextInputType.numberWithOptions(decimal: true),
       inputFormatters: [
         FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*')),
       ],
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
         labelText: 'Obtained Mark',
         border: OutlineInputBorder(),
         focusedBorder: OutlineInputBorder(

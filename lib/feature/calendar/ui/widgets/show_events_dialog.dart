@@ -45,7 +45,7 @@ class ShowEventsDialog extends StatelessWidget {
                 title: Text(event.title),
                 subtitle: Text(event.description ?? ''),
                 trailing: IconButton(
-                  icon: Icon(Icons.delete, color: Colors.red),
+                  icon: const Icon(Icons.delete, color: Colors.red),
                   onPressed: () {
                     onDelete(event);
                     Navigator.pop(context);
@@ -63,7 +63,7 @@ class ShowEventsDialog extends StatelessWidget {
         ),
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: Text('Close'),
+          child: const Text('Close'),
         ),
       ],
     );

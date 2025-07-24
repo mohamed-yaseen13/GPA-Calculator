@@ -45,7 +45,7 @@ class _CourseScreenState extends State<CourseScreen> {
       listener: (context, state) {},
       child: BlocBuilder<CourseScreenCubit, CourseScreenState>(
         builder: (context, state) {
-          return Scaffold(
+          return const Scaffold(
             appBar: CourseScreenAppBar(),
             body: CourseScreenBody(),
           );

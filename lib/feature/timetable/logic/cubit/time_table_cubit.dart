@@ -5,7 +5,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 class TimeTableCubit extends Cubit<TimeTableState> {
   final Box box;
-  TimeTableCubit({required this.box}) : super(TimeTableState(slots: [])) {
+  TimeTableCubit({required this.box}) : super(const TimeTableState(slots: [])) {
     loadDataFromHive();
   }
 

@@ -25,7 +25,7 @@ class ButtonsRow extends StatelessWidget {
             height: 48.h,
             child: OutlinedButton(
               style: OutlinedButton.styleFrom(
-                side: BorderSide(color: Colors.black),
+                side: const BorderSide(color: Colors.black),
                 shape: ContinuousRectangleBorder(
                   borderRadius: BorderRadius.circular(12.sp),
                 ),
@@ -33,7 +33,7 @@ class ButtonsRow extends StatelessWidget {
               ),
               onPressed:
                   context.read<ConverterCubit>().calculateConvertedResult,
-              child: Text(
+              child: const Text(
                 "Calculate",
                 style: TextStyle(
                   color: Colors.black,
@@ -49,7 +49,7 @@ class ButtonsRow extends StatelessWidget {
             height: 48.h,
             child: OutlinedButton(
               style: OutlinedButton.styleFrom(
-                side: BorderSide(color: Colors.black),
+                side: const BorderSide(color: Colors.black),
                 shape: ContinuousRectangleBorder(
                   borderRadius: BorderRadius.circular(12.sp),
                 ),
@@ -61,7 +61,7 @@ class ButtonsRow extends StatelessWidget {
                 converterMarkController.clear();
                 context.read<ConverterCubit>().reset();
               },
-              child: Text(
+              child: const Text(
                 "Reset",
                 style: TextStyle(
                   color: Colors.black,

@@ -46,7 +46,7 @@ class _MainDashboardState extends State<ApplicationAppBar>
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-            title: !state.selectionMode ? Text('GPA Calculator') : null,
+            title: !state.selectionMode ? const Text('GPA Calculator') : null,
             actions:
                 !state.selectionMode
                     ? buildAppBarActions(
@@ -98,11 +98,11 @@ class _MainDashboardState extends State<ApplicationAppBar>
           ),
           drawer:
               !state.selectionMode
-                  ? AppDrawer(selectedRoute: DrawerRoute.main)
+                  ? const AppDrawer(selectedRoute: DrawerRoute.main)
                   : null,
           body: TabBarView(
             controller: tabController,
-            children: [
+            children: const [
               MainScreen(),
               CalculatorScreen(),
               MarkConverterScreen(),

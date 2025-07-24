@@ -13,7 +13,7 @@ class ExportButton extends StatelessWidget {
       padding: EdgeInsets.only(top: 16.h),
       child: OutlinedButton(
         style: OutlinedButton.styleFrom(
-          side: BorderSide(color: Colors.black),
+          side: const BorderSide(color: Colors.black),
           shape: ContinuousRectangleBorder(
             borderRadius: BorderRadius.circular(12.sp),
           ),
@@ -23,7 +23,7 @@ class ExportButton extends StatelessWidget {
           final cubit = context.read<TimeTableCubit>();
           await handleExport(context, cubit.state.slots);
         },
-        child: Text(
+        child: const Text(
           'Export as PDF',
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),

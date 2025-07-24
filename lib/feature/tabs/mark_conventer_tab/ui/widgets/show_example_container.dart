@@ -38,7 +38,7 @@ class _ShowExampleContainerState extends State<ShowExampleContainer> {
                 horizontalSpace(12),
                 DotContainer(isExpanded: isExpanded),
                 horizontalSpace(12),
-                Text(
+                const Text(
                   'Show Example',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
@@ -47,7 +47,7 @@ class _ShowExampleContainerState extends State<ShowExampleContainer> {
           ),
         ),
 
-        if (isExpanded) Example(),
+        if (isExpanded) const Example(),
       ],
     );
   }

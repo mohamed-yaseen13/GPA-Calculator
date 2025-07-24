@@ -17,7 +17,7 @@ class SemesterNameTextField extends StatelessWidget {
         return TextFormField(
           controller: controller,
           inputFormatters: [LengthLimitingTextInputFormatter(20)],
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             labelText: 'Semester Name',
             border: OutlineInputBorder(),
             focusedBorder: OutlineInputBorder(

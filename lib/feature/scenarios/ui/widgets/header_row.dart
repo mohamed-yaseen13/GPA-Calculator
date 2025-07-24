@@ -26,7 +26,7 @@ class HeaderRow extends StatelessWidget {
           child: IconButton(
             padding: EdgeInsets.zero,
             constraints: const BoxConstraints(),
-            icon: Icon(Icons.check_box_outline_blank, color: Colors.black),
+            icon: const Icon(Icons.check_box_outline_blank, color: Colors.black),
             onPressed: () {
               context.read<ApplicationAppBarCubit>().selectAll();
             },

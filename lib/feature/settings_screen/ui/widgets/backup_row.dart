@@ -30,7 +30,7 @@ class BackupRow extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                Text('Backup all data'),
+                const Text('Backup all data'),
               ],
             ),
           ],

@@ -38,7 +38,7 @@ class PasswordHint extends StatelessWidget {
                     ),
                     Text(
                       state.passwordHint ?? 'Set Hint',
-                      style: TextStyle(color: Colors.grey, fontSize: 14),
+                      style: const TextStyle(color: Colors.grey, fontSize: 14),
                     ),
                   ],
                 ),

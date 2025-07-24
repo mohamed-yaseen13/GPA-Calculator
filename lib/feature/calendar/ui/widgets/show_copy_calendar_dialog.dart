@@ -16,7 +16,7 @@ Future<void> showCopyCalendarDialog({
       return StatefulBuilder(
         builder: (context, setState) {
           return AlertDialog(
-            title: Text('Select day to paste'),
+            title: const Text('Select day to paste'),
             content: SizedBox(
               height: 350.h,
               width: double.maxFinite,
@@ -37,7 +37,7 @@ Future<void> showCopyCalendarDialog({
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context),
-                child: Text('Cancel'),
+                child: const Text('Cancel'),
               ),
               ElevatedButton(
                 onPressed: () {
@@ -46,7 +46,7 @@ Future<void> showCopyCalendarDialog({
                     onPaste(selectedDay!);
                   }
                 },
-                child: Text('Paste'),
+                child: const Text('Paste'),
               ),
             ],
           );

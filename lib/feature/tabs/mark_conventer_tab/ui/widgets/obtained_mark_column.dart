@@ -24,11 +24,11 @@ class ObtainedMarkColumn extends StatelessWidget {
                 child: TextField(
                   controller: controller,
                   onChanged: context.read<ConverterCubit>().updateObtained,
-                  keyboardType: TextInputType.numberWithOptions(decimal: true),
+                  keyboardType: const TextInputType.numberWithOptions(decimal: true),
                   inputFormatters: [
                     FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*')),
                   ],
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: Colors.black),
                     ),

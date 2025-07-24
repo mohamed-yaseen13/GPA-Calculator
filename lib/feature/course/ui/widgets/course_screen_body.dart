@@ -24,7 +24,7 @@ class CourseScreenBody extends StatelessWidget {
                   course: state.courses[state.selectedCourseIndex],
                 ),
                 verticalSpace(24),
-                Expanded(child: SectionsTable()),
+                const Expanded(child: SectionsTable()),
               ],
             );
           },

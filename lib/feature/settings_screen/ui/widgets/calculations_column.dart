@@ -20,9 +20,9 @@ class CalculationsColumn extends StatelessWidget {
             style: TextStyle(fontSize: 16.sp, color: AppColors.mainOrange),
           ),
           verticalSpace(12),
-          ScalesRow(),
-          Divider(color: Colors.grey, thickness: 1, height: 0),
-          FailedOnCourseLogicRow(),
+          const ScalesRow(),
+          const Divider(color: Colors.grey, thickness: 1, height: 0),
+          const FailedOnCourseLogicRow(),
         ],
       ),
     );

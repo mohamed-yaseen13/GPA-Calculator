@@ -26,7 +26,7 @@ class ResualtMarkColumn extends StatelessWidget {
                   controller: TextEditingController(
                     text: state.convertedResult,
                   ),
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: Colors.grey),
                     ),

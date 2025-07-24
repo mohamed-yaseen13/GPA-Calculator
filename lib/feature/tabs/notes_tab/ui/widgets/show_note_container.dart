@@ -47,7 +47,7 @@ class _ShowNoteContainerState extends State<ShowNoteContainer> {
                 horizontalSpace(12),
                 Text(
                   'Show ${semester.name} Note',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
               ],
             ),

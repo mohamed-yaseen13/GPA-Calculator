@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gpa_calculator/core/helpers/spacing.dart';
 import 'package:gpa_calculator/feature/course/ui/widgets/section_full_mark_text_field.dart';
 import 'package:gpa_calculator/feature/course/ui/widgets/section_name_text_field.dart';
@@ -44,7 +45,7 @@ class _AddSectionBottomSheetState extends State<AddSectionBottomSheet> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: EdgeInsets.all(16.sp),
       child: Form(
         key: _formKey,
         child: Column(
@@ -52,7 +53,7 @@ class _AddSectionBottomSheetState extends State<AddSectionBottomSheet> {
           children: [
             Text(
               '${widget.text} Section',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
             ),
             verticalSpace(16),
             SectionNameTextField(controller: _nameController),

@@ -34,7 +34,7 @@ class RestoreRow extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                Text('Restore all data'),
+                const Text('Restore all data'),
               ],
             ),
           ],

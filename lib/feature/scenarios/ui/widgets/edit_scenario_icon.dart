@@ -18,8 +18,8 @@ class EditScenarioIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
-      icon: Icon(Icons.more_vert),
-      itemBuilder: (context) => [PopupMenuItem(value: 1, child: Text('Edit'))],
+      icon: const Icon(Icons.more_vert),
+      itemBuilder: (context) => [const PopupMenuItem(value: 1, child: Text('Edit'))],
       menuPadding: EdgeInsets.zero,
       padding: EdgeInsets.zero,
       onSelected: (value) async {

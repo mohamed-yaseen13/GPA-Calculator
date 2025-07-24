@@ -12,11 +12,11 @@ Widget buildSelectionUI({
 }) {
   return SafeArea(
     child: Container(
-      color: Color(0xFF303030),
+      color: const Color(0xFF303030),
       child: Row(
         children: [
           IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.white),
+            icon: const Icon(Icons.arrow_back, color: Colors.white),
             onPressed: onCancelSelection,
           ),
           Text(
@@ -27,13 +27,13 @@ Widget buildSelectionUI({
               fontSize: 18.sp,
             ),
           ),
-          Spacer(),
+          const Spacer(),
           IconButton(
-            icon: Icon(Icons.crop_square, color: Colors.white),
+            icon: const Icon(Icons.crop_square, color: Colors.white),
             onPressed: onSelectAll,
           ),
           IconButton(
-            icon: Icon(Icons.delete, color: Colors.white),
+            icon: const Icon(Icons.delete, color: Colors.white),
             onPressed:
                 selectedItem == 0
                     ? null
@@ -63,8 +63,8 @@ Future<void> showDeleteDialog({
           title: Text('Delete $content'),
           content: Text('Do you actually need to delete these $content'),
           actions: [
-            TextButton(onPressed: () => context.pop(false), child: Text('No')),
-            TextButton(onPressed: () => context.pop(true), child: Text('Yes')),
+            TextButton(onPressed: () => context.pop(false), child: const Text('No')),
+            TextButton(onPressed: () => context.pop(true), child: const Text('Yes')),
           ],
         ),
   );

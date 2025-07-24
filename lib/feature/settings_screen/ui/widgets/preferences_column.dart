@@ -20,9 +20,9 @@ class PreferencesColumn extends StatelessWidget {
             style: TextStyle(fontSize: 16.sp, color: AppColors.mainOrange),
           ),
           verticalSpace(12),
-          PasswordRow(),
-          Divider(color: Colors.grey, thickness: 1, height: 0),
-          NoteRow(),
+          const PasswordRow(),
+          const Divider(color: Colors.grey, thickness: 1, height: 0),
+          const NoteRow(),
         ],
       ),
     );
