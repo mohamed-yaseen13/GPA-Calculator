@@ -83,8 +83,6 @@ class _AddAppointmentDialogState extends State<AddAppointmentDialog> {
                 labelText: 'Content',
                 border: OutlineInputBorder(),
               ),
-              keyboardType: TextInputType.multiline,
-              maxLines: 2,
               validator:
                   (value) =>
                       value == null || value.trim().isEmpty
