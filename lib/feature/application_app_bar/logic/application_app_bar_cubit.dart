@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gpa_calculator/core/constants/app_constants.dart';
+import 'package:gpa_calculator/core/helpers/extensions.dart';
 import 'package:gpa_calculator/core/helpers/functions.dart';
 import 'package:gpa_calculator/feature/application_app_bar/logic/application_app_bar_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -210,7 +211,7 @@ class ApplicationAppBarCubit extends Cubit<ApplicationAppBarState> {
     box = AppConstants.scenariosBox;
 
     for (SemesterModel semester in selectedSemesters) {
-      SemesterModel newSemester = semester.copyWith();
+      SemesterModel newSemester = semester.copyWithoutHiveRefs();
       student.semesters.add(newSemester);
     }
     updateScenariosBox(box, scenarioIndex, student);
