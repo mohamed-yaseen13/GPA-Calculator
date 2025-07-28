@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gpa_calculator/core/helpers/spacing.dart';
+import 'package:gpa_calculator/core/widgets/banner_ad_widget.dart';
 import 'package:gpa_calculator/feature/semester/logic/semester_screen_cubit.dart';
 import 'package:gpa_calculator/feature/semester/logic/semester_screen_state.dart';
 import 'package:gpa_calculator/feature/semester/ui/widgets/add_course_button.dart';
@@ -46,6 +47,8 @@ class CoursesTable extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [AddCourseButton()],
               ),
+              verticalSpace(12),
+              const BannerAdWidget(),
               verticalSpace(24),
             ],
           );

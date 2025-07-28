@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gpa_calculator/core/constants/app_constants.dart';
 import 'package:gpa_calculator/core/helpers/spacing.dart';
+import 'package:gpa_calculator/core/widgets/banner_ad_widget.dart';
 import 'package:gpa_calculator/feature/application_app_bar/logic/application_app_bar_cubit.dart';
 import 'package:gpa_calculator/feature/application_app_bar/logic/application_app_bar_state.dart';
 import 'package:gpa_calculator/feature/tabs/main_tab/ui/widgets/add_semester_button.dart';
@@ -59,6 +60,8 @@ class SemestersTable extends StatelessWidget {
                     ),
                   ],
                 ),
+              verticalSpace(12),
+              const BannerAdWidget(),
               verticalSpace(24),
             ],
           );

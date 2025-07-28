@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gpa_calculator/core/constants/app_constants.dart';
 import 'package:gpa_calculator/core/helpers/spacing.dart';
+import 'package:gpa_calculator/core/widgets/banner_ad_widget.dart';
 import 'package:gpa_calculator/feature/timetable/ui/widgets/export_button.dart';
 import 'package:gpa_calculator/feature/timetable/ui/widgets/show_day_container.dart';
 
@@ -34,6 +35,8 @@ class TimeTableBody extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [ExportButton()],
           ),
+          verticalSpace(12),
+          const BannerAdWidget(),
           verticalSpace(24),
         ],
       ),
