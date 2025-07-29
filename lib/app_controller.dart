@@ -9,6 +9,7 @@ import 'package:gpa_calculator/core/helpers/prefs_helper.dart';
 import 'package:gpa_calculator/feature/splash/splash_screen.dart';
 import 'package:gpa_calculator/gpa_app.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:upgrader/upgrader.dart';
 
 class AppController extends StatefulWidget {
   const AppController({super.key});
@@ -75,7 +76,7 @@ class _AppControllerState extends State<AppController>
       home:
           _showSplash
               ? FadeTransition(opacity: _animation, child: const SplashScreen())
-              : GpaApp(isPasswordNull: _isPasswordNull),
+              : UpgradeAlert(child: GpaApp(isPasswordNull: _isPasswordNull)),
     );
   }
 }
