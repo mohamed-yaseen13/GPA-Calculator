@@ -31,6 +31,11 @@ class CalendarWidgetProvider : HomeWidgetProvider() {
         widgetData: SharedPreferences
     ) {
 
+        val today = Calendar.getInstance()
+        val todayYear = today.get(Calendar.YEAR)
+        val todayMonth = today.get(Calendar.MONTH) + 1
+        val todayDay = today.get(Calendar.DAY_OF_MONTH)
+
         for (widgetId in appWidgetIds) {
             val views = RemoteViews(context.packageName, R.layout.home_widget_layout)
 
@@ -46,24 +51,34 @@ class CalendarWidgetProvider : HomeWidgetProvider() {
             val monthTitle = widgetData.getString("month_title", "") ?: ""
             views.setTextViewText(R.id.month_title, monthTitle)
 
-            val today = Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
-
             for (i in 1..35) {
                 val dayNumber = widgetData.getString("day_${i}_number", "") ?: ""
                 val eventLine1 = widgetData.getString("day_${i}_event_line1", "") ?: ""
                 val eventLine2 = widgetData.getString("day_${i}_event_line2", "") ?: ""
+                val fullDateStr = widgetData.getString("day_${i}_date", null)
 
                 val numberId = context.resources.getIdentifier("day_${i}_number", "id", context.packageName)
                 val eventLine1Id = context.resources.getIdentifier("day_${i}_event_line1", "id", context.packageName)
                 val eventLine2Id = context.resources.getIdentifier("day_${i}_event_line2", "id", context.packageName)
 
-                val layoutId = context.resources.getIdentifier("day_${i}", "id", context.packageName)
-
                 views.setTextViewText(numberId, dayNumber)
                 views.setTextViewText(eventLine1Id, eventLine1)
                 views.setTextViewText(eventLine2Id, eventLine2)
+
+                var isToday = false
+
+                if (fullDateStr != null) {
+                    try {
+                        val parts = fullDateStr.substring(0, 10).split("-")
+                        val year = parts[0].toInt()
+                        val month = parts[1].toInt()
+                        val day = parts[2].toInt()
+                        isToday = (year == todayYear && month == todayMonth && day == todayDay)
+                    } catch (e: Exception) {
+                        }
+                }
                 
-                if (dayNumber.toIntOrNull() == today) {
+                if (isToday) {
                     views.setTextColor(numberId, Color.RED)
                     views.setTextColor(eventLine1Id, Color.RED)
                     views.setTextColor(eventLine2Id, Color.RED)

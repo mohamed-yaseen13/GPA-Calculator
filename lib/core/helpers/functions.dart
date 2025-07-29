@@ -130,6 +130,11 @@ Future<void> updateCalendarWidgetFromHive() async {
     );
 
     await HomeWidget.saveWidgetData(
+      '${keyBase}_date',
+      dayDate.toIso8601String(),
+    );
+
+    await HomeWidget.saveWidgetData(
       '${keyBase}_isDim',
       (dayDate.month == currentMonth.month) ? 'false' : 'true',
     );
