@@ -29,9 +29,11 @@ class NoteDialogs {
                 noteColors.map((color) {
                   return RadioListTile<String>(
                     value: color,
+                    // ignore: deprecated_member_use
                     groupValue: selectedColor,
                     title: Text(color),
                     activeColor: color == 'Yellow' ? Colors.yellow : null,
+                    // ignore: deprecated_member_use
                     onChanged: (val) {
                       context.pop(val);
                     },

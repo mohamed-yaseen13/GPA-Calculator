@@ -31,7 +31,7 @@ class GpaApp extends StatelessWidget {
           theme: ThemeData(
             scaffoldBackgroundColor: const Color(0xFFFFF6E7),
             appBarTheme: AppBarTheme(
-              color: AppColors.mainOrange,
+              backgroundColor: AppColors.mainOrange,
               titleTextStyle: TextStyle(fontSize: 18.sp, color: Colors.white),
               iconTheme: const IconThemeData(color: Colors.white),
             ),

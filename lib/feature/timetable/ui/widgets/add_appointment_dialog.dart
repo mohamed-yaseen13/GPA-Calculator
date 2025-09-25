@@ -51,7 +51,7 @@ class _AddAppointmentDialogState extends State<AddAppointmentDialog> {
           mainAxisSize: MainAxisSize.min,
           children: [
             DropdownButtonFormField<String>(
-              value: _selectedType == '--' ? null : _selectedType,
+              initialValue: _selectedType == '--' ? null : _selectedType,
               decoration: const InputDecoration(
                 labelText: 'Type',
                 border: OutlineInputBorder(),

@@ -18,7 +18,7 @@ class GradeDropDown extends StatelessWidget {
     return BlocBuilder<SemesterScreenCubit, SemesterScreenState>(
       builder: (context, state) {
         return DropdownButtonFormField<String>(
-          value: selectedGrade,
+          initialValue: selectedGrade,
           decoration: const InputDecoration(
             labelText: 'Grade',
             border: OutlineInputBorder(),
